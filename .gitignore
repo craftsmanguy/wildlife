@@ -2,6 +2,12 @@
 .project
 .settings/
 target/
+Feature*Report/
+wildlife-ear/src/main/application/META-INF/application.xml
+pet-admin/*/*.js
+pet-admin/*/*.html
+pet-admin/*/*.css
+
 
 # Compiled class file
 *.class
