@@ -12,6 +12,8 @@
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
 		<version.full>${project.version}</version.full>
+
+		<powermock.version>1.7.1</powermock.version>
 	</properties>
 
 	<modules>
@@ -48,6 +50,19 @@
 				<groupId>io.cucumber</groupId>
 				<artifactId>cucumber-junit</artifactId>
 				<version>2.3.1</version>
+				<scope>test</scope>
+			</dependency>
+			<!-- For static Method -->
+			<dependency>
+				<groupId>org.powermock</groupId>
+				<artifactId>powermock-module-junit4</artifactId>
+				<version>${powermock.version}</version>
+				<scope>test</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.powermock</groupId>
+				<artifactId>powermock-api-mockito</artifactId>
+				<version>${powermock.version}</version>
 				<scope>test</scope>
 			</dependency>
 
@@ -98,7 +113,7 @@
 			<dependency>
 				<groupId>commons-beanutils</groupId>
 				<artifactId>commons-beanutils</artifactId>
-				<version>1.8.3</version>
+				<version>1.9.3</version>
 			</dependency>
 
 
@@ -113,6 +128,7 @@
 					<artifactId>maven-compiler-plugin</artifactId>
 					<version>3.1</version>
 					<configuration>
+						<encoding>UTF-8</encoding>
 						<source>1.8</source>
 						<target>1.8</target>
 					</configuration>

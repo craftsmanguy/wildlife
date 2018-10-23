@@ -5,6 +5,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import com.ilmani.dream.wildlives.framework.dto.pet.RaceDto;
+import com.ilmani.dream.wildlives.framework.version.Crud;
 import com.ilmani.dream.wildlives.pet.administration.port.RaceAdministratorDomain;
 import com.ilmani.dream.wildlives.pet.persistence.factory.RaceFactory;
 
@@ -20,17 +21,17 @@ public class RaceAdministratorDomainImpl implements RaceAdministratorDomain {
 
 	@Override
 	public RaceDto findByIdenfier(RaceDto race) {
-		return raceFactory.getRaceDto(race, "FIND");
+		return raceFactory.getRaceDto(race, Crud.valueOf("FIND").getAction());
 	}
 
 	@Override
 	public List<RaceDto> searchRaces(RaceDto race) {
-		return raceFactory.getRacesDto(race, "GET");
+		return raceFactory.getRacesDto(race);
 	}
 
 	@Override
 	public RaceDto save(RaceDto race) {
-		return raceFactory.getRaceDto(race, "SAVE");
+		return raceFactory.getRaceDto(race, Crud.valueOf("SAVE").getAction());
 	}
 
 	@Override
@@ -41,7 +42,7 @@ public class RaceAdministratorDomainImpl implements RaceAdministratorDomain {
 
 	@Override
 	public RaceDto update(RaceDto race) {
-		return raceFactory.getRaceDto(race, "UPDATE");
+		return raceFactory.getRaceDto(race, Crud.valueOf("UPDATE").getAction());
 	}
 
 }

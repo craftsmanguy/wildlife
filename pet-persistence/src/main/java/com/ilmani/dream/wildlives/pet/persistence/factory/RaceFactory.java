@@ -13,6 +13,9 @@ import com.ilmani.dream.wildlives.pet.persistence.mapper.RaceMapper;
 public class RaceFactory {
 
 	RaceDao raceDao;
+	private final static String SAVE_RACE = "SAVE";
+	private final static String UPDATE_RACE = "UPDATE";
+	private final static String FIND_RACE = "FIND";
 
 	@Inject
 	public RaceFactory(RaceDao raceDao) {
@@ -22,28 +25,22 @@ public class RaceFactory {
 	public RaceDto getRaceDto(RaceDto raceDto, String action) {
 		RaceEntity raceEn = RaceMapper.transformRaceDtoToRaceEntity(raceDto);
 		RaceEntity result = new RaceEntity();
+
 		switch (action) {
 
-		case "SAVE":
+		case SAVE_RACE:
 			result = raceDao.save(raceEn);
-		case "UPDATE":
+		case UPDATE_RACE:
 			result = raceDao.update(raceEn);
-		case "FIND":
+		case FIND_RACE:
 			result = raceDao.findByIdenfier(raceEn);
 		}
 		return RaceMapper.transformRaceEntityToRaceDto(result);
 	}
 
-	public List<RaceDto> getRacesDto(RaceDto raceDto, String profil) {
-		Set<RaceEntity> result;
-		switch (profil) {
-
-		case "GET":
-			RaceEntity raceEn = RaceMapper.transformRaceDtoToRaceEntity(raceDto);
-			result = raceDao.getByIdenfier(raceEn);
-		default:
-			result = raceDao.getAll();
-		}
+	public List<RaceDto> getRacesDto(RaceDto raceDto) {
+		RaceEntity raceEn = RaceMapper.transformRaceDtoToRaceEntity(raceDto);
+		Set<RaceEntity> result = raceDao.getByIdenfier(raceEn);
 		return RaceMapper.transformListRaceEntityToListRaceDto(result);
 	}
 

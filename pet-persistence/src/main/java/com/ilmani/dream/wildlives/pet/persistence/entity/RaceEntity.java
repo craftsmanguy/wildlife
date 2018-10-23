@@ -1,26 +1,51 @@
 package com.ilmani.dream.wildlives.pet.persistence.entity;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+
+@Entity
+@Table(name = "race")
 public class RaceEntity {
 
+	@Id
+	@Column(name="id", updatable=false, nullable=false)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer technicalIdentifier;
 
-	public String name;
+	@NotNull
+	@Column(name="name")
+	private String name;
 
-	public String scientistName;
+	@Column(name="scientist_name")
+	private String scientistName;
 
-	public String code;
+	@Column(name="code")
+	private String code;
 
-	public String specie;
+	@NotNull
+	@Column(name="specie")
+	private String specie;
 
-	public String specieScientistName;
+	@Column(name="specie_scientist_name")
+	private String specieScientistName;
 
-	public String specieCode;
+	@Column(name="specie_code")
+	private String specieCode;
 
-	public String type;
+	@NotNull
+	@Column(name="type")
+	private String type;
 
-	public String typeScientistName;
+	@Column(name="type_scientist_name")
+	private String typeScientistName;
 
-	public String typeCode;
+	@Column(name="type_code")
+	private String typeCode;
 
 	public Integer getTechnicalIdentifier() {
 		return technicalIdentifier;
@@ -56,5 +81,73 @@ public class RaceEntity {
 		this.typeScientistName = typeScientistName;
 		this.typeCode = typeCode;
 	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getScientistName() {
+		return scientistName;
+	}
+
+	public void setScientistName(String scientistName) {
+		this.scientistName = scientistName;
+	}
+
+	public String getCode() {
+		return code;
+	}
+
+	public void setCode(String code) {
+		this.code = code;
+	}
+
+	public String getSpecie() {
+		return specie;
+	}
+
+	public void setSpecie(String specie) {
+		this.specie = specie;
+	}
+
+	public String getSpecieScientistName() {
+		return specieScientistName;
+	}
+
+	public void setSpecieScientistName(String specieScientistName) {
+		this.specieScientistName = specieScientistName;
+	}
+
+	public String getSpecieCode() {
+		return specieCode;
+	}
+
+	public void setSpecieCode(String specieCode) {
+		this.specieCode = specieCode;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	public String getTypeScientistName() {
+		return typeScientistName;
+	}
+
+	public void setTypeScientistName(String typeScientistName) {
+		this.typeScientistName = typeScientistName;
+	}
+
+	public String getTypeCode() {
+		return typeCode;
+	}	
 
 }
