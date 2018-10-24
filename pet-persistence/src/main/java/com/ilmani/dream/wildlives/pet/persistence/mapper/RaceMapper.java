@@ -22,7 +22,7 @@ public class RaceMapper {
 			BeanUtils.copyProperties(raceDto, raceEntity);
 		} catch (IllegalAccessException | InvocationTargetException e) {
 			// TODO log
-			raceDto = new RaceDto(raceEntity.getName(), raceEntity.getSpecie(), raceEntity.getType());
+			raceDto = new RaceDto(raceEntity.getName(), raceEntity.getSpecie(), raceEntity.getClan());
 		}
 		return raceDto;
 	}

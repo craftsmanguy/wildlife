@@ -10,37 +10,27 @@ public class RaceDto {
 
 	private String specie;
 
-	private String specieScientistName;
+	private String clan;
 
-	private String specieCode;
-
-	private String type;
-
-	private String typeScientistName;
-
-	private String typeCode;
+	private boolean isActive;
 
 	public RaceDto() {
 
 	}
 
-	public RaceDto(String name, String specie, String type) {
+	public RaceDto(String name, String specie, String clan) {
 		this.name = name;
 		this.specie = specie;
-		this.type = type;
+		this.clan = clan;
 	}
 
-	public RaceDto(String name, String scientistName, String code, String specie, String specieScientistName,
-			String specieCode, String type, String typeScientistName, String typeCode) {
+	public RaceDto(String name, String scientistName, String code, String specie, String clan, boolean isActive) {
 		this.name = name;
 		this.scientistName = scientistName;
 		this.code = code;
 		this.specie = specie;
-		this.specieScientistName = specieScientistName;
-		this.specieCode = specieCode;
-		this.type = type;
-		this.typeScientistName = typeScientistName;
-		this.typeCode = typeCode;
+		this.clan = clan;
+		this.isActive = isActive;
 	}
 
 	public String getName() {
@@ -75,59 +65,32 @@ public class RaceDto {
 		this.specie = specie;
 	}
 
-	public String getSpecieScientistName() {
-		return specieScientistName;
+	public String getClan() {
+		return clan;
 	}
 
-	public void setSpecieScientistName(String specieScientistName) {
-		this.specieScientistName = specieScientistName;
+	public void setClan(String clan) {
+		this.clan = clan;
 	}
 
-	public String getSpecieCode() {
-		return specieCode;
+	public boolean isActive() {
+		return isActive;
 	}
 
-	public void setSpecieCode(String specieCode) {
-		this.specieCode = specieCode;
-	}
-
-	public String getType() {
-		return type;
-	}
-
-	public void setType(String type) {
-		this.type = type;
-	}
-
-	public String getTypeScientistName() {
-		return typeScientistName;
-	}
-
-	public void setTypeScientistName(String typeScientistName) {
-		this.typeScientistName = typeScientistName;
-	}
-
-	public String getTypeCode() {
-		return typeCode;
-	}
-
-	public void setTypeCode(String typeCode) {
-		this.typeCode = typeCode;
+	public void setActive(boolean isActive) {
+		this.isActive = isActive;
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + ((clan == null) ? 0 : clan.hashCode());
 		result = prime * result + ((code == null) ? 0 : code.hashCode());
+		result = prime * result + (isActive ? 1231 : 1237);
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		result = prime * result + ((scientistName == null) ? 0 : scientistName.hashCode());
 		result = prime * result + ((specie == null) ? 0 : specie.hashCode());
-		result = prime * result + ((specieCode == null) ? 0 : specieCode.hashCode());
-		result = prime * result + ((specieScientistName == null) ? 0 : specieScientistName.hashCode());
-		result = prime * result + ((type == null) ? 0 : type.hashCode());
-		result = prime * result + ((typeCode == null) ? 0 : typeCode.hashCode());
-		result = prime * result + ((typeScientistName == null) ? 0 : typeScientistName.hashCode());
 		return result;
 	}
 
@@ -143,11 +106,21 @@ public class RaceDto {
 			return false;
 		}
 		RaceDto other = (RaceDto) obj;
+		if (clan == null) {
+			if (other.clan != null) {
+				return false;
+			}
+		} else if (!clan.equals(other.clan)) {
+			return false;
+		}
 		if (code == null) {
 			if (other.code != null) {
 				return false;
 			}
 		} else if (!code.equals(other.code)) {
+			return false;
+		}
+		if (isActive != other.isActive) {
 			return false;
 		}
 		if (name == null) {
@@ -171,44 +144,7 @@ public class RaceDto {
 		} else if (!specie.equals(other.specie)) {
 			return false;
 		}
-		if (specieCode == null) {
-			if (other.specieCode != null) {
-				return false;
-			}
-		} else if (!specieCode.equals(other.specieCode)) {
-			return false;
-		}
-		if (specieScientistName == null) {
-			if (other.specieScientistName != null) {
-				return false;
-			}
-		} else if (!specieScientistName.equals(other.specieScientistName)) {
-			return false;
-		}
-		if (type == null) {
-			if (other.type != null) {
-				return false;
-			}
-		} else if (!type.equals(other.type)) {
-			return false;
-		}
-		if (typeCode == null) {
-			if (other.typeCode != null) {
-				return false;
-			}
-		} else if (!typeCode.equals(other.typeCode)) {
-			return false;
-		}
-		if (typeScientistName == null) {
-			if (other.typeScientistName != null) {
-				return false;
-			}
-		} else if (!typeScientistName.equals(other.typeScientistName)) {
-			return false;
-		}
 		return true;
 	}
-	
-	
 
 }

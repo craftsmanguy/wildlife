@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" 
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog 
+    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd 
+    http://www.liquibase.org/xml/ns/dbchangelog-ext 
+    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd"
+    logicalFilePath="changelog-1.0.0.xml">
+
+    <!-- Changeset list corresponds to a reverse generation from database version 1.0.0 -->
+    
+    <changeSet author="LOKO" id="1" labels="structure">
+		<createTable tableName="RACE" schemaName="public">
+			<column autoIncrement="true" incrementBy="1" schemaName="public"
+            	startWith="1" name="id" type="SMALLINT">
+				<constraints nullable="false" />
+			</column>
+
+			<column name="name" remarks="Les races d'animaux."
+				type="VARCHAR(100)" >
+				<constraints nullable="false" />
+			</column>
+			<column name="scientist_name" remarks="Nom scientifique"
+				type="VARCHAR(350)">
+			</column>
+			<column name="code" remarks="Code technique"
+				type="VARCHAR(20)">
+				<constraints nullable="false" />
+			</column>
+			
+			<column name="specie" remarks="Les espèces d'animaux."
+				type="VARCHAR(100)" >
+				<constraints nullable="false" />
+			</column>
+			<column name="clan" remarks="Les types d'animaux."
+				type="VARCHAR(100)" >
+				<constraints nullable="false" />
+			</column>
+			<column name="is_active" remarks="Activer ou non la visibilité."
+				type="BOOLEAN" >
+				<constraints nullable="false" />
+			</column>
+
+			
+			<addPrimaryKey columnNames="id" tableName="RACE" />
+			
+			<addUniqueConstraint columnNames="name, specie, type" constraintName="race_specie_type" tableName="RACE" />
+			
+			<comment>Init data (ref)</comment>
+			<sqlFile dbms="postgresql" encoding="utf8" path="Init_data_race_1.sql" relativeToChangelogFile="true" />
+		</createTable>
+	</changeSet>
+</databaseChangeLog>

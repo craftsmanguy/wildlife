@@ -29,6 +29,7 @@
 
 		<!-- WAR -->
 		<module>wildlife-administration</module>
+		<module>wildlife-database</module>
 	</modules>
 
 	<dependencyManagement>

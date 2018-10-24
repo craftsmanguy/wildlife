@@ -22,17 +22,14 @@ public class RaceMapperTest {
 
 	@Before
 	public void setUp() throws Exception {
-		raceDto = new RaceDto("AFFENPINSCHER", "", "AFFEN", "CHIEN", "Canis lupus familiaris", "CHIEN", "MAMMIFERE",
-				"Mammalia", "MAMM");
+		raceDto = new RaceDto("AFFENPINSCHER", "", "AFFEN", "DOG", "MAMMALIA", true);
 
-		raceEntity = new RaceEntity("AFFENPINSCHER", "", "AFFEN", "CHIEN", "Canis lupus familiaris", "CHIEN",
-				"MAMMIFERE", "Mammalia", "MAMM");
+		raceEntity = new RaceEntity("AFFENPINSCHER", "", "AFFEN", "DOG", "MAMMALIA", false);
 	}
 
 	@Test
 	public void transformRaceEntityToRaceDtoTest() {
-		RaceEntity raceEnTest = new RaceEntity("AFFENPINSCHER", "", "AFFEN", "CHIEN", "Canis lupus familiaris", "CHIEN",
-				"MAMMIFERE", "Mammalia", "MAMM");
+		RaceEntity raceEnTest = new RaceEntity("AFFENPINSCHER", "", "AFFEN", "DOG", "MAMMALIA", true);
 		RaceDto resultDto = RaceMapper.transformRaceEntityToRaceDto(raceEnTest);
 		assertEquals(raceDto, resultDto);
 	}
@@ -45,8 +42,7 @@ public class RaceMapperTest {
 
 	@Test
 	public void transformRaceDtoToRaceEntityTest() {
-		RaceDto raceDtoTest = new RaceDto("AFFENPINSCHER", "", "AFFEN", "CHIEN", "Canis lupus familiaris", "CHIEN",
-				"MAMMIFERE", "Mammalia", "MAMM");
+		RaceDto raceDtoTest = new RaceDto("AFFENPINSCHER", "", "AFFEN", "CHIEN", "MAMMIFERE", false);
 		RaceEntity resultEn = RaceMapper.transformRaceDtoToRaceEntity(raceDtoTest);
 		assertEquals(raceEntity.getName(), resultEn.getName());
 	}

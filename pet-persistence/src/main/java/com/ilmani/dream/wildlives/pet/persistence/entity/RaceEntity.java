@@ -13,39 +13,30 @@ import javax.validation.constraints.NotNull;
 public class RaceEntity {
 
 	@Id
-	@Column(name="id", updatable=false, nullable=false)
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name = "id", updatable = false, nullable = false)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer technicalIdentifier;
 
 	@NotNull
-	@Column(name="name")
+	@Column(name = "name")
 	private String name;
 
-	@Column(name="scientist_name")
+	@Column(name = "scientist_name")
 	private String scientistName;
 
-	@Column(name="code")
+	@Column(name = "code")
 	private String code;
 
 	@NotNull
-	@Column(name="specie")
+	@Column(name = "specie")
 	private String specie;
 
-	@Column(name="specie_scientist_name")
-	private String specieScientistName;
-
-	@Column(name="specie_code")
-	private String specieCode;
-
 	@NotNull
-	@Column(name="type")
-	private String type;
+	@Column(name = "clan")
+	private String clan;
 
-	@Column(name="type_scientist_name")
-	private String typeScientistName;
-
-	@Column(name="type_code")
-	private String typeCode;
+	@Column(name = "is_active")
+	private boolean isActive;
 
 	public Integer getTechnicalIdentifier() {
 		return technicalIdentifier;
@@ -55,31 +46,24 @@ public class RaceEntity {
 
 	}
 
-	public RaceEntity(String name, String scientistName, String code, String specie, String specieScientistName,
-			String specieCode, String type, String typeScientistName, String typeCode) {
+	public RaceEntity(String name, String scientistName, String code, String specie, String clan, boolean isActive) {
 		this.name = name;
 		this.scientistName = scientistName;
 		this.code = code;
 		this.specie = specie;
-		this.specieScientistName = specieScientistName;
-		this.specieCode = specieCode;
-		this.type = type;
-		this.typeScientistName = typeScientistName;
-		this.typeCode = typeCode;
+		this.clan = clan;
+		this.isActive = isActive;
 	}
 
 	public RaceEntity(Integer technicalIdentifier, String name, String scientistName, String code, String specie,
-			String specieScientistName, String specieCode, String type, String typeScientistName, String typeCode) {
+			String clan, boolean isActive) {
 		this.technicalIdentifier = technicalIdentifier;
 		this.name = name;
 		this.scientistName = scientistName;
 		this.code = code;
 		this.specie = specie;
-		this.specieScientistName = specieScientistName;
-		this.specieCode = specieCode;
-		this.type = type;
-		this.typeScientistName = typeScientistName;
-		this.typeCode = typeCode;
+		this.clan = clan;
+		this.isActive = isActive;
 	}
 
 	public String getName() {
@@ -114,40 +98,20 @@ public class RaceEntity {
 		this.specie = specie;
 	}
 
-	public String getSpecieScientistName() {
-		return specieScientistName;
+	public String getClan() {
+		return clan;
 	}
 
-	public void setSpecieScientistName(String specieScientistName) {
-		this.specieScientistName = specieScientistName;
+	public void setClan(String clan) {
+		this.clan = clan;
 	}
 
-	public String getSpecieCode() {
-		return specieCode;
+	public boolean isActive() {
+		return isActive;
 	}
 
-	public void setSpecieCode(String specieCode) {
-		this.specieCode = specieCode;
+	public void setActive(boolean isActive) {
+		this.isActive = isActive;
 	}
-
-	public String getType() {
-		return type;
-	}
-
-	public void setType(String type) {
-		this.type = type;
-	}
-
-	public String getTypeScientistName() {
-		return typeScientistName;
-	}
-
-	public void setTypeScientistName(String typeScientistName) {
-		this.typeScientistName = typeScientistName;
-	}
-
-	public String getTypeCode() {
-		return typeCode;
-	}	
 
 }

@@ -33,8 +33,8 @@ public class RaceDao {
 		if (race.getSpecie() != null) {
 			predicateList.add(builder.equal(raceFromDb.<String>get("specie"), race.getSpecie()));
 		}
-		if (race.getType() != null) {
-			predicateList.add(builder.equal(builder.upper(raceFromDb.<String>get("type")), race.getSpecie()));
+		if (race.getClan() != null) {
+			predicateList.add(builder.equal(builder.upper(raceFromDb.<String>get("clan")), race.getClan()));
 		}
 
 		criteriaQuery.where(predicateList.toArray(new Predicate[] {}));
@@ -57,9 +57,9 @@ public class RaceDao {
 			predicateList.add(builder.like(raceFromDb.<String>get("specie"), "%" + race.getSpecie() + "%"));
 		}
 
-		if (race.getType() != null) {
-			predicateList.add(builder.like(builder.upper(raceFromDb.<String>get("type")),
-					"%" + race.getType().toUpperCase() + "%"));
+		if (race.getClan() != null) {
+			predicateList.add(builder.like(builder.upper(raceFromDb.<String>get("clan")),
+					"%" + race.getClan().toUpperCase() + "%"));
 		}
 
 		criteriaQuery.where(predicateList.toArray(new Predicate[] {}));
