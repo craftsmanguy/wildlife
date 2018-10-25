@@ -12,43 +12,39 @@
     
     <changeSet author="LOKO" id="1" labels="structure">
 		<createTable tableName="RACE" schemaName="public">
-			<column autoIncrement="true" incrementBy="1" schemaName="public"
-            	startWith="1" name="id" type="SMALLINT">
-				<constraints nullable="false" />
+			<column autoIncrement="true" incrementBy="1" startWith="1" name="ID" type="SMALLINT">
+				<constraints nullable="false" primaryKey="true"/>
 			</column>
 
-			<column name="name" remarks="Les races d'animaux."
+			<column name="NAME" remarks="Les races d'animaux."
 				type="VARCHAR(100)" >
 				<constraints nullable="false" />
 			</column>
-			<column name="scientist_name" remarks="Nom scientifique"
+			<column name="SCIENTIST_NAME" remarks="Nom scientifique"
 				type="VARCHAR(350)">
 			</column>
-			<column name="code" remarks="Code technique"
+			<column name="CODE" remarks="Code technique"
 				type="VARCHAR(20)">
 				<constraints nullable="false" />
 			</column>
 			
-			<column name="specie" remarks="Les espèces d'animaux."
+			<column name="SPECIE" remarks="Les espèces d'animaux."
 				type="VARCHAR(100)" >
 				<constraints nullable="false" />
 			</column>
-			<column name="clan" remarks="Les types d'animaux."
+			<column name="CLAN" remarks="Les types d'animaux."
 				type="VARCHAR(100)" >
 				<constraints nullable="false" />
 			</column>
-			<column name="is_active" remarks="Activer ou non la visibilité."
+			<column name="IS_ACTIVE" remarks="Activer ou non la visibilité."
 				type="BOOLEAN" >
 				<constraints nullable="false" />
 			</column>
-
-			
-			<addPrimaryKey columnNames="id" tableName="RACE" />
-			
-			<addUniqueConstraint columnNames="name, specie, type" constraintName="race_specie_type" tableName="RACE" />
-			
-			<comment>Init data (ref)</comment>
-			<sqlFile dbms="postgresql" encoding="utf8" path="Init_data_race_1.sql" relativeToChangelogFile="true" />
 		</createTable>
+		
+		<addUniqueConstraint columnNames="NAME, SPECIE, CLAN" constraintName="NAME_SPECIE_CLAN" tableName="RACE" />
+		
+		<comment>Init data (ref)</comment>	
+		<sqlFile dbms="postgresql, h2" encoding="utf8" path="Init_data_race_1.sql" relativeToChangelogFile="true" />
 	</changeSet>
 </databaseChangeLog>

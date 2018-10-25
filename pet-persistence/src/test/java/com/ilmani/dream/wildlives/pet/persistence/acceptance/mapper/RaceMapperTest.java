@@ -4,16 +4,11 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.powermock.core.classloader.annotations.PrepareForTest;
-import org.powermock.modules.junit4.PowerMockRunner;
 
 import com.ilmani.dream.wildlives.framework.dto.pet.RaceDto;
 import com.ilmani.dream.wildlives.pet.persistence.entity.RaceEntity;
 import com.ilmani.dream.wildlives.pet.persistence.mapper.RaceMapper;
 
-@RunWith(PowerMockRunner.class)
-@PrepareForTest(RaceMapper.class)
 public class RaceMapperTest {
 
 	static RaceDto raceDto;

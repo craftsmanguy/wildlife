@@ -18,7 +18,7 @@ public class RaceDao {
 	@PersistenceContext(unitName = "petPu")
 	private EntityManager em;
 
-	public RaceEntity findByIdenfier(RaceEntity race) {
+	public RaceEntity findByAttribut(RaceEntity race) {
 
 		CriteriaBuilder builder = em.getCriteriaBuilder();
 		CriteriaQuery<RaceEntity> criteriaQuery = builder.createQuery(RaceEntity.class);
@@ -41,7 +41,7 @@ public class RaceDao {
 		return em.createQuery(criteriaQuery).getSingleResult();
 	}
 
-	public Set<RaceEntity> getByIdenfier(RaceEntity race) {
+	public Set<RaceEntity> getByAttribut(RaceEntity race) {
 
 		CriteriaBuilder builder = em.getCriteriaBuilder();
 		CriteriaQuery<RaceEntity> criteriaQuery = builder.createQuery(RaceEntity.class);

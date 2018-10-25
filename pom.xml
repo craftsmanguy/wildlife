@@ -11,6 +11,7 @@
 	<properties>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
+		<liquibase.version>3.4.1</liquibase.version>
 		<version.full>${project.version}</version.full>
 
 		<powermock.version>1.7.1</powermock.version>
@@ -53,21 +54,37 @@
 				<version>2.3.1</version>
 				<scope>test</scope>
 			</dependency>
-			<!-- For static Method -->
 			<dependency>
-				<groupId>org.powermock</groupId>
-				<artifactId>powermock-module-junit4</artifactId>
-				<version>${powermock.version}</version>
+				<groupId>com.h2database</groupId>
+				<artifactId>h2</artifactId>
+				<version>1.4.192</version>
 				<scope>test</scope>
 			</dependency>
 			<dependency>
-				<groupId>org.powermock</groupId>
-				<artifactId>powermock-api-mockito</artifactId>
-				<version>${powermock.version}</version>
+				<groupId>org.hibernate</groupId>
+				<artifactId>hibernate-entitymanager</artifactId>
+				<version>5.2.12.Final</version>
+				<scope>test</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.liquibase</groupId>
+				<artifactId>liquibase-core</artifactId>
+				<version>3.5.5</version>
+			</dependency>
+			<dependency>
+				<groupId>org.mockito</groupId>
+				<artifactId>mockito-all</artifactId>
+				<version>1.9.5</version>
 				<scope>test</scope>
 			</dependency>
 
 			<!-- internals dependencies -->
+			<dependency>
+				<groupId>com.ilmani.dream.wildlives</groupId>
+				<artifactId>wildlife-database</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			
 			<dependency>
 				<groupId>com.ilmani.dream.wildlives</groupId>
 				<artifactId>wildlife-framework</artifactId>
@@ -176,6 +193,11 @@
 							</manifest>
 						</archive>
 					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>org.liquibase</groupId>
+					<artifactId>liquibase-maven-plugin</artifactId>
+					<version>${liquibase.version}</version>
 				</plugin>
 			</plugins>
 		</pluginManagement>

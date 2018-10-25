@@ -6,8 +6,8 @@
     http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd 
     http://www.liquibase.org/xml/ns/dbchangelog-ext 
     http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd"
-    logicalFilePath="wildlivesDB.xml">
+    logicalFilePath="wildlife.xml">
 
     <!-- Initial changelog which creates the database and ref data(1-2)-->
-    <include file="1.0.0/changelog-0.0.1.xml" relativeToChangelogFile="true" />    
+    <include file="1.0.0/changelog-1.0.0.xml" relativeToChangelogFile="true" />    
 </databaseChangeLog>
