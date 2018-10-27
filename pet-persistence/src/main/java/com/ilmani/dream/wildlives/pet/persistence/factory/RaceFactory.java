@@ -33,14 +33,14 @@ public class RaceFactory {
 		case UPDATE_RACE:
 			result = raceDao.update(raceEn);
 		case FIND_RACE:
-			result = raceDao.findByAttribut(raceEn);
+			result = raceDao.findByUniqueAttributConstraint(raceEn);
 		}
 		return RaceMapper.transformRaceEntityToRaceDto(result);
 	}
 
 	public List<RaceDto> getRacesDto(RaceDto raceDto) {
 		RaceEntity raceEn = RaceMapper.transformRaceDtoToRaceEntity(raceDto);
-		Set<RaceEntity> result = raceDao.getByAttribut(raceEn);
+		Set<RaceEntity> result = raceDao.getByAttributes(raceEn);
 		return RaceMapper.transformListRaceEntityToListRaceDto(result);
 	}
 

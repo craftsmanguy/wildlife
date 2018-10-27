@@ -1,24 +1,23 @@
 package com.ilmani.dream.wildlives.pet.persistence.acceptance.query;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
 
 import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.Set;
 
-import javax.persistence.EntityManager;
-import javax.persistence.Persistence;
+import javax.persistence.NoResultException;
 
 import org.hibernate.Session;
-import org.hibernate.internal.SessionImpl;
-import org.junit.After;
+import org.hibernate.jdbc.Work;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.powermock.core.classloader.annotations.PrepareForTest;
+import org.powermock.modules.junit4.PowerMockRunner;
+import org.powermock.reflect.Whitebox;
 
-import com.ilmani.dream.wildlives.database.acceptance.DBChangelogFileTest;
 import com.ilmani.dream.wildlives.pet.persistence.dao.RaceDao;
 import com.ilmani.dream.wildlives.pet.persistence.entity.RaceEntity;
 
@@ -26,66 +25,79 @@ import liquibase.Liquibase;
 import liquibase.database.Database;
 import liquibase.database.DatabaseFactory;
 import liquibase.database.jvm.JdbcConnection;
+import liquibase.exception.LiquibaseException;
 import liquibase.resource.ClassLoaderResourceAccessor;
 
-@RunWith(MockitoJUnitRunner.class)
-public class RaceDaoTest {
+@RunWith(PowerMockRunner.class)
+@PrepareForTest({ RaceDao.class })
+public class RaceDaoTest extends DataBaseCreationTest {
 
-	private static final String UNIT_NAME = "petPuTest";
-
-	private static Liquibase liquibase;
-
-	@InjectMocks
-	private RaceDao raceDao;
-
-	@Mock
-	private EntityManager em = Persistence.createEntityManagerFactory(UNIT_NAME).createEntityManager();
+	private RaceDao raceDao = new RaceDao();
 
 	@Before
-	public void redefineUp() throws Exception {
-		EntityManager entityManager = Persistence.createEntityManagerFactory(UNIT_NAME).createEntityManager();
-
+	public void initializeENtityManager() {
 		Session session = entityManager.unwrap(Session.class);
-		SessionImpl sessionImpl = (SessionImpl) session;
-		Connection connection = sessionImpl.connection();
+		session.doWork(new Work() {
+			@Override
+			public void execute(Connection connection) throws SQLException {
+				try {
+					Database database = DatabaseFactory.getInstance()
+							.findCorrectDatabaseImplementation(new JdbcConnection(connection));
 
-		Database database = DatabaseFactory.getInstance()
-				.findCorrectDatabaseImplementation(new JdbcConnection(connection));
-
-		liquibase = new Liquibase("com/ilmani/dream/wildlives/database/wildlife.xml", new ClassLoaderResourceAccessor(),
-				database);
-		liquibase.update("wildlife-test");
+					liquibase = new Liquibase("com/ilmani/dream/wildlives/database/wildlife.xml",
+							new ClassLoaderResourceAccessor(), database);
+					liquibase.update("wildlife-test");
+				} catch (LiquibaseException e) {
+					throw new RuntimeException("could not initialize with liquibase");
+				}
+			}
+		});
+		Whitebox.setInternalState(raceDao, "em", entityManager);
 	}
 
 	@Test
-	public void findByAttribut() {
+	public void findByAttributTest() {
 		RaceEntity raceEntity = new RaceEntity("AFFENPINSCHER", "", "", "DOG", "MAMMALIA", false);
-		RaceEntity result = raceDao.findByAttribut(raceEntity);
+		RaceEntity result = raceDao.findByUniqueAttributConstraint(raceEntity);
 		assertEquals(raceEntity.getName(), result.getName());
 	}
 
-	@Test
-	public void testGetByAttribut() {
-		fail("Not yet implemented");
+	@Test(expected = NoResultException.class)
+	public void notFindByAttributTest() {
+		raceDao.findByUniqueAttributConstraint(new RaceEntity("WRONG_RACE", "", "", "WRONG_SPECIE", "WRONG_CLAN", false));
 	}
 
 	@Test
-	public void testSave() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testDelete() {
-		fail("Not yet implemented");
+	public void getByAttributTest() {
+		Set<RaceEntity> results = raceDao.getByAttributes(new RaceEntity());
+		assertEquals(8, results.size());
 	}
 
 	@Test
 	public void testUpdate() {
-		fail("Not yet implemented");
+		RaceEntity raceToUpdate = new RaceEntity("AFFENPINSCHER", "", "AFFEN_DOG", "DOG", "MAMMALIA", false);
+		RaceEntity updateRaceValue = new RaceEntity("BENGAL", "", "BENG_CAT", "CAT", "MAMMALIA", false);
+
+		RaceEntity result = raceDao.update(raceToUpdate);
+
+		RaceEntity resultFromDb = raceDao.findByUniqueAttributConstraint(raceToUpdate);
+		assertEquals(raceToUpdate.getName(), resultFromDb.getName());
 	}
 
-	@After
-	public void closeDataBase() throws Exception {
-		liquibase.dropAll();
+	@Test
+	public void testSave() {
+		RaceEntity result = raceDao.save(new RaceEntity("AFFENPINSCHER", "", "AFFEN_DOG", "DOG", "MAMMALIA", true));
+		assertEquals(new Integer(9), result.getTechnicalIdentifier());
 	}
+
+	@Ignore
+	@Test
+	public void testDelete() {
+		RaceEntity resultFrom = raceDao
+				.findByUniqueAttributConstraint(new RaceEntity(7, "AZAWAKH", "", "AZAWA_DOG", "DOG", "MAMMALIA", true));
+		raceDao.delete(resultFrom);
+		Set<RaceEntity> results = raceDao.getByAttributes(new RaceEntity());
+		assertEquals(8, results.size());
+	}
+
 }

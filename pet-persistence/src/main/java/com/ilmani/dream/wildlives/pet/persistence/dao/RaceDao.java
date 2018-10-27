@@ -1,10 +1,12 @@
 package com.ilmani.dream.wildlives.pet.persistence.dao;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -18,7 +20,7 @@ public class RaceDao {
 	@PersistenceContext(unitName = "petPu")
 	private EntityManager em;
 
-	public RaceEntity findByAttribut(RaceEntity race) {
+	public RaceEntity findByUniqueAttributConstraint(RaceEntity race) throws NoResultException {
 
 		CriteriaBuilder builder = em.getCriteriaBuilder();
 		CriteriaQuery<RaceEntity> criteriaQuery = builder.createQuery(RaceEntity.class);
@@ -27,21 +29,15 @@ public class RaceDao {
 		criteriaQuery.select(raceFromDb);
 		List<Predicate> predicateList = new ArrayList<Predicate>();
 
-		if (race.getName() != null) {
-			predicateList.add(builder.equal(raceFromDb.<String>get("name"), race.getName()));
-		}
-		if (race.getSpecie() != null) {
-			predicateList.add(builder.equal(raceFromDb.<String>get("specie"), race.getSpecie()));
-		}
-		if (race.getClan() != null) {
-			predicateList.add(builder.equal(builder.upper(raceFromDb.<String>get("clan")), race.getClan()));
-		}
+		predicateList.add(builder.equal(raceFromDb.<String>get("name"), race.getName()));
+		predicateList.add(builder.equal(raceFromDb.<String>get("specie"), race.getSpecie()));
+		predicateList.add(builder.equal(builder.upper(raceFromDb.<String>get("clan")), race.getClan()));
 
 		criteriaQuery.where(predicateList.toArray(new Predicate[] {}));
 		return em.createQuery(criteriaQuery).getSingleResult();
 	}
 
-	public Set<RaceEntity> getByAttribut(RaceEntity race) {
+	public Set<RaceEntity> getByAttributes(RaceEntity race) {
 
 		CriteriaBuilder builder = em.getCriteriaBuilder();
 		CriteriaQuery<RaceEntity> criteriaQuery = builder.createQuery(RaceEntity.class);
@@ -51,10 +47,12 @@ public class RaceDao {
 		List<Predicate> predicateList = new ArrayList<Predicate>();
 
 		if (race.getName() != null) {
-			predicateList.add(builder.like(raceFromDb.<String>get("name"), "%" + race.getName() + "%"));
+			predicateList.add(builder.like(builder.upper(raceFromDb.<String>get("name")),
+					"%" + race.getName().toUpperCase() + "%"));
 		}
 		if (race.getSpecie() != null) {
-			predicateList.add(builder.like(raceFromDb.<String>get("specie"), "%" + race.getSpecie() + "%"));
+			predicateList.add(builder.like(builder.upper(raceFromDb.<String>get("specie")),
+					"%" + race.getSpecie().toUpperCase() + "%"));
 		}
 
 		if (race.getClan() != null) {
@@ -63,10 +61,8 @@ public class RaceDao {
 		}
 
 		criteriaQuery.where(predicateList.toArray(new Predicate[] {}));
-
-		@SuppressWarnings("unchecked")
-		Set<RaceEntity> races = (Set<RaceEntity>) em.createQuery(criteriaQuery).getResultList();
-		return races;
+		List<RaceEntity> results = em.createQuery(criteriaQuery).getResultList();
+		return new HashSet<RaceEntity>(results);
 	}
 
 	public RaceEntity save(RaceEntity race) {
@@ -76,12 +72,10 @@ public class RaceDao {
 
 	public void delete(RaceEntity race) {
 		em.remove(race);
-		em.flush();
 	}
 
 	public RaceEntity update(RaceEntity race) {
 		em.merge(race);
-		em.flush();
 		return race;
 	}
 

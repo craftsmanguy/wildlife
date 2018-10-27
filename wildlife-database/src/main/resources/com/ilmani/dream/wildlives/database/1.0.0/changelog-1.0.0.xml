@@ -10,9 +10,14 @@
 
     <!-- Changeset list corresponds to a reverse generation from database version 1.0.0 -->
     
-    <changeSet author="LOKO" id="1" labels="structure">
+    <changeSet author="LOKO" id="1">
+    	<createSequence catalogName="GENERIQUE"
+            minValue="1" incrementBy="1" sequenceName="SEQ_ID" startValue="1" ordered="true" cycle="true"/>
+    </changeSet>
+    
+    <changeSet author="LOKO" id="2" labels="structure">
 		<createTable tableName="RACE" schemaName="public">
-			<column autoIncrement="true" incrementBy="1" startWith="1" name="ID" type="SMALLINT">
+			<column name="ID" type="SMALLINT">
 				<constraints nullable="false" primaryKey="true"/>
 			</column>
 
@@ -25,7 +30,7 @@
 			</column>
 			<column name="CODE" remarks="Code technique"
 				type="VARCHAR(20)">
-				<constraints nullable="false" />
+				<constraints unique="true" nullable="false" />
 			</column>
 			
 			<column name="SPECIE" remarks="Les espèces d'animaux."
@@ -42,7 +47,13 @@
 			</column>
 		</createTable>
 		
-		<addUniqueConstraint columnNames="NAME, SPECIE, CLAN" constraintName="NAME_SPECIE_CLAN" tableName="RACE" />
+		<addUniqueConstraint columnNames="NAME, SPECIE, CLAN" constraintName="UC_RACE_NAME_SPECIE_CLAN" tableName="RACE" />
+				
+		<createIndex indexName="IDX_RACE_NAME_SPECIE_CLAN" tableName="RACE" unique="true">
+        	<column name="NAME"/>
+        	<column name="SPECIE"/>
+        	<column name="CLAN"/>
+    	</createIndex>
 		
 		<comment>Init data (ref)</comment>	
 		<sqlFile dbms="postgresql, h2" encoding="utf8" path="Init_data_race_1.sql" relativeToChangelogFile="true" />

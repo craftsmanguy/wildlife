@@ -57,24 +57,36 @@
 			<dependency>
 				<groupId>com.h2database</groupId>
 				<artifactId>h2</artifactId>
-				<version>1.4.192</version>
+				<version>1.4.197</version>
 				<scope>test</scope>
 			</dependency>
 			<dependency>
 				<groupId>org.hibernate</groupId>
 				<artifactId>hibernate-entitymanager</artifactId>
-				<version>5.2.12.Final</version>
-				<scope>test</scope>
+				<version>5.2.17.Final</version>
+				<scope>provided</scope>
 			</dependency>
 			<dependency>
 				<groupId>org.liquibase</groupId>
 				<artifactId>liquibase-core</artifactId>
-				<version>3.5.5</version>
+				<version>3.6.0</version>
+			</dependency>
+<!-- 			<dependency> -->
+<!-- 				<groupId>org.mockito</groupId> -->
+<!-- 				<artifactId>mockito-core</artifactId> -->
+<!-- 				<version>2.13.0</version> -->
+<!-- 				<scope>test</scope> -->
+<!-- 			</dependency> -->
+			<dependency>
+				<groupId>org.powermock</groupId>
+				<artifactId>powermock-module-junit4</artifactId>
+				<version>${powermock.version}</version>
+				<scope>test</scope>
 			</dependency>
 			<dependency>
-				<groupId>org.mockito</groupId>
-				<artifactId>mockito-all</artifactId>
-				<version>1.9.5</version>
+				<groupId>org.powermock</groupId>
+				<artifactId>powermock-api-mockito2</artifactId>
+				<version>${powermock.version}</version>
 				<scope>test</scope>
 			</dependency>
 
@@ -84,7 +96,7 @@
 				<artifactId>wildlife-database</artifactId>
 				<version>${project.version}</version>
 			</dependency>
-			
+
 			<dependency>
 				<groupId>com.ilmani.dream.wildlives</groupId>
 				<artifactId>wildlife-framework</artifactId>

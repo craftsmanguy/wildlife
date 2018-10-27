@@ -5,16 +5,19 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(name = "race")
+@Table(name = "race", uniqueConstraints = @UniqueConstraint(columnNames = { "name", "specie", "clan" }))
 public class RaceEntity {
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "race_generator")
+	@SequenceGenerator(name = "race_generator", sequenceName = "SEQ_ID", allocationSize = 1)
 	@Column(name = "id", updatable = false, nullable = false)
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer technicalIdentifier;
 
 	@NotNull
@@ -38,10 +41,6 @@ public class RaceEntity {
 	@Column(name = "is_active")
 	private boolean isActive;
 
-	public Integer getTechnicalIdentifier() {
-		return technicalIdentifier;
-	}
-
 	public RaceEntity() {
 
 	}
@@ -64,6 +63,14 @@ public class RaceEntity {
 		this.specie = specie;
 		this.clan = clan;
 		this.isActive = isActive;
+	}
+
+	public Integer getTechnicalIdentifier() {
+		return technicalIdentifier;
+	}
+
+	public void setTechnicalIdentifier(Integer technicalIdentifier) {
+		this.technicalIdentifier = technicalIdentifier;
 	}
 
 	public String getName() {
