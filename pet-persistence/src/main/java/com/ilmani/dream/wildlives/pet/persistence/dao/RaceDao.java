@@ -61,11 +61,12 @@ public class RaceDao {
 		}
 
 		criteriaQuery.where(predicateList.toArray(new Predicate[] {}));
+		criteriaQuery.orderBy(builder.asc(raceFromDb.get("name")));
 		List<RaceEntity> results = em.createQuery(criteriaQuery).getResultList();
 		return new HashSet<RaceEntity>(results);
 	}
 
-	public RaceEntity save(RaceEntity race) {
+	public RaceEntity insert(RaceEntity race) {
 		em.persist(race);
 		return race;
 	}

@@ -29,7 +29,7 @@ public class RaceFactory {
 		switch (action) {
 
 		case SAVE_RACE:
-			result = raceDao.save(raceEn);
+			result = raceDao.insert(raceEn);
 		case UPDATE_RACE:
 			result = raceDao.update(raceEn);
 		case FIND_RACE:
