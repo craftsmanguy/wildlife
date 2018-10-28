@@ -12,15 +12,12 @@ import com.ilmani.dream.wildlives.pet.persistence.mapper.RaceMapper;
 
 public class RaceFactory {
 
+	@Inject
 	RaceDao raceDao;
+	
 	private final static String SAVE_RACE = "SAVE";
 	private final static String UPDATE_RACE = "UPDATE";
 	private final static String FIND_RACE = "FIND";
-
-	@Inject
-	public RaceFactory(RaceDao raceDao) {
-		this.raceDao = raceDao;
-	}
 
 	public RaceDto getRaceDto(RaceDto raceDto, String action) {
 		RaceEntity raceEn = RaceMapper.transformRaceDtoToRaceEntity(raceDto);

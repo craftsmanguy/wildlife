@@ -29,9 +29,10 @@ public class RaceDao {
 		criteriaQuery.select(raceFromDb);
 		List<Predicate> predicateList = new ArrayList<Predicate>();
 
-		predicateList.add(builder.equal(raceFromDb.<String>get("name"), race.getName()));
-		predicateList.add(builder.equal(raceFromDb.<String>get("specie"), race.getSpecie()));
+		predicateList.add(builder.equal(builder.upper(raceFromDb.<String>get("name")), race.getName()));
+		predicateList.add(builder.equal(builder.upper(raceFromDb.<String>get("specie")), race.getSpecie()));
 		predicateList.add(builder.equal(builder.upper(raceFromDb.<String>get("clan")), race.getClan()));
+		predicateList.add(builder.equal(raceFromDb.get("isActive"), true));
 
 		criteriaQuery.where(predicateList.toArray(new Predicate[] {}));
 		return em.createQuery(criteriaQuery).getSingleResult();
@@ -59,6 +60,7 @@ public class RaceDao {
 			predicateList.add(builder.like(builder.upper(raceFromDb.<String>get("clan")),
 					"%" + race.getClan().toUpperCase() + "%"));
 		}
+		predicateList.add(builder.equal(raceFromDb.get("isActive"), true));
 
 		criteriaQuery.where(predicateList.toArray(new Predicate[] {}));
 		criteriaQuery.orderBy(builder.asc(raceFromDb.get("name")));

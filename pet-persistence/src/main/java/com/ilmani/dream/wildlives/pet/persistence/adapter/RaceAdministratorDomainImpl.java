@@ -11,13 +11,9 @@ import com.ilmani.dream.wildlives.pet.persistence.factory.RaceFactory;
 
 public class RaceAdministratorDomainImpl implements RaceAdministratorDomain {
 
+	@Inject
 	RaceFactory raceFactory;
 
-	@Inject
-	public RaceAdministratorDomainImpl(RaceFactory raceFactory) {
-		this.raceFactory = raceFactory;
-
-	}
 
 	@Override
 	public RaceDto findByIdenfier(RaceDto race) {

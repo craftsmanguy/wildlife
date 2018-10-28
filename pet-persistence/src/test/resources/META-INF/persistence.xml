@@ -7,6 +7,7 @@
 	<persistence-unit name="petPuTest" transaction-type="JTA">
 
 		<class>com.ilmani.dream.wildlives.pet.persistence.entity.RaceEntity</class>
+		<class>com.ilmani.dream.wildlives.pet.persistence.entity.PetEntity</class>
 		<properties>
 			<property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect" />
 			<property name="hibernate.connection.url"

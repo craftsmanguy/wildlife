@@ -17,14 +17,14 @@ public class RaceMapperTest {
 
 	@Before
 	public void setUp() throws Exception {
-		raceDto = new RaceDto("AFFENPINSCHER", "", "AFFEN", "DOG", "MAMMALIA", true);
+		raceDto = new RaceDto("AFFENPINSCHER", null, "AFFEN", "DOG", "MAMMALIA", true);
 
-		raceEntity = new RaceEntity("AFFENPINSCHER", "", "AFFEN", "DOG", "MAMMALIA", false);
+		raceEntity = new RaceEntity("AFFENPINSCHER", "AFFEN", "DOG", "MAMMALIA", false);
 	}
 
 	@Test
 	public void transformRaceEntityToRaceDtoTest() {
-		RaceEntity raceEnTest = new RaceEntity("AFFENPINSCHER", "", "AFFEN", "DOG", "MAMMALIA", true);
+		RaceEntity raceEnTest = new RaceEntity("AFFENPINSCHER", "AFFEN", "DOG", "MAMMALIA", true);
 		RaceDto resultDto = RaceMapper.transformRaceEntityToRaceDto(raceEnTest);
 		assertEquals(raceDto, resultDto);
 	}

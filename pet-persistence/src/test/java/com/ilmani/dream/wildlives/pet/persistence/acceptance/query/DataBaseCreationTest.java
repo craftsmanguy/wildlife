@@ -34,7 +34,7 @@ public abstract class DataBaseCreationTest {
 		entityManager = Persistence.createEntityManagerFactory(UNIT_NAME).createEntityManager();
 	}
 
-	protected void initializeDateBase() {
+	protected void initializeDataBase() {
 		session = entityManager.unwrap(Session.class);
 		session.doWork(new Work() {
 			@Override
@@ -49,7 +49,7 @@ public abstract class DataBaseCreationTest {
 			Database database = DatabaseFactory.getInstance()
 					.findCorrectDatabaseImplementation(new JdbcConnection(connection));
 
-			liquibase = new Liquibase("com/ilmani/dream/wildlives/database/wildlife.xml",
+			liquibase = new Liquibase("com/ilmani/dream/wildlives/database-test/db.wildlife-test.xml",
 					new ClassLoaderResourceAccessor(), database);
 			liquibase.update("wildlife-test");
 		} catch (LiquibaseException e) {

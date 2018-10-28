@@ -16,38 +16,41 @@ public class RaceEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "race_generator")
-	@SequenceGenerator(name = "race_generator", sequenceName = "SEQ_ID", allocationSize = 1)
+	@SequenceGenerator(name = "race_generator", sequenceName = "RACE_SEQ_ID", allocationSize = 1)
 	@Column(name = "id", updatable = false, nullable = false)
-	private int technicalIdentifier;
+	protected int technicalIdentifier;
 
 	@NotNull
 	@Column(name = "name")
-	private String name;
+	protected String name;
 
 	@Column(name = "scientist_name")
-	private String scientistName;
+	protected String scientistName;
 
 	@Column(name = "code")
-	private String code;
+	protected String code;
 
 	@NotNull
 	@Column(name = "specie")
-	private String specie;
+	protected String specie;
 
 	@NotNull
 	@Column(name = "clan")
-	private String clan;
+	protected String clan;
 
 	@Column(name = "is_active")
-	private boolean isActive;
+	protected boolean isActive;
 
 	public RaceEntity() {
 
 	}
 
-	public RaceEntity(String name, String scientistName, String code, String specie, String clan, boolean isActive) {
+	public RaceEntity(String code) {
+		this.code = code;
+	}
+
+	public RaceEntity(String name, String code, String specie, String clan, boolean isActive) {
 		this.name = name;
-		this.scientistName = scientistName;
 		this.code = code;
 		this.specie = specie;
 		this.clan = clan;
@@ -67,10 +70,6 @@ public class RaceEntity {
 
 	public int getTechnicalIdentifier() {
 		return technicalIdentifier;
-	}
-
-	public void setTechnicalIdentifier(int technicalIdentifier) {
-		this.technicalIdentifier = technicalIdentifier;
 	}
 
 	public String getName() {

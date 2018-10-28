@@ -22,14 +22,14 @@ import liquibase.resource.ClassLoaderResourceAccessor;
 
 public class DBChangelogFileTest {
 
-	private static final String UNIT_NAME = "databasePu";
+	private static final String UNIT_NAME = "databasePuTest";
 
 	protected static EntityManager entityManager;
 
 	protected Liquibase liquibase;
 
 	@BeforeClass
-	public static void setUp() throws Exception {
+	public static void initializeEntityManager() throws Exception {
 		entityManager = Persistence.createEntityManagerFactory(UNIT_NAME).createEntityManager();
 	}
 
@@ -43,7 +43,7 @@ public class DBChangelogFileTest {
 					Database database = DatabaseFactory.getInstance()
 							.findCorrectDatabaseImplementation(new JdbcConnection(connection));
 
-					liquibase = new Liquibase("com/ilmani/dream/wildlives/database/wildlife.xml",
+					liquibase = new Liquibase("com/ilmani/dream/wildlives/database-test/db.wildlife-test.xml",
 							new ClassLoaderResourceAccessor(), database);
 					liquibase.update("wildlife-test");
 				} catch (LiquibaseException e) {
