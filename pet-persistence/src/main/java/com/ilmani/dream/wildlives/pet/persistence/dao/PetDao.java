@@ -50,8 +50,8 @@ public class PetDao {
 			predicateList.add(builder.like(builder.upper(petFromDb.<String>get("functionalIdentifier")),
 					"%" + pet.getFunctionalIdentifier().toLowerCase() + "%"));
 		}
-		if (pet.getGender() != null) {
-			predicateList.add(builder.like(petFromDb.<String>get("name"), "%" + pet.getGender() + "%"));
+		if (pet.getName() != null) {
+			predicateList.add(builder.like(petFromDb.<String>get("name"), "%" + pet.getName() + "%"));
 		}
 
 		criteriaQuery.where(predicateList.toArray(new Predicate[] {}));

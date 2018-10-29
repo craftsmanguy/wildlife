@@ -57,10 +57,8 @@
 		
 		<comment>Init data (race)</comment>	
 		<sqlFile dbms="postgresql, mysql, oracle" encoding="utf8" path="Init_data_race_1.sql" relativeToChangelogFile="true" />
-	</changeSet>
-	
-	<changeSet author="LOKO" id="3" labels="structure">
-        <createTable tableName="PET">
+		
+		<createTable tableName="PET">
         	<column name="ID" type="${uuid_type}">
 				<constraints nullable="false" primaryKey="true"/>
 			</column>
@@ -84,6 +82,70 @@
         <addForeignKeyConstraint constraintName="FK_PET_RACE_ID"
 			referencedTableName="RACE" referencedColumnNames="ID"
 			baseTableName="PET" baseColumnNames="RACE_ID"
+			deferrable="false" initiallyDeferred="false" onDelete="RESTRICT"
+			onUpdate="RESTRICT" />
+	</changeSet>
+	
+	<changeSet author="LOKO" id="3" labels="structure">
+        <createTable tableName="FORMAT">
+			<column name="ID" type="SMALLINT">
+				<constraints nullable="false" primaryKey="true"/>
+			</column>
+			<column name="NAME" remarks="Les formats de prestations"
+				type="VARCHAR(50)" />
+				<column name="CODE" remarks="Code technique"
+				type="VARCHAR(20)">
+				<constraints unique="true" nullable="false" />
+			</column>
+			<column name="FEATURE" remarks="Nom de la prestation"
+				type="VARCHAR(150)">
+				<constraints nullable="false" />
+			</column>
+			<column name="IS_ACTIVE" remarks="Activer ou non la visibilité."
+				type="BOOLEAN" >
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+		<addUniqueConstraint columnNames="NAME, FEATURE" constraintName="UC_FORMAT_NAME_FEATURE" tableName="FORMAT" />
+		
+		<comment>Init data (format)</comment>	
+		<sqlFile dbms="h2" encoding="utf8" path="Init_data_format_1.sql" relativeToChangelogFile="true" />
+		
+		
+		<createTable tableName="ADVERT">
+			<column name="ID" type="${uuid_type}" remarks="ID de la prestation">
+				<constraints nullable="false" primaryKey="true"/>
+			</column>
+			<column name="FUNCTIONAL_ID" type="VARCHAR(1250)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+			<column defaultValueDate="now()" name="INSERTION_DATE" remarks="Date d'Inscription" type="timestamp with time zone">
+                <constraints nullable="false" />
+            </column>
+			<column name="START_DATE" remarks="Début de l'annonce" type="timestamp with time zone">
+				<constraints nullable="false" />
+			</column>
+			<column name="END_DATE" remarks="Fin de l'annonce" type="timestamp with time zone">
+				<constraints nullable="false" />
+			</column>
+
+			<column name="TITLE" remarks="Intitulé de l'annonce."
+				type="VARCHAR(200)">
+			</column>
+			<column name="DESCRIPTION" remarks="Description de l'annonce."
+				type="TEXT">
+			</column>
+			<column name="STATE" remarks="Statut process de l'annonce."
+				type="VARCHAR(30)">
+				<constraints nullable="false" />
+			</column>
+			<column name="FORMAT_ID" remarks="ID du format" type="SMALLINT">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+		<addForeignKeyConstraint constraintName="FK_ADVERT_FORMAT_ID"
+			referencedTableName="FORMAT" referencedColumnNames="ID"
+			baseTableName="ADVERT" baseColumnNames="FORMAT_ID"
 			deferrable="false" initiallyDeferred="false" onDelete="RESTRICT"
 			onUpdate="RESTRICT" />
     </changeSet>

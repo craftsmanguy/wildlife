@@ -12,33 +12,33 @@ import com.ilmani.dream.wildlives.pet.persistence.factory.RaceFactory;
 public class RaceAdministratorDomainImpl implements RaceAdministratorDomain {
 
 	@Inject
-	RaceFactory raceFactory;
+	RaceFactory raceFact;
 
 
 	@Override
 	public RaceDto findByIdenfier(RaceDto race) {
-		return raceFactory.getRaceDto(race, Crud.valueOf("FIND").getAction());
+		return raceFact.getRaceDto(race, Crud.valueOf("FIND").getAction());
 	}
 
 	@Override
 	public List<RaceDto> searchRaces(RaceDto race) {
-		return raceFactory.getRacesDto(race);
+		return raceFact.getRacesDto(race);
 	}
 
 	@Override
 	public RaceDto save(RaceDto race) {
-		return raceFactory.getRaceDto(race, Crud.valueOf("SAVE").getAction());
+		return raceFact.getRaceDto(race, Crud.valueOf("SAVE").getAction());
 	}
 
 	@Override
 	public void delete(RaceDto race) {
-		raceFactory.delete(race);
+		raceFact.delete(race);
 
 	}
 
 	@Override
 	public RaceDto update(RaceDto race) {
-		return raceFactory.getRaceDto(race, Crud.valueOf("UPDATE").getAction());
+		return raceFact.getRaceDto(race, Crud.valueOf("UPDATE").getAction());
 	}
 
 }

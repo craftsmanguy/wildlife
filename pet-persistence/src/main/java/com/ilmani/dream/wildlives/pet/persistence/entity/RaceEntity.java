@@ -45,8 +45,9 @@ public class RaceEntity {
 
 	}
 
-	public RaceEntity(String code) {
+	public RaceEntity(String code, boolean isActive) {
 		this.code = code;
+		this.isActive = isActive;
 	}
 
 	public RaceEntity(String name, String code, String specie, String clan, boolean isActive) {

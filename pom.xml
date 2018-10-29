@@ -20,17 +20,23 @@
 	<modules>
 		<module>wildlife-ear</module>
 		<!-- JAR -->
+		<module>wildlife-database</module>
 		<module>wildlife-framework</module>
+		<module>advert-persistence</module>
 		<module>pet-persistence</module>
+		<module>user-persistence</module>
 
 		<!-- EJB -->
+		<module>advert-administration</module>
+		<module>advert-manager</module>
+		<module>user-administration</module>
 		<module>user-manager</module>
 		<module>pet-manager</module>
 		<module>pet-admin</module>
 
 		<!-- WAR -->
 		<module>wildlife-administration</module>
-		<module>wildlife-database</module>
+		<module>wildlife-api</module>
 	</modules>
 
 	<dependencyManagement>
@@ -71,12 +77,12 @@
 				<artifactId>liquibase-core</artifactId>
 				<version>3.6.0</version>
 			</dependency>
-<!-- 			<dependency> -->
-<!-- 				<groupId>org.mockito</groupId> -->
-<!-- 				<artifactId>mockito-core</artifactId> -->
-<!-- 				<version>2.13.0</version> -->
-<!-- 				<scope>test</scope> -->
-<!-- 			</dependency> -->
+			<!-- <dependency> -->
+			<!-- <groupId>org.mockito</groupId> -->
+			<!-- <artifactId>mockito-core</artifactId> -->
+			<!-- <version>2.13.0</version> -->
+			<!-- <scope>test</scope> -->
+			<!-- </dependency> -->
 			<dependency>
 				<groupId>org.powermock</groupId>
 				<artifactId>powermock-module-junit4</artifactId>
@@ -102,11 +108,10 @@
 				<artifactId>wildlife-framework</artifactId>
 				<version>${project.version}</version>
 			</dependency>
-
+			<!-- Persistence -->
 			<dependency>
 				<groupId>com.ilmani.dream.wildlives</groupId>
-				<artifactId>user-manager</artifactId>
-				<type>ejb</type>
+				<artifactId>advert-persistence</artifactId>
 				<version>${project.version}</version>
 			</dependency>
 			<dependency>
@@ -116,7 +121,34 @@
 			</dependency>
 			<dependency>
 				<groupId>com.ilmani.dream.wildlives</groupId>
+				<artifactId>user-persistence</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			
+			<!--  manager -->
+			<dependency>
+				<groupId>com.ilmani.dream.wildlives</groupId>
+				<artifactId>advert-manager</artifactId>
+				<type>ejb</type>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.ilmani.dream.wildlives</groupId>
 				<artifactId>pet-manager</artifactId>
+				<type>ejb</type>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.ilmani.dream.wildlives</groupId>
+				<artifactId>user-manager</artifactId>
+				<type>ejb</type>
+				<version>${project.version}</version>
+			</dependency>
+			
+			<!-- administration -->
+			<dependency>
+				<groupId>com.ilmani.dream.wildlives</groupId>
+				<artifactId>advert-administration</artifactId>
 				<type>ejb</type>
 				<version>${project.version}</version>
 			</dependency>
@@ -128,7 +160,21 @@
 			</dependency>
 			<dependency>
 				<groupId>com.ilmani.dream.wildlives</groupId>
+				<artifactId>user-admininstration</artifactId>
+				<type>ejb</type>
+				<version>${project.version}</version>
+			</dependency>
+			
+			<!-- api -->
+			<dependency>
+				<groupId>com.ilmani.dream.wildlives</groupId>
 				<artifactId>wildlife-administration</artifactId>
+				<type>war</type>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.ilmani.dream.wildlives</groupId>
+				<artifactId>wildlife-api</artifactId>
 				<type>war</type>
 				<version>${project.version}</version>
 			</dependency>
@@ -210,6 +256,17 @@
 					<groupId>org.liquibase</groupId>
 					<artifactId>liquibase-maven-plugin</artifactId>
 					<version>${liquibase.version}</version>
+				</plugin>
+
+
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-surefire-plugin</artifactId>
+					<version>2.7.1</version>
+					<configuration>
+						<parallel>classes</parallel>
+						<threadCount>5</threadCount>
+					</configuration>
 				</plugin>
 			</plugins>
 		</pluginManagement>
