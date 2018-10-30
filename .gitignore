@@ -4,9 +4,9 @@
 target/
 Feature*Report/
 wildlife-ear/src/main/application/META-INF/application.xml
-pet-admin/*/*.js
-pet-admin/*/*.html
-pet-admin/*/*.css
+pet-administration/*/*.js
+pet-administration/*/*.html
+pet-administration/*/*.css
 
 
 # Compiled class file

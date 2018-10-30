@@ -17,28 +17,64 @@
 			<groupId>com.ilmani.dream.wildlives</groupId>
 			<artifactId>wildlife-framework</artifactId>
 		</dependency>
+		
+		<!-- persistence -->
+		<dependency>
+			<groupId>com.ilmani.dream.wildlives</groupId>
+			<artifactId>advert-persistence</artifactId>
+		</dependency>
 		<dependency>
 			<groupId>com.ilmani.dream.wildlives</groupId>
 			<artifactId>pet-persistence</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>com.ilmani.dream.wildlives</groupId>
-			<artifactId>pet-admin</artifactId>
+			<artifactId>user-persistence</artifactId>
+		</dependency>
+		
+		<!-- administration -->
+		<dependency>
+			<groupId>com.ilmani.dream.wildlives</groupId>
+			<artifactId>pet-administration</artifactId>
 			<type>ejb</type>
 		</dependency>
 		<dependency>
 			<groupId>com.ilmani.dream.wildlives</groupId>
-			<artifactId>pet-manager</artifactId>
+			<artifactId>advert-administration</artifactId>
 			<type>ejb</type>
 		</dependency>
 		<dependency>
 			<groupId>com.ilmani.dream.wildlives</groupId>
-			<artifactId>user-manager</artifactId>
+			<artifactId>user-administration</artifactId>
 			<type>ejb</type>
 		</dependency>
+		
+		<!-- manager -->
+		<dependency>
+			<groupId>com.ilmani.dream.wildlives</groupId>
+			<artifactId>advert-business</artifactId>
+			<type>ejb</type>
+		</dependency>
+		<dependency>
+			<groupId>com.ilmani.dream.wildlives</groupId>
+			<artifactId>pet-business</artifactId>
+			<type>ejb</type>
+		</dependency>
+		<dependency>
+			<groupId>com.ilmani.dream.wildlives</groupId>
+			<artifactId>user-business</artifactId>
+			<type>ejb</type>
+		</dependency>
+		
+		<!-- api -->
 		<dependency>
 			<groupId>com.ilmani.dream.wildlives</groupId>
 			<artifactId>wildlife-administration</artifactId>
+			<type>war</type>
+		</dependency>
+		<dependency>
+			<groupId>com.ilmani.dream.wildlives</groupId>
+			<artifactId>wildlife-business</artifactId>
 			<type>war</type>
 		</dependency>
 	</dependencies>
@@ -78,21 +114,39 @@
 					<defaultLibBundleDir>lib</defaultLibBundleDir>
 
 					<modules>
-						<ejbModule>
+					<ejbModule>
 							<groupId>com.ilmani.dream.wildlives</groupId>
-							<artifactId>user-manager</artifactId>
+							<artifactId>advert-administration</artifactId>
 						</ejbModule>
 						<ejbModule>
 							<groupId>com.ilmani.dream.wildlives</groupId>
-							<artifactId>pet-admin</artifactId>
+							<artifactId>pet-administration</artifactId>
 						</ejbModule>
 						<ejbModule>
 							<groupId>com.ilmani.dream.wildlives</groupId>
-							<artifactId>pet-manager</artifactId>
+							<artifactId>user-administration</artifactId>
 						</ejbModule>
+						
+						<ejbModule>
+							<groupId>com.ilmani.dream.wildlives</groupId>
+							<artifactId>advert-business</artifactId>
+						</ejbModule>
+						<ejbModule>
+							<groupId>com.ilmani.dream.wildlives</groupId>
+							<artifactId>pet-business</artifactId>
+						</ejbModule>
+						<ejbModule>
+							<groupId>com.ilmani.dream.wildlives</groupId>
+							<artifactId>user-business</artifactId>
+						</ejbModule>
+						
 						<webModule>
 							<groupId>com.ilmani.dream.wildlives</groupId>
 							<artifactId>wildlife-administration</artifactId>
+						</webModule>
+						<webModule>
+							<groupId>com.ilmani.dream.wildlives</groupId>
+							<artifactId>wildlife-business</artifactId>
 						</webModule>
 					</modules>
 				</configuration>

@@ -1,9 +1,7 @@
 package com.ilmani.dream.wildlives.pet.persistence.mapper;
 
 import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.HashSet;
 import java.util.Set;
 
 import org.apache.commons.beanutils.BeanUtils;
@@ -27,12 +25,11 @@ public class RaceMapper {
 		return raceDto;
 	}
 
-	public static List<RaceDto> transformListRaceEntityToListRaceDto(Set<RaceEntity> racesEntity) {
-		List<RaceDto> racesDto;
+	public static Set<RaceDto> transformListRaceEntityToListRaceDto(Set<RaceEntity> racesEntity) {
+		Set<RaceDto> racesDto = new HashSet<RaceDto>();
 		if (racesEntity.isEmpty()) {
-			return Collections.emptyList();
+			return racesDto;
 		}
-		racesDto = new ArrayList<RaceDto>();
 		for (RaceEntity raceEnTemp : racesEntity) {
 			RaceDto raceDtoTemp = transformRaceEntityToRaceDto(raceEnTemp);
 			racesDto.add(raceDtoTemp);

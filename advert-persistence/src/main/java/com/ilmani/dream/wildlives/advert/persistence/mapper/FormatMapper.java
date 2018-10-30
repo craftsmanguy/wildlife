@@ -1,9 +1,7 @@
 package com.ilmani.dream.wildlives.advert.persistence.mapper;
 
 import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.HashSet;
 import java.util.Set;
 
 import org.apache.commons.beanutils.BeanUtils;
@@ -27,12 +25,11 @@ public class FormatMapper {
 		return formatDto;
 	}
 
-	public static List<FormatDto> transformListFormatEntityToListFormatDto(Set<FormatEntity> formatsEntity) {
-		List<FormatDto> formatsDto;
+	public static Set<FormatDto> transformListFormatEntityToListFormatDto(Set<FormatEntity> formatsEntity) {
+		Set<FormatDto> formatsDto = new HashSet<FormatDto>();
 		if (formatsEntity.isEmpty()) {
-			return Collections.emptyList();
+			return formatsDto;
 		}
-		formatsDto = new ArrayList<FormatDto>();
 		for (FormatEntity formatEnTemp : formatsEntity) {
 			FormatDto formatDtoTemp = transformFormatEntityToFormatDto(formatEnTemp);
 			formatsDto.add(formatDtoTemp);
@@ -51,6 +48,18 @@ public class FormatMapper {
 			// TODO log
 		}
 		return formatEn;
+	}
+	
+	public static Set<FormatEntity> transformListFormatDtoToListFormatEntity(Set<FormatDto> formatsDto) {
+		Set<FormatEntity> formatsEn = new HashSet<FormatEntity>();
+		if (formatsDto.isEmpty()) {
+			return formatsEn;
+		}
+		for (FormatDto formatDtoTemp : formatsDto) {
+			FormatEntity formatEnTemp = transformFormatDtoToFormatEntity(formatDtoTemp);
+			formatsEn.add(formatEnTemp);
+		}
+		return formatsEn;
 	}
 
 }

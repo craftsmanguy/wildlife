@@ -113,7 +113,7 @@
 		
 		
 		<createTable tableName="ADVERT">
-			<column name="ID" type="${uuid_type}" remarks="ID de la prestation">
+			<column name="ID" type="${uuid_type}" remarks="ID de la demande ou de l'offre">
 				<constraints nullable="false" primaryKey="true"/>
 			</column>
 			<column name="FUNCTIONAL_ID" type="VARCHAR(1250)">
@@ -129,7 +129,7 @@
 				<constraints nullable="false" />
 			</column>
 
-			<column name="TITLE" remarks="Intitulé de l'annonce."
+			<column name="TITLE" remarks="Intitulé de l'annonce ou de l'offre."
 				type="VARCHAR(200)">
 			</column>
 			<column name="DESCRIPTION" remarks="Description de l'annonce."

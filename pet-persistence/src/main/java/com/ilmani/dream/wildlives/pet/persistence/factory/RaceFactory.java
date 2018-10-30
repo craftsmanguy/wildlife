@@ -1,10 +1,10 @@
 package com.ilmani.dream.wildlives.pet.persistence.factory;
 
-import java.util.List;
 import java.util.Set;
 
 import javax.inject.Inject;
 
+import com.ilmani.dream.wildlives.framework.constants.ConstantsCrud;
 import com.ilmani.dream.wildlives.framework.dto.pet.RaceDto;
 import com.ilmani.dream.wildlives.pet.persistence.dao.RaceDao;
 import com.ilmani.dream.wildlives.pet.persistence.entity.RaceEntity;
@@ -14,10 +14,6 @@ public class RaceFactory {
 
 	@Inject
 	RaceDao raceDao;
-	
-	private final static String SAVE_RACE = "SAVE";
-	private final static String UPDATE_RACE = "UPDATE";
-	private final static String FIND_RACE = "FIND";
 
 	public RaceDto getRaceDto(RaceDto raceDto, String action) {
 		RaceEntity raceEn = RaceMapper.transformRaceDtoToRaceEntity(raceDto);
@@ -25,17 +21,17 @@ public class RaceFactory {
 
 		switch (action) {
 
-		case SAVE_RACE:
+		case ConstantsCrud.SAVE:
 			result = raceDao.insert(raceEn);
-		case UPDATE_RACE:
+		case ConstantsCrud.UPDATE:
 			result = raceDao.update(raceEn);
-		case FIND_RACE:
+		case ConstantsCrud.FIND:
 			result = raceDao.findByUniqueAttributConstraint(raceEn);
 		}
 		return RaceMapper.transformRaceEntityToRaceDto(result);
 	}
 
-	public List<RaceDto> getRacesDto(RaceDto raceDto) {
+	public Set<RaceDto> getRacesDto(RaceDto raceDto) {
 		RaceEntity raceEn = RaceMapper.transformRaceDtoToRaceEntity(raceDto);
 		Set<RaceEntity> result = raceDao.getByAttributes(raceEn);
 		return RaceMapper.transformListRaceEntityToListRaceDto(result);

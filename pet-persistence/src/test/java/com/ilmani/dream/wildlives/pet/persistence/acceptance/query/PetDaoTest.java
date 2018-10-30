@@ -4,7 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
-import java.util.Set;
+import java.util.List;
 
 import javax.persistence.NoResultException;
 
@@ -51,7 +51,7 @@ public class PetDaoTest extends DataBaseCreationTest {
 
 	@Test
 	public void searchByOptionalAttribute() {
-		Set<PetEntity> results = petDao.getByAttributes(new PetEntity());
+		List<PetEntity> results = petDao.getByAttributes(new PetEntity());
 		assertEquals(8, results.size());
 	}
 

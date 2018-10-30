@@ -48,12 +48,12 @@
 
 		<dependency>
 			<groupId>com.ilmani.dream.wildlives</groupId>
-			<artifactId>pet-manager</artifactId>
+			<artifactId>pet-business</artifactId>
 			<type>ejb</type>
 		</dependency>
 		<dependency>
 			<groupId>com.ilmani.dream.wildlives</groupId>
-			<artifactId>pet-admin</artifactId>
+			<artifactId>pet-administration</artifactId>
 			<type>ejb</type>
 		</dependency>
 		<dependency>

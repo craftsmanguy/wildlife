@@ -7,6 +7,7 @@ import java.util.UUID;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -33,7 +34,6 @@ public class AdvertEntity {
 	@Column(name = "end_date")
 	private Date endDate;
 
-
 	@Column(name = "title")
 	private String title;
 
@@ -43,10 +43,10 @@ public class AdvertEntity {
 	@Column(name = "state")
 	private String state;
 
-	@ManyToMany
+	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "advert_join_format", joinColumns = { @JoinColumn(name = "advert_id") }, inverseJoinColumns = {
 			@JoinColumn(name = "format_id") })
-	private Set<FormatEntity> formats = new HashSet<FormatEntity>();
+	private Set<FormatEntity> formatsEn = new HashSet<FormatEntity>();
 
 	public AdvertEntity() {
 		super();
@@ -136,12 +136,12 @@ public class AdvertEntity {
 		this.state = state;
 	}
 
-	public Set<FormatEntity> getFormats() {
-		return formats;
+	public Set<FormatEntity> getFormatsEn() {
+		return formatsEn;
 	}
 
-	public void setFormats(Set<FormatEntity> formats) {
-		this.formats = formats;
+	public void setFormatsEn(Set<FormatEntity> formats) {
+		this.formatsEn = formats;
 	}
 
 }

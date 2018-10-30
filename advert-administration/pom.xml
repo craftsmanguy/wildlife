@@ -33,4 +33,13 @@
 			<artifactId>wildlife-framework</artifactId>
 		</dependency>
 	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<artifactId>maven-ejb-plugin</artifactId>
+			</plugin>
+		</plugins>
+		<finalName>${project.artifactId}-${version.full}</finalName>
+	</build>
 </project>

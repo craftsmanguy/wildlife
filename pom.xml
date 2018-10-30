@@ -28,15 +28,15 @@
 
 		<!-- EJB -->
 		<module>advert-administration</module>
-		<module>advert-manager</module>
+		<module>pet-administration</module>
 		<module>user-administration</module>
-		<module>user-manager</module>
-		<module>pet-manager</module>
-		<module>pet-admin</module>
-
+		<module>advert-business</module>
+		<module>user-business</module>
+		<module>pet-business</module>
+		
 		<!-- WAR -->
 		<module>wildlife-administration</module>
-		<module>wildlife-api</module>
+		<module>wildlife-business</module>
 	</modules>
 
 	<dependencyManagement>
@@ -128,19 +128,19 @@
 			<!--  manager -->
 			<dependency>
 				<groupId>com.ilmani.dream.wildlives</groupId>
-				<artifactId>advert-manager</artifactId>
+				<artifactId>advert-business</artifactId>
 				<type>ejb</type>
 				<version>${project.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>com.ilmani.dream.wildlives</groupId>
-				<artifactId>pet-manager</artifactId>
+				<artifactId>pet-business</artifactId>
 				<type>ejb</type>
 				<version>${project.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>com.ilmani.dream.wildlives</groupId>
-				<artifactId>user-manager</artifactId>
+				<artifactId>user-business</artifactId>
 				<type>ejb</type>
 				<version>${project.version}</version>
 			</dependency>
@@ -154,13 +154,13 @@
 			</dependency>
 			<dependency>
 				<groupId>com.ilmani.dream.wildlives</groupId>
-				<artifactId>pet-admin</artifactId>
+				<artifactId>pet-administration</artifactId>
 				<type>ejb</type>
 				<version>${project.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>com.ilmani.dream.wildlives</groupId>
-				<artifactId>user-admininstration</artifactId>
+				<artifactId>user-administration</artifactId>
 				<type>ejb</type>
 				<version>${project.version}</version>
 			</dependency>
@@ -174,7 +174,7 @@
 			</dependency>
 			<dependency>
 				<groupId>com.ilmani.dream.wildlives</groupId>
-				<artifactId>wildlife-api</artifactId>
+				<artifactId>wildlife-business</artifactId>
 				<type>war</type>
 				<version>${project.version}</version>
 			</dependency>

@@ -1,9 +1,7 @@
 package com.ilmani.dream.wildlives.pet.persistence.dao;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.UUID;
 
 import javax.persistence.EntityManager;
@@ -37,7 +35,7 @@ public class PetDao {
 		return em.createQuery(criteriaQuery).getSingleResult();
 	}
 
-	public Set<PetEntity> getByAttributes(PetEntity pet) {
+	public List<PetEntity> getByAttributes(PetEntity pet) {
 
 		CriteriaBuilder builder = em.getCriteriaBuilder();
 		CriteriaQuery<PetEntity> criteriaQuery = builder.createQuery(PetEntity.class);
@@ -56,8 +54,7 @@ public class PetDao {
 
 		criteriaQuery.where(predicateList.toArray(new Predicate[] {}));
 		criteriaQuery.orderBy(builder.asc(petFromDb.get("name")));
-		List<PetEntity> results = em.createQuery(criteriaQuery).getResultList();
-		return new HashSet<PetEntity>(results);
+		return em.createQuery(criteriaQuery).getResultList();
 	}
 
 	public PetEntity insert(PetEntity pet) {

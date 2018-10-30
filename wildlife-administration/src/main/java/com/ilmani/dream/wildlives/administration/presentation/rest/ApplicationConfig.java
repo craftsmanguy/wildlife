@@ -6,7 +6,9 @@ import java.util.Set;
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
 
-import com.ilmani.dream.wildlives.administration.presentation.rest.ressource.pet.v1.PetAdministrationRessource;
+import com.ilmani.dream.wildlives.administration.presentation.rest.ressource.pet.v1.AdvertAdministrationResource;
+import com.ilmani.dream.wildlives.administration.presentation.rest.ressource.pet.v1.PetAdministrationResource;
+import com.ilmani.dream.wildlives.administration.presentation.rest.ressource.pet.v1.UserAdministrationResource;
 
 @ApplicationPath("/")
 public class ApplicationConfig extends Application {
@@ -15,7 +17,9 @@ public class ApplicationConfig extends Application {
 	public Set<Class<?>> getClasses() {
 		Set<Class<?>> resources = new HashSet<>();
 
-		resources.add(PetAdministrationRessource.class);
+		resources.add(AdvertAdministrationResource.class);
+		resources.add(PetAdministrationResource.class);
+		resources.add(UserAdministrationResource.class);
 
 		return resources;
 	}

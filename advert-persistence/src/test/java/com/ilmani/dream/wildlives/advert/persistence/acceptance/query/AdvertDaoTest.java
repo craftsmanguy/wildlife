@@ -2,10 +2,8 @@ package com.ilmani.dream.wildlives.advert.persistence.acceptance.query;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
 
 import java.util.Date;
-import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.NoResultException;
@@ -85,9 +83,7 @@ public class AdvertDaoTest extends DataBaseCreationTest {
 		Whitebox.setInternalState(formatDao, "em", entityManager);
 		FormatEntity resultRace = formatDao
 				.findByUniqueAttributConstraint(new FormatEntity("REQUEST", "PET_CARE", true));
-		Set results = new HashSet<FormatEntity>();
-		results.add(resultRace);
-		advert.setFormats(results);
+		advert.getFormatsEn().add(resultRace);
 		AdvertEntity advertToSave = advertDao.insert(advert);
 		assertNotNull(advertToSave.getId().toString());
 	}

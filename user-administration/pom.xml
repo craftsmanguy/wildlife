@@ -7,5 +7,34 @@
   </parent>
   <artifactId>user-administration</artifactId>
   <packaging>ejb</packaging>
-  <name>USER ADMINISTRATION</name>
+  <name>User Administration</name>
+  
+  <dependencies>
+		<dependency>
+			<groupId>javax</groupId>
+			<artifactId>javaee-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>io.cucumber</groupId>
+			<artifactId>cucumber-java</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>io.cucumber</groupId>
+			<artifactId>cucumber-junit</artifactId>
+		</dependency>
+	</dependencies>
+  
+  
+  <build>
+		<plugins>
+			<plugin>
+				<artifactId>maven-ejb-plugin</artifactId>
+			</plugin>
+		</plugins>
+		<finalName>${project.artifactId}-${version.full}</finalName>
+	</build>
 </project>

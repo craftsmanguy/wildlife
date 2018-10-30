@@ -2,9 +2,7 @@ package com.ilmani.dream.wildlives.pet.persistence.mapper;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.Set;
 
 import org.apache.commons.beanutils.BeanUtils;
 
@@ -22,7 +20,7 @@ public class PetMapper {
 			BeanUtils.copyProperties(petDto, petEntity);
 			petDto.setInsertionDate(petEntity.getInsertionDate());
 			if (petEntity.getRaceEn() != null) {
-				petDto.setRaceDto(RaceMapper.transformRaceEntityToRaceDto(petEntity.getRaceEn()));
+				petDto.setRace(RaceMapper.transformRaceEntityToRaceDto(petEntity.getRaceEn()));
 			}
 		} catch (IllegalAccessException | InvocationTargetException e) {
 			// TODO log
@@ -30,12 +28,11 @@ public class PetMapper {
 		return petDto;
 	}
 
-	public static List<PetDto> transformListPetEntityToListPetDto(Set<PetEntity> petsEntity) {
-		List<PetDto> petsDto;
+	public static List<PetDto> transformListPetEntityToListPetDto(List<PetEntity> petsEntity) {
+		List<PetDto> petsDto = new ArrayList<PetDto>();
 		if (petsEntity.isEmpty()) {
-			return Collections.emptyList();
+			return petsDto;
 		}
-		petsDto = new ArrayList<PetDto>();
 		for (PetEntity petEnTemp : petsEntity) {
 			PetDto petDtoTemp = transformPetEntityToPetDto(petEnTemp);
 			petsDto.add(petDtoTemp);
@@ -50,8 +47,8 @@ public class PetMapper {
 		}
 		try {
 			BeanUtils.copyProperties(petEntity, petDto);
-			if (petDto.getRaceDto() != null) {
-				petEntity.setRaceEn(RaceMapper.transformRaceDtoToRaceEntity(petDto.getRaceDto()));
+			if (petDto.getRace() != null) {
+				petEntity.setRaceEn(RaceMapper.transformRaceDtoToRaceEntity(petDto.getRace()));
 			}
 		} catch (IllegalAccessException | InvocationTargetException e) {
 			// TODO log

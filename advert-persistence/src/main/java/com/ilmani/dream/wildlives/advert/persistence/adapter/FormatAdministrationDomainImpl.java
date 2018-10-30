@@ -13,24 +13,24 @@ public class FormatAdministrationDomainImpl implements FormatAdministrationDomai
 	FormatFactory formatFact;
 
 	@Override
-	public FormatDto getByIdenfier(FormatDto advert) {
-		return formatFact.getFormatDto(advert, Crud.valueOf("FIND").getAction());
+	public FormatDto getByIdenfier(FormatDto format) {
+		return formatFact.getFormatDto(format, Crud.valueOf("FIND").getAction());
 	}
 
 	@Override
-	public FormatDto save(FormatDto advert) {
-		return formatFact.getFormatDto(advert, Crud.valueOf("SAVE").getAction());
+	public FormatDto save(FormatDto format) {
+		return formatFact.getFormatDto(format, Crud.valueOf("SAVE").getAction());
 	}
 
 	@Override
-	public void delete(FormatDto advert) {
-		formatFact.delete(advert);
+	public void delete(FormatDto format) {
+		formatFact.delete(format);
 
 	}
 
 	@Override
-	public FormatDto update(FormatDto advert) {
-		return formatFact.getFormatDto(advert, Crud.valueOf("UPDATE").getAction());
+	public FormatDto update(FormatDto format) {
+		return formatFact.getFormatDto(format, Crud.valueOf("UPDATE").getAction());
 	}
 
 }

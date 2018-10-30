@@ -53,7 +53,7 @@
 		</dependency>
 		<dependency>
 			<groupId>com.ilmani.dream.wildlives</groupId>
-			<artifactId>advert-manager</artifactId>
+			<artifactId>advert-business</artifactId>
 			<type>ejb</type>
 		</dependency>
 		<dependency>

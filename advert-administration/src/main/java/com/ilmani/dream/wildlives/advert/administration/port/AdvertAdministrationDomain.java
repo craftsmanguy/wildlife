@@ -1,5 +1,7 @@
 package com.ilmani.dream.wildlives.advert.administration.port;
 
+import com.ilmani.dream.wildlives.framework.dto.advert.AdvertDto;
+
 public interface AdvertAdministrationDomain {
 	
 	public AdvertDto getByIdenfier(AdvertDto advert);

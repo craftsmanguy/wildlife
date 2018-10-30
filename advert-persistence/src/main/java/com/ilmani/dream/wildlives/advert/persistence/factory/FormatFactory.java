@@ -1,6 +1,5 @@
 package com.ilmani.dream.wildlives.advert.persistence.factory;
 
-import java.util.List;
 import java.util.Set;
 
 import javax.inject.Inject;
@@ -8,6 +7,7 @@ import javax.inject.Inject;
 import com.ilmani.dream.wildlives.advert.persistence.dao.FormatDao;
 import com.ilmani.dream.wildlives.advert.persistence.entity.FormatEntity;
 import com.ilmani.dream.wildlives.advert.persistence.mapper.FormatMapper;
+import com.ilmani.dream.wildlives.framework.constants.ConstantsCrud;
 import com.ilmani.dream.wildlives.framework.dto.advert.FormatDto;
 
 
@@ -15,10 +15,6 @@ public class FormatFactory {
 	
 	@Inject
 	FormatDao formatDao;
-	
-	private final static String SAVE_RACE = "SAVE";
-	private final static String UPDATE_RACE = "UPDATE";
-	private final static String FIND_RACE = "FIND";
 
 	public FormatDto getFormatDto(FormatDto FormatDto, String action) {
 		FormatEntity formatEn = FormatMapper.transformFormatDtoToFormatEntity(FormatDto);
@@ -26,17 +22,17 @@ public class FormatFactory {
 
 		switch (action) {
 
-		case SAVE_RACE:
+		case ConstantsCrud.SAVE:
 			result = formatDao.insert(formatEn);
-		case UPDATE_RACE:
+		case ConstantsCrud.UPDATE:
 			result = formatDao.update(formatEn);
-		case FIND_RACE:
+		case ConstantsCrud.FIND:
 			result = formatDao.findByUniqueAttributConstraint(formatEn);
 		}
 		return FormatMapper.transformFormatEntityToFormatDto(result);
 	}
 
-	public List<FormatDto> getRacesDto(FormatDto FormatDto) {
+	public Set<FormatDto> getRacesDto(FormatDto FormatDto) {
 		FormatEntity formatEn = FormatMapper.transformFormatDtoToFormatEntity(FormatDto);
 		Set<FormatEntity> result = formatDao.getByAttributes(formatEn);
 		return FormatMapper.transformListFormatEntityToListFormatDto(result);

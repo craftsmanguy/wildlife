@@ -28,7 +28,7 @@ public class PetMapperTest {
 		petEnTest.setRaceEn(raceEntity);
 		PetDto resultDto = PetMapper.transformPetEntityToPetDto(petEnTest);
 		assertEquals(petEnTest.getFunctionalIdentifier(), resultDto.getFunctionalIdentifier());
-		assertEquals(petEnTest.getRaceEn().getCode(), resultDto.getRaceDto().getCode());
+		assertEquals(petEnTest.getRaceEn().getCode(), resultDto.getRace().getCode());
 	}
 
 	@Test

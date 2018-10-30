@@ -18,14 +18,14 @@ public class PetDto {
 
 	private Integer birth;
 
-	private RaceDto raceDto;
+	private RaceDto race;
 
 	public PetDto() {
 		super();
 	}
 
 	public PetDto(String functionalIdentifier, Date insertionDate, String name, String description, boolean isLof,
-			String gender, Integer birth, RaceDto raceDto) {
+			String gender, Integer birth, RaceDto race) {
 		super();
 		this.functionalIdentifier = functionalIdentifier;
 		this.insertionDate = insertionDate;
@@ -34,7 +34,7 @@ public class PetDto {
 		this.isLof = isLof;
 		this.gender = gender;
 		this.birth = birth;
-		this.raceDto = raceDto;
+		this.race = race;
 	}
 
 	public String getFunctionalIdentifier() {
@@ -93,12 +93,12 @@ public class PetDto {
 		this.birth = birth;
 	}
 
-	public RaceDto getRaceDto() {
-		return raceDto;
+	public RaceDto getRace() {
+		return race;
 	}
 
-	public void setRaceDto(RaceDto raceDto) {
-		this.raceDto = raceDto;
+	public void setRace(RaceDto race) {
+		this.race = race;
 	}
 
 	@Override
@@ -112,7 +112,7 @@ public class PetDto {
 		result = prime * result + ((insertionDate == null) ? 0 : insertionDate.hashCode());
 		result = prime * result + (isLof ? 1231 : 1237);
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
-		result = prime * result + ((raceDto == null) ? 0 : raceDto.hashCode());
+		result = prime * result + ((race == null) ? 0 : race.hashCode());
 		return result;
 	}
 
@@ -173,11 +173,11 @@ public class PetDto {
 		} else if (!name.equals(other.name)) {
 			return false;
 		}
-		if (raceDto == null) {
-			if (other.raceDto != null) {
+		if (race == null) {
+			if (other.race != null) {
 				return false;
 			}
-		} else if (!raceDto.equals(other.raceDto)) {
+		} else if (!race.equals(other.race)) {
 			return false;
 		}
 		return true;

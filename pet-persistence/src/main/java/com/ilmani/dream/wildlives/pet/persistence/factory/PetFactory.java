@@ -1,10 +1,10 @@
 package com.ilmani.dream.wildlives.pet.persistence.factory;
 
 import java.util.List;
-import java.util.Set;
 
 import javax.inject.Inject;
 
+import com.ilmani.dream.wildlives.framework.constants.ConstantsCrud;
 import com.ilmani.dream.wildlives.framework.dto.pet.PetDto;
 import com.ilmani.dream.wildlives.pet.persistence.dao.PetDao;
 import com.ilmani.dream.wildlives.pet.persistence.dao.RaceDao;
@@ -19,10 +19,6 @@ public class PetFactory {
 	@Inject
 	RaceDao raceDao;
 	
-	private final static String SAVE_PET = "SAVE";
-	private final static String UPDATE_PET = "UPDATE";
-	private final static String FIND_PET = "FIND";
-
 	public PetDto getPetDto(PetDto petDto, String action) {
 		PetEntity petEn = PetMapper.transformPetDtoToPetEntity(petDto);
 		PetEntity result = new PetEntity();
@@ -30,11 +26,11 @@ public class PetFactory {
 		petEn.setRaceEn(raceDao.findByUniqueAttributConstraint(petEn.getRaceEn()));
 
 		switch (action) {
-		case SAVE_PET:
+		case ConstantsCrud.SAVE:
 			result = petDao.insert(petEn);
-		case UPDATE_PET:
+		case ConstantsCrud.UPDATE:
 			result = petDao.update(petEn);
-		case FIND_PET:
+		case ConstantsCrud.FIND:
 			result = petDao.findByIdentifier(petEn);
 		}
 		
@@ -43,8 +39,8 @@ public class PetFactory {
 
 	public List<PetDto> getPetsDto(PetDto petDto) {
 		PetEntity petEn = PetMapper.transformPetDtoToPetEntity(petDto);
-		Set<PetEntity> result = petDao.getByAttributes(petEn);
-		return PetMapper.transformListPetEntityToListPetDto(result);
+		List<PetEntity> results = petDao.getByAttributes(petEn);
+		return PetMapper.transformListPetEntityToListPetDto(results);
 	}
 
 	public void delete(PetDto petDto) {
