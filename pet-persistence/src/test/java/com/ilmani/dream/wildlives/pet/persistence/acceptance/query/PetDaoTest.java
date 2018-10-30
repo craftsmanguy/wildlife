@@ -68,9 +68,9 @@ public class PetDaoTest extends DataBaseCreationTest {
 		resultToUpdateFromDb.setBirth(updatablePet.getBirth());
 
 		petDao.update(resultToUpdateFromDb);
-		PetEntity resultpdatingFromDb = petDao.findByIdentifier(petToUpdate);
-		assertEquals(updatablePet.getDescription(), resultpdatingFromDb.getDescription());
-		assertTrue(resultpdatingFromDb.isLof());
+		PetEntity resultUpdatingFromDb = petDao.findByIdentifier(petToUpdate);
+		assertEquals(updatablePet.getDescription(), resultUpdatingFromDb.getDescription());
+		assertTrue(resultUpdatingFromDb.isLof());
 	}
 
 	@Test

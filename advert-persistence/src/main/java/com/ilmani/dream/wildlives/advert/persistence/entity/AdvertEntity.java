@@ -1,13 +1,22 @@
 package com.ilmani.dream.wildlives.advert.persistence.entity;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
 
+@Entity
+@Table(name = "advert")
 public class AdvertEntity {
-	
+
 	@Id
 	@Column(columnDefinition = "uuid", name = "id", updatable = false, nullable = false)
 	private UUID id;
@@ -17,38 +26,51 @@ public class AdvertEntity {
 
 	@Column(name = "insertion_date", updatable = false)
 	private Date insertionDate;
-	
+
 	@Column(name = "start_date")
 	private Date startDate;
-	
+
 	@Column(name = "end_date")
 	private Date endDate;
 
-	@Column(name = "is_active")
-	private boolean isActive;
 
 	@Column(name = "title")
 	private String title;
-	
+
 	@Column(name = "description")
 	private String description;
 
 	@Column(name = "state")
 	private String state;
-	
-	public AdvertEntity(){
+
+	@ManyToMany
+	@JoinTable(name = "advert_join_format", joinColumns = { @JoinColumn(name = "advert_id") }, inverseJoinColumns = {
+			@JoinColumn(name = "format_id") })
+	private Set<FormatEntity> formats = new HashSet<FormatEntity>();
+
+	public AdvertEntity() {
 		super();
+	}
+	
+	public AdvertEntity(String functionalIdentifier, Date startDate, Date endDate,
+			 String title, String description, String state) {
+		super();
+		this.functionalIdentifier = functionalIdentifier;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.title = title;
+		this.description = description;
+		this.state = state;
 	}
 
 	public AdvertEntity(UUID id, String functionalIdentifier, Date insertionDate, Date startDate, Date endDate,
-			boolean isActive, String title, String description, String state) {
+			 String title, String description, String state) {
 		super();
 		this.id = id;
 		this.functionalIdentifier = functionalIdentifier;
 		this.insertionDate = insertionDate;
 		this.startDate = startDate;
 		this.endDate = endDate;
-		this.isActive = isActive;
 		this.title = title;
 		this.description = description;
 		this.state = state;
@@ -90,14 +112,6 @@ public class AdvertEntity {
 		this.endDate = endDate;
 	}
 
-	public boolean isActive() {
-		return isActive;
-	}
-
-	public void setActive(boolean isActive) {
-		this.isActive = isActive;
-	}
-
 	public String getTitle() {
 		return title;
 	}
@@ -121,7 +135,13 @@ public class AdvertEntity {
 	public void setState(String state) {
 		this.state = state;
 	}
-	
-	
+
+	public Set<FormatEntity> getFormats() {
+		return formats;
+	}
+
+	public void setFormats(Set<FormatEntity> formats) {
+		this.formats = formats;
+	}
 
 }
