@@ -29,7 +29,7 @@
 				type="VARCHAR(350)">
 			</column>
 			<column name="CODE" remarks="Code technique"
-				type="VARCHAR(20)">
+				type="VARCHAR(41)">
 				<constraints unique="true" nullable="false" />
 			</column>
 			
@@ -54,10 +54,7 @@
         	<column name="SPECIE"/>
         	<column name="CLAN"/>
     	</createIndex>
-		
-		<comment>Init data (race)</comment>	
-		<sqlFile dbms="postgresql, mysql, oracle" encoding="utf8" path="Init_data_race_1.sql" relativeToChangelogFile="true" />
-		
+				
 		<createTable tableName="PET">
         	<column name="ID" type="${uuid_type}">
 				<constraints nullable="false" primaryKey="true"/>
@@ -107,11 +104,7 @@
 			</column>
 		</createTable>
 		<addUniqueConstraint columnNames="NAME, FEATURE" constraintName="UC_FORMAT_NAME_FEATURE" tableName="FORMAT" />
-		
-		<comment>Init data (format)</comment>	
-		<sqlFile dbms="h2" encoding="utf8" path="Init_data_format_1.sql" relativeToChangelogFile="true" />
-		
-		
+				
 		<createTable tableName="ADVERT">
 			<column name="ID" type="${uuid_type}" remarks="ID de la demande ou de l'offre">
 				<constraints nullable="false" primaryKey="true"/>

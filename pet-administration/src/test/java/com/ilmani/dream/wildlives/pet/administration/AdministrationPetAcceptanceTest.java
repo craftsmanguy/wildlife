@@ -6,7 +6,7 @@ import cucumber.api.CucumberOptions;
 import cucumber.api.junit.Cucumber;
 
 @RunWith(Cucumber.class)
-@CucumberOptions(plugin = { "pretty", "html:FeatureSpecieReport" }, features = { "src/test/resources/steps_definitions" })
+@CucumberOptions(plugin = { "pretty", "html:featureRaceReport" }, features = { "src/test/resources/steps_definitions" })
 public class AdministrationPetAcceptanceTest {
 
 }

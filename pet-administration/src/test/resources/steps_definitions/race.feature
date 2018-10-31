@@ -1,37 +1,40 @@
 Feature: Race
- 	- Gerer les differents espèces du site
-  Un administrateur veut insérer une nouvelles race pour qu'elle soit visible par tous les utilisateurs.
+ 	- Manage different animal breeds of the site
+  An administrator wants to insert a new race so that it is visible to all users.
 
   Background:
-    Given des espèces animales existent:
-      | name             | scientistName | code   | specie  | type      | isActive |
-      | AFFENPINSCHER    |               | AFFEN  | CHIEN   | MAMMIFERE | true     |
-      | AIREDALE_TERRIER |               | AI_TE  | CHIEN   | MAMMIFERE | false    |
-      | AKITA_AMERICAIN  |               | AK_AM  | CHIEN   | MAMMIFERE | true     |
+    Given animal breeds exist:
+      | name             | scientistName | code       | specie  | clan     | isActive |
+      | AFFENPINSCHER    |               | AFFEN_DOG  | DOG     | MAMMALIA | true     |
+      | AIREDALE_TERRIER |               | AI_TE_DOG  | DOG     | MAMMALIA | false    |
+      | AKITA_AMERICAIN  |               | AK_AM_DOG  | DOG     | MAMMALIA | true     |
 
 
-  Scenario Outline: insertion d'une nouvelle race possible
-    Given je suis authentifié en tant que administrateur
-    And j'ai les drois d'insertion d'une race animale
-    When je tente d'insérer une nouvelle race "<AKITA_INU>"
-    Then l'insertion est possible
-    And la liste d'animaux augmente
+  Scenario Outline: insertion of a new race possible
+    Given I am authenticated as an administrator
+    And I have the insertion rights of an animal race
+    When I am trying to insert a new breed "<AKITA_INU>"
+    Then insertion is possible
+    And list of animals increases
+    And last insertion is not active
+    And code is hashe
+    And following fields (name, code, specie, clan) are in upper case
     Examples:
-      | name             | scientistName | code   | specie  | type      | isActive |
-      | AFFENPINSCHER    |               | AFFEN  | CHIEN   | MAMMIFERE | true     |
-      | AIREDALE_TERRIER |               | AI_TE  | CHIEN   | MAMMIFERE | false    |
-      | AKITA_AMERICAIN  |               | AK_AM  | CHIEN   | MAMMIFERE | true     |
-      | AKITA_INU        |               | AI_IN  | CHIEN   | MAMMIFERE | true     |
+      | name             | scientistName | code       | specie  | clan     | isActive |
+      | AFFENPINSCHER    |               | AFFEN_DOG  | DOG     | MAMMALIA | true     |
+      | AIREDALE_TERRIER |               | AI_TE_DOG  | DOG     | MAMMALIA | false    |
+      | AKITA_AMERICAIN  |               | AK_AM_DOG  | DOG     | MAMMALIA | true     |
+      | AKITA_INU        |               | AI_IN_DOG  | DOG     | MAMMALIA | false    |
 
-  Scenario Outline: insertion d'une nouvelle race impossible
-    Given je suis authentifié en tant que administrateur
-    And j'ai les drois d'insertion d'une race animale
-    When je tente d'insérer une race "<AFFENPINSCHER>" qui existe déjà
-    Then l'insertion n'est pas possible
-    And et une alerte pour race déjà existante se lève
-    And la liste d'animaux augmente reste la même
+  Scenario Outline: insertion of a new race impossible
+    Given jI am authenticated as an administrator
+    And I have the insertion rights of an animal race
+    When I am trying to insert a breed "<AFFENPINSCHER>" which already exists
+    Then insertion is not possible
+    And and an existing breed alert is coming up
+    And the list of animals increases remains the same
     Examples:
-      | name             | scientistName | code   | specie  | type      | isActive |
-      | AFFENPINSCHER    |               | AFFEN  | CHIEN   | MAMMIFERE | true     |
-      | AIREDALE_TERRIER |               | AI_TE  | CHIEN   | MAMMIFERE | false    |
-      | AKITA_AMERICAIN  |               | AK_AM  | CHIEN   | MAMMIFERE | true     |
+      | name             | scientistName | code       | specie  | clan     | isActive |
+      | AFFENPINSCHER    |               | AFFEN_DOG  | DOG     | MAMMALIA | true     |
+      | AIREDALE_TERRIER |               | AI_TE_DOG  | DOG     | MAMMALIA | false    |
+      | AKITA_AMERICAIN  |               | AK_AM_DOG  | DOG     | MAMMALIA | true     |

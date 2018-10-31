@@ -2,6 +2,7 @@
 .project
 .settings/
 target/
+feature*Report/
 Feature*Report/
 wildlife-ear/src/main/application/META-INF/application.xml
 pet-administration/*/*.js
