@@ -7,7 +7,7 @@
   </parent>
   <artifactId>user-administration</artifactId>
   <packaging>ejb</packaging>
-  <name>User Administration</name>
+  <name>User Administration Manager</name>
   
   <dependencies>
 		<dependency>

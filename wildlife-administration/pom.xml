@@ -8,7 +8,7 @@
 	</parent>
 	<artifactId>wildlife-administration</artifactId>
 	<packaging>war</packaging>
-	<name>Wildlife Administration</name>
+	<name>Wildlife Administration Api</name>
 
 	<dependencies>
 		<dependency>

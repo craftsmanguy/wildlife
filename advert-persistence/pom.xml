@@ -7,7 +7,7 @@
 		<version>1.0.0-SNAPSHOT</version>
 	</parent>
 	<artifactId>advert-persistence</artifactId>
-	<name>ADVERT-PERSISTENCE</name>
+	<name>Advert Persistence</name>
 	<description>Jar to persist advert</description>
 
 	<dependencies>
@@ -64,11 +64,6 @@
 
 	<build>
 		<plugins>
-			<plugin>
-				<!-- Use for parallele test unit -->
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-surefire-plugin</artifactId>
-			</plugin>
 			<plugin>
 				<artifactId>maven-jar-plugin</artifactId>
 			</plugin>

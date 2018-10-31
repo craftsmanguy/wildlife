@@ -7,7 +7,7 @@
 		<version>1.0.0-SNAPSHOT</version>
 	</parent>
 	<artifactId>pet-administration</artifactId>
-	<name>Pet Administration</name>
+	<name>Pet Administration Manager</name>
 	<packaging>ejb</packaging>
 
 	<dependencies>

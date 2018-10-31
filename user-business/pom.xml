@@ -8,7 +8,7 @@
 	</parent>
 	<artifactId>user-business</artifactId>
 	<packaging>ejb</packaging>
-	<name>User Manager</name>
+	<name>User Business Manager</name>
 	<description>Manage users</description>
 
 	<dependencies>

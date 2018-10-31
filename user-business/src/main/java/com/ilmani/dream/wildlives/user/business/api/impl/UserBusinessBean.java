@@ -4,10 +4,10 @@ import javax.ejb.Stateless;
 import javax.ejb.TransactionManagement;
 import javax.ejb.TransactionManagementType;
 
-import com.ilmani.dream.wildlives.user.business.api.UserAdministrationLocal;
+import com.ilmani.dream.wildlives.user.business.api.UserBusinessLocal;
 
 @Stateless(name = "UserBusinessBean")
 @TransactionManagement(TransactionManagementType.BEAN)
-public class UserBusinessBean implements UserAdministrationLocal {
+public class UserBusinessBean implements UserBusinessLocal {
 
 }

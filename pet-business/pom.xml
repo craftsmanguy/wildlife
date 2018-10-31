@@ -8,7 +8,7 @@
 	</parent>
 	<artifactId>pet-business</artifactId>
 	<packaging>ejb</packaging>
-	<name>Pet Business</name>
+	<name>Pet Business Manager</name>
 	<description>Manage Pet</description>
 
 	<dependencies>

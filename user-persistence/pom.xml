@@ -6,5 +6,5 @@
     <version>1.0.0-SNAPSHOT</version>
   </parent>
   <artifactId>user-persistence</artifactId>
-  <name>USER PERSISTENCE</name>
+  <name>User Persistence</name>
 </project>

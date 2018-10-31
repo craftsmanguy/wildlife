@@ -8,7 +8,7 @@
 	</parent>
 	<artifactId>advert-administration</artifactId>
 	<packaging>ejb</packaging>
-	<name>ADVERT ADMINISTRATION</name>
+	<name>Advert Administration Manager</name>
 
 	<dependencies>
 		<dependency>
