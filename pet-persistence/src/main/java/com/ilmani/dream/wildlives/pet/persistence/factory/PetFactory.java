@@ -28,10 +28,13 @@ public class PetFactory {
 		switch (action) {
 		case ConstantsCrud.SAVE:
 			result = petDao.insert(petEn);
+			break;
 		case ConstantsCrud.UPDATE:
 			result = petDao.update(petEn);
+			break;
 		case ConstantsCrud.FIND:
 			result = petDao.findByIdentifier(petEn);
+			break;
 		}
 		
 		return PetMapper.transformPetEntityToPetDto(result);

@@ -32,10 +32,13 @@ public class AdvertFactory {
 		switch (action) {
 		case ConstantsCrud.SAVE:
 			result = advertDao.insert(advertEn);
+			break;
 		case ConstantsCrud.UPDATE:
 			result = advertDao.update(advertEn);
+			break;
 		case ConstantsCrud.FIND:
 			result = advertDao.findByIdentifier(advertEn);
+			break;
 		}
 		
 		return AdvertMapper.transformAdvertEntityToAdvertDto(result);

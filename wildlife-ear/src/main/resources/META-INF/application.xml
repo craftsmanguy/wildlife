@@ -36,5 +36,9 @@
 	<module>
 		<ejb>user-administration-${project.version}.jar</ejb>
 	</module>
+	<module>
+		<ejb>security-manager-${project.version}.jar</ejb>
+	</module>
+	
 	<library-directory>lib</library-directory>
 </application>

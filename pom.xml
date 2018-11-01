@@ -33,10 +33,11 @@
 		<module>advert-business</module>
 		<module>user-business</module>
 		<module>pet-business</module>
-		
+
 		<!-- WAR -->
 		<module>wildlife-administration</module>
 		<module>wildlife-business</module>
+		<module>security-manager</module>
 	</modules>
 
 	<dependencyManagement>
@@ -124,8 +125,8 @@
 				<artifactId>user-persistence</artifactId>
 				<version>${project.version}</version>
 			</dependency>
-			
-			<!--  manager -->
+
+			<!-- manager -->
 			<dependency>
 				<groupId>com.ilmani.dream.wildlives</groupId>
 				<artifactId>advert-business</artifactId>
@@ -144,7 +145,7 @@
 				<type>ejb</type>
 				<version>${project.version}</version>
 			</dependency>
-			
+
 			<!-- administration -->
 			<dependency>
 				<groupId>com.ilmani.dream.wildlives</groupId>
@@ -164,7 +165,14 @@
 				<type>ejb</type>
 				<version>${project.version}</version>
 			</dependency>
-			
+			<dependency>
+				<groupId>com.ilmani.dream.wildlives</groupId>
+				<artifactId>security-manager</artifactId>
+				<type>ejb</type>
+				<version>${project.version}</version>
+			</dependency>
+
+
 			<!-- api -->
 			<dependency>
 				<groupId>com.ilmani.dream.wildlives</groupId>
@@ -191,7 +199,17 @@
 				<artifactId>commons-beanutils</artifactId>
 				<version>1.9.3</version>
 			</dependency>
-
+			<dependency>
+				<groupId>io.jsonwebtoken</groupId>
+				<artifactId>jjwt</artifactId>
+				<version>0.6.0</version>
+			</dependency>
+			<dependency>
+				<groupId>org.jboss.resteasy</groupId>
+				<artifactId>resteasy-jaxrs</artifactId>
+				<version>2.3.2.Final</version>
+				<scope>provided</scope>
+			</dependency>
 
 		</dependencies>
 	</dependencyManagement>

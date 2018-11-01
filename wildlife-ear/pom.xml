@@ -48,6 +48,12 @@
 			<artifactId>user-administration</artifactId>
 			<type>ejb</type>
 		</dependency>
+		<dependency>
+			<groupId>com.ilmani.dream.wildlives</groupId>
+			<artifactId>security-manager</artifactId>
+			<type>ejb</type>
+		</dependency>
+		
 		
 		<!-- manager -->
 		<dependency>
@@ -139,6 +145,11 @@
 							<groupId>com.ilmani.dream.wildlives</groupId>
 							<artifactId>user-business</artifactId>
 						</ejbModule>
+						<ejbModule>
+							<groupId>com.ilmani.dream.wildlives</groupId>
+							<artifactId>security-manager</artifactId>
+						</ejbModule>
+						
 						
 						<webModule>
 							<groupId>com.ilmani.dream.wildlives</groupId>

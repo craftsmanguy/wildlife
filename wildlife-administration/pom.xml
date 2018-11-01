@@ -30,6 +30,15 @@
 			<artifactId>user-administration</artifactId>
 			<type>ejb</type>
 		</dependency>
+		<dependency>
+			<groupId>com.ilmani.dream.wildlives</groupId>
+			<artifactId>security-manager</artifactId>
+			<type>ejb</type>
+		</dependency>
+		<dependency>
+			<groupId>org.jboss.resteasy</groupId>
+			<artifactId>resteasy-jaxrs</artifactId>
+		</dependency>
 	</dependencies>
 
 	<build>

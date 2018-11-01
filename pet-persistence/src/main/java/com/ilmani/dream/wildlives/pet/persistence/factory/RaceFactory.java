@@ -23,10 +23,13 @@ public class RaceFactory {
 
 		case ConstantsCrud.SAVE:
 			result = raceDao.insert(raceEn);
+			break;
 		case ConstantsCrud.UPDATE:
 			result = raceDao.update(raceEn);
+			break;
 		case ConstantsCrud.FIND:
 			result = raceDao.findByUniqueAttributConstraint(raceEn);
+			break;
 		}
 		return RaceMapper.transformRaceEntityToRaceDto(result);
 	}

@@ -24,10 +24,13 @@ public class FormatFactory {
 
 		case ConstantsCrud.SAVE:
 			result = formatDao.insert(formatEn);
+			break;
 		case ConstantsCrud.UPDATE:
 			result = formatDao.update(formatEn);
+			break;
 		case ConstantsCrud.FIND:
 			result = formatDao.findByUniqueAttributConstraint(formatEn);
+			break;
 		}
 		return FormatMapper.transformFormatEntityToFormatDto(result);
 	}
