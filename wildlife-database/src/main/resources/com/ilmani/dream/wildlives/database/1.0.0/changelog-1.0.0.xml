@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" 
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog 
+    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd 
+    http://www.liquibase.org/xml/ns/dbchangelog-ext 
+    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd"
+    logicalFilePath="changelog-1.0.0.xml">
+
+    <!-- Changeset list corresponds to a reverse generation from database version 1.0.0 -->
+    
+    <changeSet author="LOKO" id="1">
+    	<createSequence catalogName="GENERIQUE"
+            minValue="1" incrementBy="1" sequenceName="RACE_SEQ_ID" startValue="1" ordered="true" cycle="true"/>
+    </changeSet>
+    
+    <changeSet author="LOKO" id="2" labels="structure">
+		<createTable tableName="RACE" schemaName="public">
+			<column name="ID" type="SMALLINT">
+				<constraints nullable="false" primaryKey="true"/>
+			</column>
+
+			<column name="NAME" remarks="Les races d'animaux."
+				type="VARCHAR(100)" >
+				<constraints nullable="false" />
+			</column>
+			<column name="SCIENTIST_NAME" remarks="Nom scientifique"
+				type="VARCHAR(350)">
+			</column>
+			<column name="CODE" remarks="Code technique"
+				type="VARCHAR(41)">
+				<constraints unique="true" nullable="false" />
+			</column>
+			
+			<column name="SPECIE" remarks="Les espèces d'animaux."
+				type="VARCHAR(100)" >
+				<constraints nullable="false" />
+			</column>
+			<column name="CLAN" remarks="Les types d'animaux."
+				type="VARCHAR(100)" >
+				<constraints nullable="false" />
+			</column>
+			<column name="IS_ACTIVE" remarks="Activer ou non la visibilité."
+				type="BOOLEAN" >
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+		
+		<addUniqueConstraint columnNames="NAME, SPECIE, CLAN" constraintName="UC_RACE_NAME_SPECIE_CLAN" tableName="RACE" />
+				
+		<createIndex indexName="IDX_RACE_NAME_SPECIE_CLAN" tableName="RACE" unique="true">
+        	<column name="NAME"/>
+        	<column name="SPECIE"/>
+        	<column name="CLAN"/>
+    	</createIndex>
+				
+		<createTable tableName="PET">
+        	<column name="ID" type="${uuid_type}">
+				<constraints nullable="false" primaryKey="true"/>
+			</column>
+            <column name="FUNCTIONAL_ID" type="VARCHAR(1250)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="NAME" remarks="Nom de l'animal." type="VARCHAR(100)"/>
+            <column name="GENDER" remarks="Sexe de l'animal" type="VARCHAR(12)"/>
+            <column name="BIRTH" remarks="Année de naissance de l'animal" type="SMALLINT"/>
+            <column name="IS_LOF" remarks="Race certifié ou pas." type="BOOLEAN">
+                <constraints nullable="false" />
+            </column>
+            <column name="DESCRIPTION" remarks="Description de l'animal." type="TEXT"/>
+            <column defaultValueDate="now()" name="INSERTION_DATE" remarks="Date d'Inscription" type="timestamp with time zone">
+                <constraints nullable="false" />
+            </column>
+            <column name="RACE_ID" remarks="ID de l'espèce" type="SMALLINT">
+				<constraints nullable="false" />
+			</column>
+        </createTable>
+        <addForeignKeyConstraint constraintName="FK_PET_RACE_ID"
+			referencedTableName="RACE" referencedColumnNames="ID"
+			baseTableName="PET" baseColumnNames="RACE_ID"
+			deferrable="false" initiallyDeferred="false" onDelete="RESTRICT"
+			onUpdate="RESTRICT" />
+	</changeSet>
+	
+	<changeSet author="LOKO" id="3" labels="structure">
+        <createTable tableName="FORMAT">
+			<column name="ID" type="SMALLINT">
+				<constraints nullable="false" primaryKey="true"/>
+			</column>
+			<column name="NAME" remarks="Les formats de prestations"
+				type="VARCHAR(50)" />
+				<column name="CODE" remarks="Code technique"
+				type="VARCHAR(20)">
+				<constraints unique="true" nullable="false" />
+			</column>
+			<column name="FEATURE" remarks="Nom de la prestation"
+				type="VARCHAR(150)">
+				<constraints nullable="false" />
+			</column>
+			<column name="IS_ACTIVE" remarks="Activer ou non la visibilité."
+				type="BOOLEAN" >
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+		<addUniqueConstraint columnNames="NAME, FEATURE" constraintName="UC_FORMAT_NAME_FEATURE" tableName="FORMAT" />
+				
+		<createTable tableName="ADVERT">
+			<column name="ID" type="${uuid_type}" remarks="ID de la demande ou de l'offre">
+				<constraints nullable="false" primaryKey="true"/>
+			</column>
+			<column name="FUNCTIONAL_ID" type="VARCHAR(1250)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+			<column defaultValueDate="now()" name="INSERTION_DATE" remarks="Date d'Inscription" type="timestamp with time zone">
+                <constraints nullable="false" />
+            </column>
+			<column name="START_DATE" remarks="Début de l'annonce" type="timestamp with time zone">
+				<constraints nullable="false" />
+			</column>
+			<column name="END_DATE" remarks="Fin de l'annonce" type="timestamp with time zone">
+				<constraints nullable="false" />
+			</column>
+
+			<column name="TITLE" remarks="Intitulé de l'annonce ou de l'offre."
+				type="VARCHAR(200)">
+			</column>
+			<column name="DESCRIPTION" remarks="Description de l'annonce."
+				type="TEXT">
+			</column>
+			<column name="STATE" remarks="Statut process de l'annonce."
+				type="VARCHAR(30)">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+		
+		<createTable tableName="ADVERT_JOIN_FORMAT">
+			<column name="ADVERT_ID" remarks="ID du format de prestation" type="${uuid_type}">
+				<constraints nullable="false" />
+			</column>
+			<column name="FORMAT_ID" remarks="ID de la demande ou de l'offre" type="SMALLINT">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+		
+		<addUniqueConstraint
+			columnNames="ADVERT_ID, FORMAT_ID"
+			constraintName="UC_ADVERT_ID_FORMAT_ID" tableName="ADVERT_JOIN_FORMAT" />
+		<addForeignKeyConstraint constraintName="FK_ADVERT_JOIN_FORMAT_ADVERT_ID"
+			referencedTableName="ADVERT" referencedColumnNames="ID"
+			baseTableName="ADVERT_JOIN_FORMAT" baseColumnNames="ADVERT_ID" />
+		<addForeignKeyConstraint constraintName="FK_ADVERT_JOIN_FORMAT_FORMAT_ID"
+			referencedTableName="FORMAT" referencedColumnNames="ID"
+			baseTableName="ADVERT_JOIN_FORMAT" baseColumnNames="FORMAT_ID" />
+    </changeSet>
+
+</databaseChangeLog>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<application xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://java.sun.com/xml/ns/javaee"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/application_6.xsd"
+	version="6">
+	<display-name>wildlife-ear</display-name>
+
+	<module>
+		<web>
+			<web-uri>wildlife-administration-${project.version}.war</web-uri>
+			<context-root>/administration</context-root>
+		</web>
+	</module>
+	<module>
+		<web>
+			<web-uri>wildlife-business-${project.version}.war</web-uri>
+			<context-root>/business</context-root>
+		</web>
+	</module>
+
+	<module>
+		<ejb>advert-business-${project.version}.jar</ejb>
+	</module>
+	<module>
+		<ejb>pet-business-${project.version}.jar</ejb>
+	</module>
+	<module>
+		<ejb>user-business-${project.version}.jar</ejb>
+	</module>
+	<module>
+		<ejb>advert-administration-${project.version}.jar</ejb>
+	</module>
+	<module>
+		<ejb>pet-administration-${project.version}.jar</ejb>
+	</module>
+	<module>
+		<ejb>user-administration-${project.version}.jar</ejb>
+	</module>
+	<module>
+		<ejb>security-manager-${project.version}.jar</ejb>
+	</module>
+	
+	<library-directory>lib</library-directory>
+</application>
