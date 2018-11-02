@@ -92,6 +92,7 @@ public class AdvertAdministrationManager implements AdvertAdministrationLocal {
 		return null;
 	}
 
+	
 	@Override
 	public void deleteFormat(String code) throws EntityNotFoundException, RestClientException {
 		// TODO Auto-generated method stub
