@@ -3,6 +3,9 @@ package com.ilmani.dream.wildlives.advert.administration.acceptance;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.transaction.UserTransaction;
 
 import org.junit.Test;
@@ -15,6 +18,7 @@ import org.powermock.modules.junit4.PowerMockRunner;
 import com.ilmani.dream.wildlives.advert.administration.api.impl.AdvertAdministrationManager;
 import com.ilmani.dream.wildlives.advert.administration.facade.AdvertAdministrationFacade;
 import com.ilmani.dream.wildlives.framework.dto.advert.FormatDto;
+import com.ilmani.dream.wildlives.framework.exceptions.EntityNotFoundException;
 import com.ilmani.dream.wildlives.framework.exceptions.RequiredFieldException;
 
 @RunWith(PowerMockRunner.class)
@@ -49,6 +53,14 @@ public class CrudFormatTest {
 	public void exceptionBecauseFormatTypeIsWrong() throws Exception {
 		FormatDto formatToInsert = new FormatDto("wrong_type*", "", "pet care", true);
 		advertMngr.saveFormat(formatToInsert);
+	}
+	
+	@Test(expected = EntityNotFoundException.class)
+	public void iHaveNoFormatBySearchMultipleCriterias() throws Exception {
+		FormatDto formatSearch = new FormatDto("REQUEST", "", "pet care", true);
+		Set<FormatDto> results = new HashSet<>();
+		when(advertFacade.searchFormats(formatSearch)).thenReturn(results);
+		advertMngr.searchFormats(new FormatDto());
 	}
 
 }

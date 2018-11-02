@@ -26,7 +26,7 @@ public class AdvertFactory {
 		AdvertEntity result = new AdvertEntity();
 		
 		for (FormatEntity formatEnTemp : advertEn.getFormatsEn()){
-			advertEn.getFormatsEn().add(formatDao.findByUniqueAttributConstraint(formatEnTemp));
+			advertEn.getFormatsEn().add(formatDao.findByCode(formatEnTemp.getCode()));
 		}
 		
 		switch (action) {

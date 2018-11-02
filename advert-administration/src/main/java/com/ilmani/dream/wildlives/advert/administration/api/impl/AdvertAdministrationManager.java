@@ -2,6 +2,8 @@ package com.ilmani.dream.wildlives.advert.administration.api.impl;
 
 import static javax.ws.rs.core.Response.Status.BAD_REQUEST;
 import static javax.ws.rs.core.Response.Status.CONFLICT;
+import static javax.ws.rs.core.Response.Status.NOT_FOUND;
+import static javax.ws.rs.core.Response.Status.NO_CONTENT;
 import static javax.ws.rs.core.Response.Status.UNAUTHORIZED;
 
 import java.security.NoSuchAlgorithmException;
@@ -82,14 +84,20 @@ public class AdvertAdministrationManager implements AdvertAdministrationLocal {
 
 	@Override
 	public FormatDto findFormatByCode(String code) throws EntityNotFoundException {
-		// TODO Auto-generated method stub
-		return null;
+		FormatDto formatFromDb = advertFacade.findFormatByCode(code);
+		if (formatFromDb != null && formatFromDb.getName() != null) {
+			throw new EntityNotFoundException(NOT_FOUND, ErrorEntity.ErrorKey.RESOURCE_NOT_FOUND.getValue());
+		}
+		return formatFromDb;
 	}
 
 	@Override
 	public Set<FormatDto> searchFormats(FormatDto format) throws EntityNotFoundException {
-		// TODO Auto-generated method stub
-		return null;
+		Set<FormatDto> results = advertFacade.searchFormats(format);
+		if (results.isEmpty()) {
+			throw new EntityNotFoundException(NO_CONTENT, ErrorEntity.ErrorKey.RESOURCE_NOT_FOUND.getValue());
+		}
+		return results;
 	}
 
 	@Override
@@ -121,7 +129,7 @@ public class AdvertAdministrationManager implements AdvertAdministrationLocal {
 			throw new RestClientException();
 		}
 	}
-	
+
 	private void closeTransaction(UserTransaction utx) throws RestClientException {
 		try {
 			if (utx.getStatus() == Status.STATUS_ACTIVE) {

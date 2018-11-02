@@ -61,5 +61,12 @@ public class FormatMapper {
 		}
 		return formatsEn;
 	}
+	
+	public static void copyNewFormatEntityToOldFormatEntity(FormatEntity formatToUpdate, FormatEntity newFormat) {
+		formatToUpdate.setName(newFormat.getName());
+		formatToUpdate.setCode(newFormat.getCode());
+		formatToUpdate.setFeature(newFormat.getFeature());
+		formatToUpdate.setActive(newFormat.isActive());
+	}
 
 }

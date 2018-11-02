@@ -25,5 +25,4 @@ public interface AdvertAdministrationLocal {
 	
 	public void deleteFormat(String code) throws EntityNotFoundException, RestClientException;
 
-
 }
