@@ -22,6 +22,11 @@ public class PetAdministrationProvider {
 			throws RequiredFieldException, EntityAlreadyExistException, RestClientException {
 		return petMngt.saveRace(race);
 	}
+	
+	public RaceDto updateRace(RaceDto race, String codeToUpdate)
+			throws RequiredFieldException, EntityNotFoundException, RestClientException{
+		return petMngt.updateRace(race, codeToUpdate);
+	}
 
 	public RaceDto findRaceByCode(String code) throws EntityNotFoundException {
 		return petMngt.findRaceByCode(code);
@@ -29,6 +34,10 @@ public class PetAdministrationProvider {
 
 	public Set<RaceDto> searchRaces(RaceDto race) throws EntityNotFoundException {
 		return petMngt.searchRaces(race);
+	}
+	
+	public void deleteRace(String code) throws EntityNotFoundException, RestClientException{
+		petMngt.deleteRace(code);
 	}
 
 }

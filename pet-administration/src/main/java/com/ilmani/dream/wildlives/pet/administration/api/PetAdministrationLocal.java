@@ -15,9 +15,14 @@ public interface PetAdministrationLocal {
 
 	public RaceDto saveRace(RaceDto race)
 			throws RequiredFieldException, EntityAlreadyExistException, RestClientException;
+	
+	public RaceDto updateRace(RaceDto race, String codeToUpdate)
+			throws RequiredFieldException, EntityNotFoundException, RestClientException;
 
 	public RaceDto findRaceByCode(String code) throws EntityNotFoundException;
 	
 	public Set<RaceDto> searchRaces(RaceDto race) throws EntityNotFoundException;
+	
+	public void deleteRace(String code) throws EntityNotFoundException, RestClientException;
 
 }

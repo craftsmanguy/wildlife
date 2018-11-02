@@ -2,6 +2,7 @@ package com.ilmani.dream.wildlives.pet.administration.api.impl;
 
 import static javax.ws.rs.core.Response.Status.BAD_REQUEST;
 import static javax.ws.rs.core.Response.Status.CONFLICT;
+import static javax.ws.rs.core.Response.Status.NOT_FOUND;
 import static javax.ws.rs.core.Response.Status.NO_CONTENT;
 
 import java.security.NoSuchAlgorithmException;
@@ -12,7 +13,6 @@ import javax.ejb.Stateless;
 import javax.ejb.TransactionManagement;
 import javax.ejb.TransactionManagementType;
 import javax.inject.Inject;
-import javax.persistence.NoResultException;
 import javax.transaction.NotSupportedException;
 import javax.transaction.Status;
 import javax.transaction.SystemException;
@@ -26,14 +26,14 @@ import com.ilmani.dream.wildlives.framework.exceptions.RequiredFieldException;
 import com.ilmani.dream.wildlives.framework.exceptions.RestClientException;
 import com.ilmani.dream.wildlives.framework.helper.TransformationHelper;
 import com.ilmani.dream.wildlives.pet.administration.api.PetAdministrationLocal;
-import com.ilmani.dream.wildlives.pet.administration.facade.PetAministrationFacade;
+import com.ilmani.dream.wildlives.pet.administration.facade.PetAdministrationFacade;
 
 @Stateless(name = "PetAdministrationManager")
 @TransactionManagement(TransactionManagementType.BEAN)
 public class PetAdministrationManager implements PetAdministrationLocal {
 
 	@Inject
-	private PetAministrationFacade petFacade;
+	private PetAdministrationFacade petFacade;
 
 	@Inject
 	@Resource
@@ -42,7 +42,7 @@ public class PetAdministrationManager implements PetAdministrationLocal {
 	public RaceDto findRaceByCode(String code) throws EntityNotFoundException {
 		RaceDto raceFromDb = petFacade.findRaceByCode(code);
 		if (raceFromDb != null && raceFromDb.getName() != null) {
-			throw new EntityNotFoundException(NO_CONTENT, ErrorEntity.ErrorKey.RESOURCE_NOT_FOUND.getValue());
+			throw new EntityNotFoundException(NOT_FOUND, ErrorEntity.ErrorKey.RESOURCE_NOT_FOUND.getValue());
 		}
 		return raceFromDb;
 	}
@@ -59,14 +59,14 @@ public class PetAdministrationManager implements PetAdministrationLocal {
 		getSha1FromCodeField(race);
 		race.setActive(false);
 
+		boolean ifRaceExists = petFacade.isRaceExists(race.getCode());
+		if (ifRaceExists) {
+			throw new EntityAlreadyExistException(CONFLICT, ErrorEntity.ErrorKey.RESOURCE_ALREADY_EXIST.getValue());
+		}
+
 		try {
 			utx.begin();
-			boolean ifRaceExists = petFacade.isRaceExists(race.getCode());
-			if (ifRaceExists) {
-				throw new EntityAlreadyExistException(CONFLICT, ErrorEntity.ErrorKey.RESOURCE_ALREADY_EXIST.getValue());
-			}
 			result = petFacade.saveRace(race);
-
 		} catch (NotSupportedException | SystemException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -79,12 +79,60 @@ public class PetAdministrationManager implements PetAdministrationLocal {
 
 	@Override
 	public Set<RaceDto> searchRaces(RaceDto race) throws EntityNotFoundException {
-		try {
-			return petFacade.searchRaces(race);
-		} catch (NoResultException e) {
+		Set<RaceDto> results = petFacade.searchRaces(race);
+		if (results.isEmpty()) {
 			throw new EntityNotFoundException(NO_CONTENT, ErrorEntity.ErrorKey.RESOURCE_NOT_FOUND.getValue());
 		}
+		return results;
 	}
+
+	@Override
+	public RaceDto updateRace(RaceDto race, String code)
+			throws RequiredFieldException, EntityNotFoundException, RestClientException {
+		RaceDto result = null;
+
+		if (race == null || race.getCode() == null || race.getName() == null || race.getSpecie() == null
+				|| race.getClan() == null) {
+			throw new RequiredFieldException(BAD_REQUEST, ErrorEntity.ErrorKey.FIELD_IS_MISSING.getValue());
+		}
+		boolean ifRaceExists = petFacade.isRaceExists(code);
+		if (!ifRaceExists) {
+			throw new EntityNotFoundException(NOT_FOUND, ErrorEntity.ErrorKey.RESOURCE_NOT_FOUND.getValue());
+		}
+		sanitizeFieldsOfRace(race);
+		getSha1FromCodeField(race);
+		
+		try {
+			utx.begin();
+			result = petFacade.updateRace(race, code);
+		} catch (NotSupportedException | SystemException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			closeTransaction(utx);
+		}
+
+		return result;
+	}
+	
+	@Override
+	public void deleteRace(String code) throws EntityNotFoundException, RestClientException {
+		
+		boolean ifRaceExists = petFacade.isRaceExists(code);
+		if (!ifRaceExists) {
+			throw new EntityNotFoundException(NOT_FOUND, ErrorEntity.ErrorKey.RESOURCE_NOT_FOUND.getValue());
+		}
+		try {
+			utx.begin();
+			petFacade.deleteRace(code);
+		} catch (NotSupportedException | SystemException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			closeTransaction(utx);
+		}
+	}
+
 
 	private void closeTransaction(UserTransaction utx) throws RestClientException {
 		try {

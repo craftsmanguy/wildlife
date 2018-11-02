@@ -14,12 +14,10 @@ public interface RaceAdministrationDomain {
 
 	public RaceDto findRaceByCode(String code) throws NoResultException;
 
-	public Set<RaceDto> searchRaces(RaceDto race) throws NoResultException;
+	public Set<RaceDto> searchRaces(RaceDto race);
 
-	
+	public void deleteRace(String code);
 
-	public void delete(RaceDto race) throws NoResultException;
-
-	public RaceDto update(RaceDto race) throws NoResultException;
+	public RaceDto update(RaceDto race, String codeToUpdate);
 
 }

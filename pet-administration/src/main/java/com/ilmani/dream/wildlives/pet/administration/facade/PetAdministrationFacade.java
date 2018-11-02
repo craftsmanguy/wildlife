@@ -7,7 +7,7 @@ import javax.inject.Inject;
 import com.ilmani.dream.wildlives.framework.dto.pet.RaceDto;
 import com.ilmani.dream.wildlives.pet.administration.port.RaceAdministrationDomain;
 
-public class PetAministrationFacade {
+public class PetAdministrationFacade {
 
 	@Inject
 	RaceAdministrationDomain raceDomain;
@@ -28,12 +28,12 @@ public class PetAministrationFacade {
 		return raceDomain.saveRace(race);
 	}
 
-	public void delete(RaceDto race) {
-		raceDomain.delete(race);
+	public void deleteRace(String code) {
+		raceDomain.deleteRace(code);
 	}
 
-	public RaceDto update(RaceDto race) {
-		return raceDomain.update(race);
+	public RaceDto updateRace(RaceDto race, String codeToUpdate) {
+		return raceDomain.update(race, codeToUpdate);
 	}
 
 }

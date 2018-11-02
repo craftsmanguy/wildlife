@@ -20,7 +20,7 @@ public class RaceDao {
 	@PersistenceContext(unitName = "petPu")
 	private EntityManager em;
 
-	public boolean isRaceExists(String code) throws NoResultException {
+	public boolean isExists(String code) throws NoResultException {
 		boolean result = true;
 
 		try {
@@ -42,7 +42,7 @@ public class RaceDao {
 		return result;
 	}
 
-	public RaceEntity findRaceByCode(String code) throws NoResultException {
+	public RaceEntity findByCode(String code) throws NoResultException {
 
 		CriteriaBuilder builder = em.getCriteriaBuilder();
 		CriteriaQuery<RaceEntity> criteriaQuery = builder.createQuery(RaceEntity.class);
@@ -57,7 +57,7 @@ public class RaceDao {
 		return em.createQuery(criteriaQuery).getSingleResult();
 	}
 
-	public Set<RaceEntity> getByAttributes(RaceEntity race) throws NoResultException {
+	public Set<RaceEntity> getByAttributes(RaceEntity race) {
 
 		CriteriaBuilder builder = em.getCriteriaBuilder();
 		CriteriaQuery<RaceEntity> criteriaQuery = builder.createQuery(RaceEntity.class);

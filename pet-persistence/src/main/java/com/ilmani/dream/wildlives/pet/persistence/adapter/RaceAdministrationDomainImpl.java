@@ -18,12 +18,12 @@ public class RaceAdministrationDomainImpl implements RaceAdministrationDomain {
 
 	@Override
 	public boolean isRaceExists(String code) {
-		return raceDao.isRaceExists(code);
+		return raceDao.isExists(code);
 	}
 
 	@Override
 	public RaceDto findRaceByCode(String code) throws NoResultException {
-		RaceEntity raceFromDb = raceDao.findRaceByCode(code);
+		RaceEntity raceFromDb = raceDao.findByCode(code);
 		return RaceMapper.transformRaceEntityToRaceDto(raceFromDb);
 	}
 
@@ -42,16 +42,18 @@ public class RaceAdministrationDomainImpl implements RaceAdministrationDomain {
 	}
 
 	@Override
-	public void delete(RaceDto race) throws NoResultException {
-		RaceEntity raceEn = RaceMapper.transformRaceDtoToRaceEntity(race);
-		raceDao.delete(raceEn);
+	public void deleteRace(String code) {
+		RaceEntity raceToDelete = raceDao.findByCode(code);
+		raceDao.delete(raceToDelete);
 
 	}
 
 	@Override
-	public RaceDto update(RaceDto race) throws NoResultException {
+	public RaceDto update(RaceDto race, String oldCode) throws NoResultException {
 		RaceEntity raceEn = RaceMapper.transformRaceDtoToRaceEntity(race);
-		RaceEntity result = raceDao.update(raceEn);
+		RaceEntity raceToUpdate = raceDao.findByCode(oldCode);
+		RaceMapper.copyNewRaceEntityToOldRaceEntity(raceToUpdate, raceEn);
+		RaceEntity result = raceDao.update(raceToUpdate);
 		return RaceMapper.transformRaceEntityToRaceDto(result);
 	}
 

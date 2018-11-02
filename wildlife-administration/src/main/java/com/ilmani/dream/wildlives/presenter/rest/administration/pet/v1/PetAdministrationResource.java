@@ -3,9 +3,11 @@ package com.ilmani.dream.wildlives.presenter.rest.administration.pet.v1;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.HttpMethod;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -32,6 +34,15 @@ public class PetAdministrationResource extends AbstractService {
 				.entity(petProvider.saveRace(race)).build();
 	}
 
+	@PUT
+	@Path("races/{code}")
+	@Consumes({ MediaType.APPLICATION_JSON })
+	@Produces({ MediaType.APPLICATION_JSON })
+	public Response updateRace(@PathParam("code") String code, RaceDto race) throws Exception {
+		return responseHeader.responseBuilder(HttpMethod.PUT, Response.Status.OK)
+				.entity(petProvider.updateRace(race, code)).build();
+	}
+
 	@GET
 	@Path("races/{code}")
 	@Consumes({ MediaType.APPLICATION_JSON })
@@ -41,6 +52,14 @@ public class PetAdministrationResource extends AbstractService {
 				.entity(petProvider.findRaceByCode(code)).build();
 	}
 
+	@DELETE
+	@Path("races/{code}")
+	@Consumes({ MediaType.APPLICATION_JSON })
+	@Produces({ MediaType.APPLICATION_JSON })
+	public Response deleteRace(@PathParam("code") String code) throws Exception {
+		return responseHeader.responseBuilder(HttpMethod.GET, Response.Status.OK).build();
+	}
+
 	@GET
 	@Path("races")
 	@Consumes({ MediaType.APPLICATION_JSON })
@@ -48,8 +67,8 @@ public class PetAdministrationResource extends AbstractService {
 	public Response searchRacesByIdentifier(@QueryParam("name") String name, @QueryParam("specie") String specie,
 			@QueryParam("clan") String clan) throws Exception {
 		RaceDto race = new RaceDto(name, specie, clan);
-		return responseHeader.responseBuilder(HttpMethod.GET, Response.Status.OK)
-				.entity(petProvider.searchRaces(race)).build();
+		return responseHeader.responseBuilder(HttpMethod.GET, Response.Status.OK).entity(petProvider.searchRaces(race))
+				.build();
 	}
 
 }

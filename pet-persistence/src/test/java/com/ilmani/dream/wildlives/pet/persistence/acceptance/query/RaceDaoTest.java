@@ -32,20 +32,20 @@ public class RaceDaoTest extends DataBaseCreationTest {
 
 	@Test
 	public void raceDoesnotExist() throws NoResultException {
-		boolean isExists = raceDao.isRaceExists("WRONG_CODE");
+		boolean isExists = raceDao.isExists("WRONG_CODE");
 		assertFalse(isExists);
 	}
 
 	@Test
 	public void findByExactAttribute() {
 		RaceEntity raceEntity = new RaceEntity("AFFENPINSCHER", "AFFEN_DOG", "DOG", "MAMMALIA", true);
-		RaceEntity result = raceDao.findRaceByCode(raceEntity.getCode());
+		RaceEntity result = raceDao.findByCode(raceEntity.getCode());
 		assertEquals(raceEntity.getName(), result.getName());
 	}
 
 	@Test(expected = NoResultException.class)
 	public void notBecauseAttributeIsWrong() {
-		raceDao.findRaceByCode("WRONG_CODE");
+		raceDao.findByCode("WRONG_CODE");
 	}
 
 	@Test
@@ -53,20 +53,26 @@ public class RaceDaoTest extends DataBaseCreationTest {
 		Set<RaceEntity> results = raceDao.getByAttributes(new RaceEntity());
 		assertEquals(7, results.size());
 	}
+	
+	@Test
+	public void returnNotResultWithOptionalAttribute() {
+		Set<RaceEntity> results = raceDao.getByAttributes(new RaceEntity("AFFENPINSCHERI", "AFFEN_DOG", "DOG", "WHET", true));
+		assertEquals(0, results.size());
+	}
 
 	@Test
 	public void updateRaceByChangingAttribute() {
 		RaceEntity raceToUpdate = new RaceEntity("AIREDALE_TERRIER", "AI_TE_DOG", "DOG", "MAMMALIA", true);
 		RaceEntity updatableRace = new RaceEntity(2, "BENGAL", "", "BENG_CAT", "CAT", "MAMMALIA", false);
 
-		RaceEntity resultToUpdateFromDb = raceDao.findRaceByCode(raceToUpdate.getCode());
+		RaceEntity resultToUpdateFromDb = raceDao.findByCode(raceToUpdate.getCode());
 		resultToUpdateFromDb.setActive(updatableRace.isActive());
 		resultToUpdateFromDb.setName(updatableRace.getName());
 		resultToUpdateFromDb.setCode(updatableRace.getCode());
 		resultToUpdateFromDb.setSpecie(updatableRace.getSpecie());
 
 		raceDao.update(resultToUpdateFromDb);
-		RaceEntity resultpdatingFromDb = raceDao.findRaceByCode(raceToUpdate.getCode());
+		RaceEntity resultpdatingFromDb = raceDao.findByCode(raceToUpdate.getCode());
 		assertEquals(updatableRace.getName(), resultpdatingFromDb.getName());
 		assertTrue(false == resultpdatingFromDb.isActive());
 	}

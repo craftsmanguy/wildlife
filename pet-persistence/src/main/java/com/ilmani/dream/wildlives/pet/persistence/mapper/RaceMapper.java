@@ -49,5 +49,14 @@ public class RaceMapper {
 		}
 		return raceEntity;
 	}
+	
+	public static void copyNewRaceEntityToOldRaceEntity(RaceEntity raceToUpdate, RaceEntity newRace) {
+		raceToUpdate.setName(newRace.getName());
+		raceToUpdate.setCode(newRace.getCode());
+		raceToUpdate.setSpecie(newRace.getSpecie());
+		raceToUpdate.setClan(newRace.getClan());
+		raceToUpdate.setScientistName(newRace.getScientistName());
+		raceToUpdate.setActive(newRace.isActive());
+	}
 
 }

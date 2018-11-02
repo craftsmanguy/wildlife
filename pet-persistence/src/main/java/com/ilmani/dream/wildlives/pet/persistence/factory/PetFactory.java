@@ -23,7 +23,7 @@ public class PetFactory {
 		PetEntity petEn = PetMapper.transformPetDtoToPetEntity(petDto);
 		PetEntity result = new PetEntity();
 		
-		petEn.setRaceEn(raceDao.findRaceByCode(petEn.getRaceEn().getCode()));
+		petEn.setRaceEn(raceDao.findByCode(petEn.getRaceEn().getCode()));
 
 		switch (action) {
 		case ConstantsCrud.SAVE:

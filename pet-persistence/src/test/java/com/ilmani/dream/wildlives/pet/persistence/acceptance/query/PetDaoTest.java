@@ -77,7 +77,7 @@ public class PetDaoTest extends DataBaseCreationTest {
 	public void insertionOfNewPet() {
 		PetEntity pet = new PetEntity("slug-url-1", "Rex", "", true, "M", new Integer(2015));
 		Whitebox.setInternalState(raceDao, "em", entityManager);
-		RaceEntity resultRace = raceDao.findRaceByCode("AFFEN_DOG");
+		RaceEntity resultRace = raceDao.findByCode("AFFEN_DOG");
 		pet.setRaceEn(resultRace);
 		PetEntity petToSave = petDao.insert(pet);
 		assertNotNull(petToSave.getId().toString());
