@@ -20,7 +20,29 @@ public class RaceDao {
 	@PersistenceContext(unitName = "petPu")
 	private EntityManager em;
 
-	public RaceEntity findByUniqueAttributConstraint(RaceEntity race) throws NoResultException {
+	public boolean isRaceExists(String code) throws NoResultException {
+		boolean result = true;
+
+		try {
+			CriteriaBuilder builder = em.getCriteriaBuilder();
+			CriteriaQuery<RaceEntity> criteriaQuery = builder.createQuery(RaceEntity.class);
+			Root<RaceEntity> raceFromDb = criteriaQuery.from(RaceEntity.class);
+
+			criteriaQuery.select(raceFromDb);
+			List<Predicate> predicateList = new ArrayList<Predicate>();
+
+			predicateList.add(builder.equal(raceFromDb.<String>get("code"), code));
+
+			criteriaQuery.where(predicateList.toArray(new Predicate[] {}));
+			em.createQuery(criteriaQuery).getSingleResult();
+		} catch (NoResultException e) {
+			result = false;
+		}
+
+		return result;
+	}
+
+	public RaceEntity findRaceByCode(String code) throws NoResultException {
 
 		CriteriaBuilder builder = em.getCriteriaBuilder();
 		CriteriaQuery<RaceEntity> criteriaQuery = builder.createQuery(RaceEntity.class);
@@ -29,16 +51,13 @@ public class RaceDao {
 		criteriaQuery.select(raceFromDb);
 		List<Predicate> predicateList = new ArrayList<Predicate>();
 
-		predicateList.add(builder.equal(builder.upper(raceFromDb.<String>get("name")), race.getName()));
-		predicateList.add(builder.equal(builder.upper(raceFromDb.<String>get("specie")), race.getSpecie()));
-		predicateList.add(builder.equal(builder.upper(raceFromDb.<String>get("clan")), race.getClan()));
-		predicateList.add(builder.equal(raceFromDb.get("isActive"), true));
+		predicateList.add(builder.equal(raceFromDb.<String>get("code"), code));
 
 		criteriaQuery.where(predicateList.toArray(new Predicate[] {}));
 		return em.createQuery(criteriaQuery).getSingleResult();
 	}
 
-	public Set<RaceEntity> getByAttributes(RaceEntity race) {
+	public Set<RaceEntity> getByAttributes(RaceEntity race) throws NoResultException {
 
 		CriteriaBuilder builder = em.getCriteriaBuilder();
 		CriteriaQuery<RaceEntity> criteriaQuery = builder.createQuery(RaceEntity.class);

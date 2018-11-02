@@ -5,10 +5,19 @@ import java.util.Set;
 import javax.ejb.Local;
 
 import com.ilmani.dream.wildlives.framework.dto.pet.RaceDto;
+import com.ilmani.dream.wildlives.framework.exceptions.EntityAlreadyExistException;
+import com.ilmani.dream.wildlives.framework.exceptions.EntityNotFoundException;
+import com.ilmani.dream.wildlives.framework.exceptions.RequiredFieldException;
+import com.ilmani.dream.wildlives.framework.exceptions.RestClientException;
 
 @Local
 public interface PetAdministrationLocal {
 
-	public Set<RaceDto> searchRacesByIdenfier(RaceDto race);
+	public RaceDto saveRace(RaceDto race)
+			throws RequiredFieldException, EntityAlreadyExistException, RestClientException;
+
+	public RaceDto findRaceByCode(String code) throws EntityNotFoundException;
+	
+	public Set<RaceDto> searchRaces(RaceDto race) throws EntityNotFoundException;
 
 }

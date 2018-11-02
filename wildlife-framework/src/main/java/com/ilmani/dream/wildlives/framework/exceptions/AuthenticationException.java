@@ -2,7 +2,7 @@ package com.ilmani.dream.wildlives.framework.exceptions;
 
 import javax.ws.rs.core.Response.Status;
 
-public class AuthenticationException extends ExceptionAbstract {
+public class AuthenticationException extends AbstractException {
 
 	public AuthenticationException(Status status, String error) {
 		super(status, error);

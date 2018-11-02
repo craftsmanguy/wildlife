@@ -11,8 +11,6 @@ Feature: Race
 
 
   Scenario Outline: insertion of a new race possible
-    Given I am authenticated as an administrator
-    And I have the insertion rights of an animal race
     When I am trying to insert a new breed "<AKITA_INU>"
     Then insertion is possible
     And list of animals increases
@@ -27,8 +25,6 @@ Feature: Race
       | AKITA_INU        |               | AI_IN_DOG  | DOG     | MAMMALIA | false    |
 
   Scenario Outline: insertion of a new race impossible
-    Given jI am authenticated as an administrator
-    And I have the insertion rights of an animal race
     When I am trying to insert a breed "<AFFENPINSCHER>" which already exists
     Then insertion is not possible
     And and an existing breed alert is coming up

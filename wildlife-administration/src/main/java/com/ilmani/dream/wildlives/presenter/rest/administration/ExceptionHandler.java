@@ -6,7 +6,7 @@ import javax.ws.rs.ext.ExceptionMapper;
 import javax.ws.rs.ext.Provider;
 
 import com.ilmani.dream.wildlives.framework.exceptions.AuthenticationException;
-import com.ilmani.dream.wildlives.framework.exceptions.EntityAlreadyExist;
+import com.ilmani.dream.wildlives.framework.exceptions.EntityAlreadyExistException;
 import com.ilmani.dream.wildlives.framework.exceptions.EntityNotFoundException;
 import com.ilmani.dream.wildlives.framework.exceptions.RestClientException;
 import com.ilmani.dream.wildlives.framework.rest.responseheader.ResponseHeaderBuilder;
@@ -23,8 +23,8 @@ public class ExceptionHandler implements ExceptionMapper<Exception> {
 			AuthenticationException exception = (AuthenticationException) throwable;
 			return responseHeader.responseBuilder(exception.getStatus()).entity(exception.getError()).build();
 
-		} else if (throwable instanceof EntityAlreadyExist) {
-			EntityAlreadyExist exception = (EntityAlreadyExist) throwable;
+		} else if (throwable instanceof EntityAlreadyExistException) {
+			EntityAlreadyExistException exception = (EntityAlreadyExistException) throwable;
 			return responseHeader.responseBuilder(exception.getStatus()).entity(exception.getError()).build();
 
 		} else if (throwable instanceof EntityNotFoundException) {

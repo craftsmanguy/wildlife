@@ -26,10 +26,10 @@ import com.ilmani.dream.wildlives.pet.persistence.entity.RaceEntity;
 public class PetDaoTest extends DataBaseCreationTest {
 
 	@InjectMocks
-	private PetDao petDao = new PetDao();
+	private PetDao petDao;
 
 	@InjectMocks
-	private RaceDao raceDao = new RaceDao();
+	private RaceDao raceDao;
 
 	@Before
 	public void initializeEnvironmentTest() {
@@ -77,8 +77,7 @@ public class PetDaoTest extends DataBaseCreationTest {
 	public void insertionOfNewPet() {
 		PetEntity pet = new PetEntity("slug-url-1", "Rex", "", true, "M", new Integer(2015));
 		Whitebox.setInternalState(raceDao, "em", entityManager);
-		RaceEntity resultRace = raceDao
-				.findByUniqueAttributConstraint(new RaceEntity("AFFENPINSCHER", "", "DOG", "MAMMALIA", true));
+		RaceEntity resultRace = raceDao.findRaceByCode("AFFEN_DOG");
 		pet.setRaceEn(resultRace);
 		PetEntity petToSave = petDao.insert(pet);
 		assertNotNull(petToSave.getId().toString());

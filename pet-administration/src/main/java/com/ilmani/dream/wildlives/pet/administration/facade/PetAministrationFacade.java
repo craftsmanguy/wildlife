@@ -10,30 +10,30 @@ import com.ilmani.dream.wildlives.pet.administration.port.RaceAdministrationDoma
 public class PetAministrationFacade {
 
 	@Inject
-	RaceAdministrationDomain specieDomain;
-	
-	@Inject
 	RaceAdministrationDomain raceDomain;
 
+	public boolean isRaceExists(String code) {
+		return raceDomain.isRaceExists(code);
+	}
 
-	public RaceDto findByIdenfier(RaceDto race) {
-		return specieDomain.findByIdenfier(race);
+	public RaceDto findRaceByCode(String code) {
+		return raceDomain.findRaceByCode(code);
 	}
 
 	public Set<RaceDto> searchRaces(RaceDto race) {
-		return specieDomain.searchRaces(race);
+		return raceDomain.searchRaces(race);
 	}
 
-	public RaceDto save(RaceDto specie) {
-		return specieDomain.save(specie);
+	public RaceDto saveRace(RaceDto race) {
+		return raceDomain.saveRace(race);
 	}
 
-	public void delete(RaceDto specie) {
-		specieDomain.delete(specie);
+	public void delete(RaceDto race) {
+		raceDomain.delete(race);
 	}
 
-	public RaceDto update(RaceDto specie) {
-		return specieDomain.update(specie);
+	public RaceDto update(RaceDto race) {
+		return raceDomain.update(race);
 	}
 
 }
