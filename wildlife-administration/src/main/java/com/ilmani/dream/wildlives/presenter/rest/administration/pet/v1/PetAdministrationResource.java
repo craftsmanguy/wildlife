@@ -57,7 +57,8 @@ public class PetAdministrationResource extends AbstractService {
 	@Consumes({ MediaType.APPLICATION_JSON })
 	@Produces({ MediaType.APPLICATION_JSON })
 	public Response deleteRace(@PathParam("code") String code) throws Exception {
-		return responseHeader.responseBuilder(HttpMethod.GET, Response.Status.OK).build();
+		petProvider.deleteRace(code);
+		return responseHeader.responseBuilder(HttpMethod.GET, Response.Status.RESET_CONTENT).build();
 	}
 
 	@GET

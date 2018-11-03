@@ -1,6 +1,10 @@
 package com.ilmani.dream.wildlives.framework.dto.pet;
 
-public class RaceDto {
+import java.io.Serializable;
+
+public class RaceDto implements Serializable{
+
+	private static final long serialVersionUID = -2024163533028655253L;
 
 	private String name;
 

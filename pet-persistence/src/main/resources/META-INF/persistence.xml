@@ -6,7 +6,7 @@
 	version="2.1">
 	<persistence-unit name="petPu" transaction-type="JTA">
 
-		<!-- <jta-data-source>java:jboss/datasources/wildlivesDS</jta-data-source> -->
+		<jta-data-source>java:jboss/datasources/wildlivesDS</jta-data-source>
 		<class>com.ilmani.dream.wildlives.pet.persistence.entity.RaceEntity</class>
 		<class>com.ilmani.dream.wildlives.pet.persistence.entity.PetEntity</class>
 		<properties>

@@ -44,7 +44,7 @@ public class DBChangelogFileTest {
 					Database database = DatabaseFactory.getInstance()
 							.findCorrectDatabaseImplementation(new JdbcConnection(connection));
 
-					liquibase = new Liquibase("com/ilmani/dream/wildlives/database-test/db.wildlife-test.xml",
+					liquibase = new Liquibase("database-test/db.wildlife-test.xml",
 							new ClassLoaderResourceAccessor(), database);
 					liquibase.update("wildlife-test");
 				} catch (LiquibaseException e) {

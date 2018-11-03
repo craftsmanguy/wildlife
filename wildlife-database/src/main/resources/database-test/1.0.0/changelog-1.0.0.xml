@@ -104,7 +104,7 @@
 			<column name="NAME" remarks="Les formats de prestations"
 				type="VARCHAR(50)" />
 				<column name="CODE" remarks="Code technique"
-				type="VARCHAR(20)">
+				type="VARCHAR(41)">
 				<constraints unique="true" nullable="false" />
 			</column>
 			<column name="FEATURE" remarks="Nom de la prestation"

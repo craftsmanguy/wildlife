@@ -8,10 +8,8 @@
     http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd"
     logicalFilePath="db.wildlife-test.xml">
     
-    <property name="uuid_type" value="uuid" dbms="postgresql"/>
 	<property name="uuid_type" value="uuid" dbms="h2"/>
 
-	<property name="uuid_function" value="uid.uuid_generate_v4()" dbms="postgresql"/>
 	<property name="uuid_function" value="random_uuid()" dbms="h2"/>
 
     <!-- Initial changelog which creates the database and ref data(1-2)-->

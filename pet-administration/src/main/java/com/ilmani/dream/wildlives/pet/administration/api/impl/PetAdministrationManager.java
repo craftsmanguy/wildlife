@@ -4,6 +4,7 @@ import static javax.ws.rs.core.Response.Status.BAD_REQUEST;
 import static javax.ws.rs.core.Response.Status.CONFLICT;
 import static javax.ws.rs.core.Response.Status.NOT_FOUND;
 import static javax.ws.rs.core.Response.Status.NO_CONTENT;
+import static javax.ws.rs.core.Response.Status.FORBIDDEN;
 
 import java.security.NoSuchAlgorithmException;
 import java.util.Set;
@@ -13,13 +14,17 @@ import javax.ejb.Stateless;
 import javax.ejb.TransactionManagement;
 import javax.ejb.TransactionManagementType;
 import javax.inject.Inject;
+import javax.persistence.NoResultException;
 import javax.transaction.NotSupportedException;
 import javax.transaction.Status;
 import javax.transaction.SystemException;
 import javax.transaction.UserTransaction;
 
+import org.apache.commons.lang3.StringUtils;
+
 import com.ilmani.dream.wildlives.framework.dto.pet.RaceDto;
 import com.ilmani.dream.wildlives.framework.error.ErrorEntity;
+import com.ilmani.dream.wildlives.framework.exceptions.AuthenticationException;
 import com.ilmani.dream.wildlives.framework.exceptions.EntityAlreadyExistException;
 import com.ilmani.dream.wildlives.framework.exceptions.EntityNotFoundException;
 import com.ilmani.dream.wildlives.framework.exceptions.RequiredFieldException;
@@ -40,11 +45,11 @@ public class PetAdministrationManager implements PetAdministrationLocal {
 	private UserTransaction utx;
 
 	public RaceDto findRaceByCode(String code) throws EntityNotFoundException {
-		RaceDto raceFromDb = petFacade.findRaceByCode(code);
-		if (raceFromDb != null && raceFromDb.getName() != null) {
+		try {
+			return petFacade.findRaceByCode(code);
+		} catch (NoResultException e) {
 			throw new EntityNotFoundException(NOT_FOUND, ErrorEntity.ErrorKey.RESOURCE_NOT_FOUND.getValue());
 		}
-		return raceFromDb;
 	}
 
 	public RaceDto saveRace(RaceDto race)
@@ -52,10 +57,17 @@ public class PetAdministrationManager implements PetAdministrationLocal {
 
 		RaceDto result = null;
 
-		if (race == null || race.getName() == null || race.getSpecie() == null || race.getClan() == null) {
+		if (race == null || StringUtils.isEmpty(race.getName()) || StringUtils.isEmpty(race.getSpecie())
+				|| StringUtils.isEmpty(race.getClan())) {
 			throw new RequiredFieldException(BAD_REQUEST, ErrorEntity.ErrorKey.FIELD_IS_MISSING.getValue());
 		}
 		sanitizeFieldsOfRace(race);
+
+		boolean isValuable = isVertebrateEnumContainsValue(race.getClan());
+		if (!isValuable) {
+			throw new RequiredFieldException(BAD_REQUEST, ErrorEntity.ErrorKey.UNAUTHORIZED_ACTION.getValue());
+		}
+
 		getSha1FromCodeField(race);
 		race.setActive(false);
 
@@ -88,11 +100,11 @@ public class PetAdministrationManager implements PetAdministrationLocal {
 
 	@Override
 	public RaceDto updateRace(RaceDto race, String code)
-			throws RequiredFieldException, EntityNotFoundException, RestClientException {
+			throws RequiredFieldException, EntityNotFoundException, RestClientException, AuthenticationException {
 		RaceDto result = null;
 
-		if (race == null || race.getCode() == null || race.getName() == null || race.getSpecie() == null
-				|| race.getClan() == null) {
+		if (race == null || StringUtils.isEmpty(race.getName()) || StringUtils.isEmpty(race.getSpecie())
+				|| StringUtils.isEmpty(race.getClan())) {
 			throw new RequiredFieldException(BAD_REQUEST, ErrorEntity.ErrorKey.FIELD_IS_MISSING.getValue());
 		}
 		boolean ifRaceExists = petFacade.isRaceExists(code);
@@ -101,7 +113,12 @@ public class PetAdministrationManager implements PetAdministrationLocal {
 		}
 		sanitizeFieldsOfRace(race);
 		getSha1FromCodeField(race);
-		
+
+		boolean ifRaceToUpdateExists = petFacade.isRaceExists(race.getCode());
+		if (ifRaceToUpdateExists && !code.equals(race.getCode())) {
+			throw new AuthenticationException(FORBIDDEN, ErrorEntity.ErrorKey.RESOURCE_NOT_FOUND.getValue());
+		}
+
 		try {
 			utx.begin();
 			result = petFacade.updateRace(race, code);
@@ -114,10 +131,10 @@ public class PetAdministrationManager implements PetAdministrationLocal {
 
 		return result;
 	}
-	
+
 	@Override
 	public void deleteRace(String code) throws EntityNotFoundException, RestClientException {
-		
+
 		boolean ifRaceExists = petFacade.isRaceExists(code);
 		if (!ifRaceExists) {
 			throw new EntityNotFoundException(NOT_FOUND, ErrorEntity.ErrorKey.RESOURCE_NOT_FOUND.getValue());
@@ -132,7 +149,6 @@ public class PetAdministrationManager implements PetAdministrationLocal {
 			closeTransaction(utx);
 		}
 	}
-
 
 	private void closeTransaction(UserTransaction utx) throws RestClientException {
 		try {
@@ -161,6 +177,15 @@ public class PetAdministrationManager implements PetAdministrationLocal {
 			// TODO Auto-generated catch block
 			throw new RestClientException();
 		}
+	}
+
+	private static boolean isVertebrateEnumContainsValue(String value) {
+		for (VertebrateEnum vertebrateType : VertebrateEnum.values()) {
+			if (vertebrateType.name().equals(value)) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 }

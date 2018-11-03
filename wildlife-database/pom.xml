@@ -11,7 +11,11 @@
 	<description>Versionning of database</description>
 
 	<properties>
-		<changelog.dir>src/main/resources/com/ilmani/dream/wildlives/database</changelog.dir>
+		<changelog.dir>src/main/resources/database</changelog.dir>
+		<database.connection.url>jdbc:postgresql://${development.database.host}:${development.database.port}/${development.database.dbname}</database.connection.url>
+		<database.connection.username>${development.database.user}</database.connection.username>
+		<database.connection.password>${development.database.password}</database.connection.password>
+		<liquibase.labels>!init_data</liquibase.labels>
 	</properties>
 
 	<dependencies>
@@ -49,10 +53,67 @@
 				<groupId>org.liquibase</groupId>
 				<artifactId>liquibase-maven-plugin</artifactId>
 				<configuration>
-					<changeLogFile>${changelog.dir}/wildlife.xml</changeLogFile>
+					<changeLogFile>${changelog.dir}/db.wildlife.xml</changeLogFile>
+					<contexts>${liquibase.contexts}</contexts>
+					<labels>${liquibase.labels}</labels>
+					<driver>org.postgresql.Driver</driver>
+					<url>${database.connection.url}</url>
+					<username>${database.connection.username}</username>
+					<password>${database.connection.password}</password>
+					<!-- To avoid No X11 DISPLAY error on Linux servers -->
+					<promptOnNonLocalDatabase>false</promptOnNonLocalDatabase>
+					<logging>debug</logging>
 				</configuration>
+				<executions>
+					<execution>
+						<phase>process-resources</phase>
+						<goals>
+							<goal>update</goal>
+						</goals>
+					</execution>
+				</executions>
+				<dependencies>
+					<dependency>
+						<groupId>org.postgresql</groupId>
+						<artifactId>postgresql</artifactId>
+						<!-- Replace with the version of the PostGRESQL driver you want to 
+							use -->
+						<version>9.4.1211</version>
+					</dependency>
+				</dependencies>
 			</plugin>
-
 		</plugins>
+
+
+		<pluginManagement>
+			<plugins>
+				<!--This plugin's configuration is used to store Eclipse m2e settings 
+					only. It has no influence on the Maven build itself. -->
+				<plugin>
+					<groupId>org.eclipse.m2e</groupId>
+					<artifactId>lifecycle-mapping</artifactId>
+					<version>1.0.0</version>
+					<configuration>
+						<lifecycleMappingMetadata>
+							<pluginExecutions>
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>org.liquibase</groupId>
+										<artifactId>liquibase-maven-plugin</artifactId>
+										<versionRange>[3.4.1,)</versionRange>
+										<goals>
+											<goal>update</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<ignore />
+									</action>
+								</pluginExecution>
+							</pluginExecutions>
+						</lifecycleMappingMetadata>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
 	</build>
 </project>

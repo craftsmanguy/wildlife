@@ -11,11 +11,17 @@
 	<properties>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
-		<liquibase.version>3.4.1</liquibase.version>
 		<version.full>${project.version}</version.full>
 
 		<powermock.version>1.7.1</powermock.version>
+		<liquibase.version>3.6.1</liquibase.version>
 	</properties>
+
+	<profiles>
+		<profile>
+			<id>wildlives-dev</id>
+		</profile>
+	</profiles>
 
 	<modules>
 		<module>wildlife-ear</module>
@@ -76,7 +82,8 @@
 			<dependency>
 				<groupId>org.liquibase</groupId>
 				<artifactId>liquibase-core</artifactId>
-				<version>3.6.0</version>
+				<version>${liquibase.version}</version>
+				<scope>test</scope>
 			</dependency>
 			<dependency>
 				<groupId>org.powermock</groupId>
@@ -203,6 +210,11 @@
 				<artifactId>resteasy-jaxrs</artifactId>
 				<version>2.3.2.Final</version>
 				<scope>provided</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.commons</groupId>
+				<artifactId>commons-lang3</artifactId>
+				<version>3.7</version>
 			</dependency>
 
 		</dependencies>
