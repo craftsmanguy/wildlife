@@ -16,7 +16,7 @@ Feature: Race
     And list of animals increases
     And last insertion is not active
     And code is hashe
-    And following fields (name, code, specie, clan) are in upper case
+    And following fields (name, code, clan) are in upper case
     Examples:
       | name             | scientistName | code       | specie  | clan     | isActive |
       | AFFENPINSCHER    |               | AFFEN_DOG  | DOG     | MAMMALIA | true     |

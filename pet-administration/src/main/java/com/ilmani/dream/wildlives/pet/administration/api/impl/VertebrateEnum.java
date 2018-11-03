@@ -12,4 +12,5 @@ public enum VertebrateEnum {
 	public String toString() {
 		return name;
 	}
+	
 }

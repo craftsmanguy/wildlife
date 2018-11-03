@@ -1,12 +1,12 @@
 package com.ilmani.dream.wildlives.framework.dto.pet;
 
-import java.util.Date;
+import java.io.Serializable;
 
-public class PetDto {
+public class PetDto implements Serializable{
+
+	private static final long serialVersionUID = 2811739234678308526L;
 
 	private String functionalIdentifier;
-
-	private Date insertionDate;
 
 	private String name;
 
@@ -24,11 +24,10 @@ public class PetDto {
 		super();
 	}
 
-	public PetDto(String functionalIdentifier, Date insertionDate, String name, String description, boolean isLof,
+	public PetDto(String functionalIdentifier, String name, String description, boolean isLof,
 			String gender, Integer birth, RaceDto race) {
 		super();
 		this.functionalIdentifier = functionalIdentifier;
-		this.insertionDate = insertionDate;
 		this.name = name;
 		this.description = description;
 		this.isLof = isLof;
@@ -43,14 +42,6 @@ public class PetDto {
 
 	public void setFunctionalIdentifier(String functionalIdentifier) {
 		this.functionalIdentifier = functionalIdentifier;
-	}
-
-	public Date getInsertionDate() {
-		return insertionDate;
-	}
-
-	public void setInsertionDate(Date insertionDate) {
-		this.insertionDate = insertionDate;
 	}
 
 	public String getName() {
@@ -109,7 +100,6 @@ public class PetDto {
 		result = prime * result + ((description == null) ? 0 : description.hashCode());
 		result = prime * result + ((functionalIdentifier == null) ? 0 : functionalIdentifier.hashCode());
 		result = prime * result + ((gender == null) ? 0 : gender.hashCode());
-		result = prime * result + ((insertionDate == null) ? 0 : insertionDate.hashCode());
 		result = prime * result + (isLof ? 1231 : 1237);
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		result = prime * result + ((race == null) ? 0 : race.hashCode());
@@ -156,13 +146,6 @@ public class PetDto {
 		} else if (!gender.equals(other.gender)) {
 			return false;
 		}
-		if (insertionDate == null) {
-			if (other.insertionDate != null) {
-				return false;
-			}
-		} else if (!insertionDate.equals(other.insertionDate)) {
-			return false;
-		}
 		if (isLof != other.isLof) {
 			return false;
 		}
@@ -183,4 +166,5 @@ public class PetDto {
 		return true;
 	}
 
+	
 }

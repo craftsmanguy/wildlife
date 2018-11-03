@@ -36,8 +36,8 @@ public class CrudRaceTest {
 
 
 	@Test
-	public void isInsertionOfTheRaceIsPossible() throws Exception {
-		RaceDto expectedResult = new RaceDto("AIREDALE_LE_TERRIER", "", "044df3c874ec3186081a473944d2af7e9646d3a2",
+	public void insertionOfAnimalNewRaceIsPossible() throws Exception {
+		RaceDto expectedResult = new RaceDto("AIREDALE_LE_TERRIER", "", "airedale_le_terrier-dog",
 				"DOG", "MAMMAL", false);
 		RaceDto raceToInsert = new RaceDto("$airedale le'terrier*2", "", "", "dog/^", "mammal", true);
 
@@ -48,12 +48,12 @@ public class CrudRaceTest {
 	}
 
 	@Test(expected = RequiredFieldException.class)
-	public void notBecauseAttributeRaceIsNull() throws Exception {
+	public void testGenerateExceptionBecauseAttributeRaceIsNull() throws Exception {
 		managePet.saveRace(new RaceDto());
 	}
 
 	@Test(expected = EntityNotFoundException.class)
-	public void iHaveNoRacesBySearchMultipleCriterias() throws Exception {
+	public void testGenerateExceptionBecauseNoRacesBySearchMultipleCriterias() throws Exception {
 		RaceDto raceSearch = new RaceDto("AIREDALE_LE_TERRIER", "DOG", "MAMMAL");
 		Set<RaceDto> results = new HashSet<>();
 		when(petFacade.searchRaces(raceSearch)).thenReturn(results);
@@ -61,10 +61,10 @@ public class CrudRaceTest {
 	}
 
 	@Test
-	public void updateRaceUsingCode() throws Exception {
-		RaceDto expectedRace = new RaceDto("APPENFISCHER", "", "1dba55ef5a384123195d625cf1cb003b588b9744", "DOG", "MAMMAL", true);
+	public void updateRaceUsingWithCodeWhichExists() throws Exception {
+		RaceDto expectedRace = new RaceDto("APPENFISCHER", "", "appenfischer-dog", "DOG", "MAMMAL", true);
 		RaceDto race = new RaceDto("$appenfischer", "", "", "dog/^", "mammal", true);
-		String oldCode = "20c4274a8b0cb741fecfceee8782f2c8922eb215";
+		String oldCode = "airedale_le_terrier-dog";
 		
 		Boolean isExists = true;
 		when(petFacade.isRaceExists(oldCode)).thenReturn(isExists);

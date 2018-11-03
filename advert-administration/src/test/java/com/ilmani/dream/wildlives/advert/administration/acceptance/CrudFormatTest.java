@@ -36,7 +36,7 @@ public class CrudFormatTest {
 
 	@Test
 	public void isInsertionOfTheFormatIsPossible() throws Exception {
-		FormatDto expectedResult = new FormatDto("REQUEST", "476da65ef8328f5843d49fda3bd964eb40775466", "PET_CARE",
+		FormatDto expectedResult = new FormatDto("REQUEST", "request-pet_care", "PET_CARE",
 				false);
 		FormatDto formatToInsert = new FormatDto("request*", "", "pet care", true);
 		when(advertFacade.saveFormat(formatToInsert)).thenReturn(formatToInsert);
@@ -61,6 +61,24 @@ public class CrudFormatTest {
 		Set<FormatDto> results = new HashSet<>();
 		when(advertFacade.searchFormats(formatSearch)).thenReturn(results);
 		advertMngr.searchFormats(new FormatDto());
+	}
+	
+	@Test
+	public void updateFormatUsingWithCodeWhichExists() throws Exception {
+		FormatDto expectedFormat = new FormatDto("REQUEST", "request-walk","WALK", true);
+		FormatDto format = new FormatDto("REQUEST", "", "PET_CARE", true);
+		String oldCode = "request-pet_care";
+		
+		Boolean isExists = true;
+		when(advertFacade.isFormatExists(oldCode)).thenReturn(isExists);
+		when(advertFacade.updateFormat(format, oldCode)).thenReturn(format);
+		FormatDto raceUpdated = advertMngr.updateFormat(format, oldCode);
+		assertEquals(expectedFormat, raceUpdated);
+	}
+	
+	@Test(expected = EntityNotFoundException.class)
+	public void attemptToRemoveResourceWichNotExist() throws Exception {
+		advertMngr.deleteFormat(new String ("some_code"));
 	}
 
 }

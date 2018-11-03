@@ -1,7 +1,11 @@
 package com.ilmani.dream.wildlives.framework.helper;
 
+import java.nio.charset.Charset;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Random;
+
+import com.ilmani.dream.wildlives.framework.enums.GenderEnum;
 
 public class TransformationHelper {
 
@@ -25,6 +29,21 @@ public class TransformationHelper {
 			result.append(Integer.toString((textBytes[i] & 0xff) + 0x100, 16).substring(1));
 		}
 		return result.toString();
+	}
+
+	public static String getRandomString(int randomLength) {
+		byte[] array = new byte[randomLength];
+		new Random().nextBytes(array);
+		return new String(array, Charset.forName("UTF-8"));
+	}
+
+	public static boolean isGenderEnumContainsValue(String value) {
+		for (GenderEnum vertebrateType : GenderEnum.values()) {
+			if (vertebrateType.name().equals(value)) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 }

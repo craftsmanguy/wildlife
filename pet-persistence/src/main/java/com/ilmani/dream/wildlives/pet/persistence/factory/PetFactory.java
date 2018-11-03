@@ -12,31 +12,25 @@ import com.ilmani.dream.wildlives.pet.persistence.entity.PetEntity;
 import com.ilmani.dream.wildlives.pet.persistence.mapper.PetMapper;
 
 public class PetFactory {
-	
+
 	@Inject
 	PetDao petDao;
-	
+
 	@Inject
 	RaceDao raceDao;
-	
+
 	public PetDto getPetDto(PetDto petDto, String action) {
 		PetEntity petEn = PetMapper.transformPetDtoToPetEntity(petDto);
 		PetEntity result = new PetEntity();
-		
+
 		petEn.setRaceEn(raceDao.findByCode(petEn.getRaceEn().getCode()));
 
 		switch (action) {
-		case ConstantsCrud.SAVE:
-			result = petDao.insert(petEn);
-			break;
 		case ConstantsCrud.UPDATE:
 			result = petDao.update(petEn);
 			break;
-		case ConstantsCrud.FIND:
-			result = petDao.findByIdentifier(petEn);
-			break;
 		}
-		
+
 		return PetMapper.transformPetEntityToPetDto(result);
 	}
 
@@ -46,9 +40,5 @@ public class PetFactory {
 		return PetMapper.transformListPetEntityToListPetDto(results);
 	}
 
-	public void delete(PetDto petDto) {
-		PetEntity petEn = PetMapper.transformPetDtoToPetEntity(petDto);
-		petDao.delete(petEn);
-	}
 
 }

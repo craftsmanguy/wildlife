@@ -25,5 +25,6 @@ public interface PetAdministrationLocal {
 	public Set<RaceDto> searchRaces(RaceDto race) throws EntityNotFoundException;
 	
 	public void deleteRace(String code) throws EntityNotFoundException, RestClientException;
+	
 
 }

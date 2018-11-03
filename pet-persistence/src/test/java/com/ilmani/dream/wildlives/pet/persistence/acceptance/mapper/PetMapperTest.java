@@ -40,7 +40,7 @@ public class PetMapperTest {
 	@Test
 	public void transformPetDtoToRaceEntityTest() {
 		raceDto = new RaceDto("AFFENPINSCHER", "", "AFFEN", "DOG", "MAMMALIA", true);
-		PetDto petDtoTest = new PetDto("rex-pet-dog-affenpinsher-1995-0001", null, "Rex", "aucune", false, "MALE",
+		PetDto petDtoTest = new PetDto("rex-pet-dog-affenpinsher-1995-0001", "Rex", "aucune", false, "MALE",
 				1995, raceDto);
 		PetEntity resultEn = PetMapper.transformPetDtoToPetEntity(petDtoTest);
 		assertEquals(petDtoTest.getFunctionalIdentifier(), resultEn.getFunctionalIdentifier());

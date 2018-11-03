@@ -2,11 +2,11 @@ package com.ilmani.dream.wildlives.advert.administration.api.impl;
 
 import static javax.ws.rs.core.Response.Status.BAD_REQUEST;
 import static javax.ws.rs.core.Response.Status.CONFLICT;
+import static javax.ws.rs.core.Response.Status.FORBIDDEN;
 import static javax.ws.rs.core.Response.Status.NOT_FOUND;
 import static javax.ws.rs.core.Response.Status.NO_CONTENT;
 import static javax.ws.rs.core.Response.Status.UNAUTHORIZED;
 
-import java.security.NoSuchAlgorithmException;
 import java.util.Set;
 
 import javax.annotation.Resource;
@@ -19,14 +19,18 @@ import javax.transaction.Status;
 import javax.transaction.SystemException;
 import javax.transaction.UserTransaction;
 
+import org.apache.commons.lang3.StringUtils;
+
 import com.ilmani.dream.wildlives.advert.administration.api.AdvertAdministrationLocal;
 import com.ilmani.dream.wildlives.advert.administration.facade.AdvertAdministrationFacade;
 import com.ilmani.dream.wildlives.framework.dto.advert.FormatDto;
 import com.ilmani.dream.wildlives.framework.error.ErrorEntity;
+import com.ilmani.dream.wildlives.framework.exceptions.AuthenticationException;
 import com.ilmani.dream.wildlives.framework.exceptions.EntityAlreadyExistException;
 import com.ilmani.dream.wildlives.framework.exceptions.EntityNotFoundException;
 import com.ilmani.dream.wildlives.framework.exceptions.RequiredFieldException;
 import com.ilmani.dream.wildlives.framework.exceptions.RestClientException;
+import com.ilmani.dream.wildlives.framework.helper.SlugHelper;
 import com.ilmani.dream.wildlives.framework.helper.TransformationHelper;
 
 @Stateless(name = "AdvertAdministrationBean")
@@ -55,7 +59,7 @@ public class AdvertAdministrationManager implements AdvertAdministrationLocal {
 			throw new RequiredFieldException(UNAUTHORIZED, ErrorEntity.ErrorKey.UNAUTHORIZED_ACTION.getValue());
 		}
 		format.setActive(false);
-		getSha1FromCodeField(format);
+		getCodeFromFields(format);
 
 		boolean isExists = advertFacade.isFormatExists(format.getCode());
 		if (isExists) {
@@ -77,9 +81,35 @@ public class AdvertAdministrationManager implements AdvertAdministrationLocal {
 
 	@Override
 	public FormatDto updateFormat(FormatDto format, String codeToUpdate)
-			throws RequiredFieldException, EntityNotFoundException, RestClientException {
-		// TODO Auto-generated method stub
-		return null;
+			throws RequiredFieldException, EntityNotFoundException, RestClientException, AuthenticationException {
+		FormatDto result = null;
+
+		if (format == null || StringUtils.isEmpty(format.getName()) || StringUtils.isEmpty(format.getFeature())) {
+			throw new RequiredFieldException(BAD_REQUEST, ErrorEntity.ErrorKey.FIELD_IS_MISSING.getValue());
+		}
+		boolean ifFormatExists = advertFacade.isFormatExists(codeToUpdate);
+		if (!ifFormatExists) {
+			throw new EntityNotFoundException(NOT_FOUND, ErrorEntity.ErrorKey.RESOURCE_NOT_FOUND.getValue());
+		}
+		sanitizeFieldsOfFormat(format);
+		getCodeFromFields(format);
+
+		boolean ifFormatToUpdateExists = advertFacade.isFormatExists(format.getCode());
+		if (ifFormatToUpdateExists && !codeToUpdate.equals(format.getCode())) {
+			throw new AuthenticationException(FORBIDDEN, ErrorEntity.ErrorKey.RESOURCE_NOT_FOUND.getValue());
+		}
+
+		try {
+			utx.begin();
+			result = advertFacade.updateFormat(format, codeToUpdate);
+		} catch (NotSupportedException | SystemException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			closeTransaction(utx);
+		}
+
+		return result;
 	}
 
 	@Override
@@ -102,7 +132,19 @@ public class AdvertAdministrationManager implements AdvertAdministrationLocal {
 
 	@Override
 	public void deleteFormat(String code) throws EntityNotFoundException, RestClientException {
-		// TODO Auto-generated method stub
+		boolean ifRaceExists = advertFacade.isFormatExists(code);
+		if (!ifRaceExists) {
+			throw new EntityNotFoundException(NOT_FOUND, ErrorEntity.ErrorKey.RESOURCE_NOT_FOUND.getValue());
+		}
+		try {
+			utx.begin();
+			advertFacade.deleteFormat(code);
+		} catch (NotSupportedException | SystemException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			closeTransaction(utx);
+		}
 
 	}
 
@@ -120,14 +162,9 @@ public class AdvertAdministrationManager implements AdvertAdministrationLocal {
 		return false;
 	}
 
-	private void getSha1FromCodeField(FormatDto format) throws RestClientException {
-		String textToEncrypt = format.getName() + "_" + format.getFeature();
-		try {
-			format.setCode(TransformationHelper.checksumStringWithSHA1(textToEncrypt));
-		} catch (NoSuchAlgorithmException e) {
-			// TODO Auto-generated catch block
-			throw new RestClientException();
-		}
+	private void getCodeFromFields(FormatDto format) throws RestClientException {
+		String textToEncrypt = format.getName() + "-" + format.getFeature();
+		format.setCode(SlugHelper.makeSlug(textToEncrypt));
 	}
 
 	private void closeTransaction(UserTransaction utx) throws RestClientException {

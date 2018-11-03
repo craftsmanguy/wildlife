@@ -8,15 +8,15 @@ import com.ilmani.dream.wildlives.framework.dto.pet.RaceDto;
 
 public interface RaceAdministrationDomain {
 	
-	public boolean isRaceExists(String code);
+	public boolean isExists(String code);
 	
-	public RaceDto saveRace(RaceDto race);
+	public RaceDto save(RaceDto race);
 
-	public RaceDto findRaceByCode(String code) throws NoResultException;
+	public RaceDto findByCode(String code) throws NoResultException;
 
-	public Set<RaceDto> searchRaces(RaceDto race);
+	public Set<RaceDto> search(RaceDto race);
 
-	public void deleteRace(String code);
+	public void delete(String code);
 
 	public RaceDto update(RaceDto race, String codeToUpdate);
 

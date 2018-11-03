@@ -17,6 +17,8 @@ public class ApplicationConfig  extends Application {
 	@Override
 	public Set<Class<?>> getClasses() {
 		Set<Class<?>> resources = new HashSet<>();
+		
+		resources.add(ExceptionHandler.class);
 
 		resources.add(AdvertBusinessResource.class);
 		resources.add(PetBusinessResource.class);

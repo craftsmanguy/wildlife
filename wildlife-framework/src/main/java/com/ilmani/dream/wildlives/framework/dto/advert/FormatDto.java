@@ -2,7 +2,7 @@ package com.ilmani.dream.wildlives.framework.dto.advert;
 
 import java.io.Serializable;
 
-public class FormatDto implements Serializable{
+public class FormatDto implements Serializable {
 
 	private static final long serialVersionUID = 1608491616188675082L;
 

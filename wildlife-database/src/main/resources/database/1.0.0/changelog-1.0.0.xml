@@ -13,6 +13,8 @@
     <changeSet author="LOKO" id="1">
     	<createSequence catalogName="GENERIQUE"
             minValue="1" incrementBy="1" sequenceName="RACE_SEQ_ID" startValue="1" cycle="true"/>
+        <createSequence catalogName="GENERIQUE"
+            minValue="1" incrementBy="1" sequenceName="FORMAT_SEQ_ID" startValue="1" ordered="true" cycle="true"/>
     </changeSet>
     
     <changeSet author="LOKO" id="2" labels="structure">
@@ -29,7 +31,7 @@
 				type="VARCHAR(350)">
 			</column>
 			<column name="CODE" remarks="Code technique"
-				type="VARCHAR(41)">
+				type="VARCHAR(200)">
 				<constraints unique="true" nullable="false" />
 			</column>
 			

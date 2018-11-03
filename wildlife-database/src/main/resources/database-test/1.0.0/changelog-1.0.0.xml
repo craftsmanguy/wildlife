@@ -31,7 +31,7 @@
 				type="VARCHAR(350)">
 			</column>
 			<column name="CODE" remarks="Code technique"
-				type="VARCHAR(41)">
+				type="VARCHAR(200)">
 				<constraints unique="true" nullable="false" />
 			</column>
 			

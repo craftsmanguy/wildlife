@@ -17,32 +17,32 @@ public class RaceAdministrationDomainImpl implements RaceAdministrationDomain {
 	RaceDao raceDao;
 
 	@Override
-	public boolean isRaceExists(String code) {
+	public boolean isExists(String code) {
 		return raceDao.isExists(code);
 	}
 
 	@Override
-	public RaceDto findRaceByCode(String code) throws NoResultException {
+	public RaceDto findByCode(String code) throws NoResultException {
 		RaceEntity raceFromDb = raceDao.findByCode(code);
 		return RaceMapper.transformRaceEntityToRaceDto(raceFromDb);
 	}
 
 	@Override
-	public Set<RaceDto> searchRaces(RaceDto race) {
+	public Set<RaceDto> search(RaceDto race) {
 		RaceEntity raceEn = RaceMapper.transformRaceDtoToRaceEntity(race);
 		Set<RaceEntity> results = raceDao.getByAttributes(raceEn);
 		return RaceMapper.transformListRaceEntityToListRaceDto(results);
 	}
 
 	@Override
-	public RaceDto saveRace(RaceDto race) {
+	public RaceDto save(RaceDto race) {
 		RaceEntity raceEn = RaceMapper.transformRaceDtoToRaceEntity(race);
 		RaceEntity result = raceDao.insert(raceEn);
 		return RaceMapper.transformRaceEntityToRaceDto(result);
 	}
 
 	@Override
-	public void deleteRace(String code) {
+	public void delete(String code) {
 		RaceEntity raceToDelete = raceDao.findByCode(code);
 		raceDao.delete(raceToDelete);
 

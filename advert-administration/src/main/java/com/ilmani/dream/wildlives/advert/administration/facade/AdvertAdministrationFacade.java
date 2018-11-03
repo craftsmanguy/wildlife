@@ -33,11 +33,11 @@ public class AdvertAdministrationFacade {
 		return formatDomain.searchFormats(format);
 	}
 
-	public void delete(String code) {
+	public void deleteFormat(String code) {
 		formatDomain.delete(code);
 	}
 
-	public FormatDto update(FormatDto format, String code) {
+	public FormatDto updateFormat(FormatDto format, String code) {
 		return formatDomain.update(format, code);
 	}
 

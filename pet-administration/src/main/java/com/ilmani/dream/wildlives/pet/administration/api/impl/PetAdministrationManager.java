@@ -2,11 +2,10 @@ package com.ilmani.dream.wildlives.pet.administration.api.impl;
 
 import static javax.ws.rs.core.Response.Status.BAD_REQUEST;
 import static javax.ws.rs.core.Response.Status.CONFLICT;
+import static javax.ws.rs.core.Response.Status.FORBIDDEN;
 import static javax.ws.rs.core.Response.Status.NOT_FOUND;
 import static javax.ws.rs.core.Response.Status.NO_CONTENT;
-import static javax.ws.rs.core.Response.Status.FORBIDDEN;
 
-import java.security.NoSuchAlgorithmException;
 import java.util.Set;
 
 import javax.annotation.Resource;
@@ -29,6 +28,7 @@ import com.ilmani.dream.wildlives.framework.exceptions.EntityAlreadyExistExcepti
 import com.ilmani.dream.wildlives.framework.exceptions.EntityNotFoundException;
 import com.ilmani.dream.wildlives.framework.exceptions.RequiredFieldException;
 import com.ilmani.dream.wildlives.framework.exceptions.RestClientException;
+import com.ilmani.dream.wildlives.framework.helper.SlugHelper;
 import com.ilmani.dream.wildlives.framework.helper.TransformationHelper;
 import com.ilmani.dream.wildlives.pet.administration.api.PetAdministrationLocal;
 import com.ilmani.dream.wildlives.pet.administration.facade.PetAdministrationFacade;
@@ -44,6 +44,7 @@ public class PetAdministrationManager implements PetAdministrationLocal {
 	@Resource
 	private UserTransaction utx;
 
+	@Override
 	public RaceDto findRaceByCode(String code) throws EntityNotFoundException {
 		try {
 			return petFacade.findRaceByCode(code);
@@ -52,6 +53,7 @@ public class PetAdministrationManager implements PetAdministrationLocal {
 		}
 	}
 
+	@Override
 	public RaceDto saveRace(RaceDto race)
 			throws RequiredFieldException, RestClientException, EntityAlreadyExistException {
 
@@ -68,7 +70,7 @@ public class PetAdministrationManager implements PetAdministrationLocal {
 			throw new RequiredFieldException(BAD_REQUEST, ErrorEntity.ErrorKey.UNAUTHORIZED_ACTION.getValue());
 		}
 
-		getSha1FromCodeField(race);
+		getCodeFromFields(race);
 		race.setActive(false);
 
 		boolean ifRaceExists = petFacade.isRaceExists(race.getCode());
@@ -112,7 +114,7 @@ public class PetAdministrationManager implements PetAdministrationLocal {
 			throw new EntityNotFoundException(NOT_FOUND, ErrorEntity.ErrorKey.RESOURCE_NOT_FOUND.getValue());
 		}
 		sanitizeFieldsOfRace(race);
-		getSha1FromCodeField(race);
+		getCodeFromFields(race);
 
 		boolean ifRaceToUpdateExists = petFacade.isRaceExists(race.getCode());
 		if (ifRaceToUpdateExists && !code.equals(race.getCode())) {
@@ -169,14 +171,9 @@ public class PetAdministrationManager implements PetAdministrationLocal {
 		race.setClan(TransformationHelper.cleanAllSpecialsCharacters(race.getClan().toUpperCase()));
 	}
 
-	private void getSha1FromCodeField(RaceDto race) throws RestClientException {
-		String textToEncrypt = race.getName() + "_" + race.getSpecie() + "_" + race.getClan();
-		try {
-			race.setCode(TransformationHelper.checksumStringWithSHA1(textToEncrypt));
-		} catch (NoSuchAlgorithmException e) {
-			// TODO Auto-generated catch block
-			throw new RestClientException();
-		}
+	private void getCodeFromFields(RaceDto race) throws RestClientException {
+		String textToEncrypt = race.getName() + "-" + race.getSpecie();
+		race.setCode(SlugHelper.makeSlug(textToEncrypt));
 	}
 
 	private static boolean isVertebrateEnumContainsValue(String value) {

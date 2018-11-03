@@ -74,7 +74,7 @@ public class FormatDao {
 			predicateList.add(builder.like(builder.upper(formatFromDb.<String>get("feature")),
 					"%" + format.getFeature().toUpperCase() + "%"));
 		}
-		predicateList.add(builder.equal(formatFromDb.get("isActive"), true));
+//		predicateList.add(builder.equal(formatFromDb.get("isActive"), true));
 
 		criteriaQuery.where(predicateList.toArray(new Predicate[] {}));
 		criteriaQuery.orderBy(builder.asc(formatFromDb.get("name")));

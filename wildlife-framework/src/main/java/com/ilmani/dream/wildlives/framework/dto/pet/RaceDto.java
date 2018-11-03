@@ -21,6 +21,15 @@ public class RaceDto implements Serializable{
 	public RaceDto() {
 
 	}
+	
+	public RaceDto(String code) {
+		this.code = code;
+	}
+	
+	public RaceDto(String name, String code) {
+		this.name = name;
+		this.code = code;
+	}
 
 	public RaceDto(String name, String specie, String clan) {
 		this.name = name;

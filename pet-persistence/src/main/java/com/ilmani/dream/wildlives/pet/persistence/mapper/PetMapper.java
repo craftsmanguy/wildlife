@@ -18,7 +18,6 @@ public class PetMapper {
 		}
 		try {
 			BeanUtils.copyProperties(petDto, petEntity);
-			petDto.setInsertionDate(petEntity.getInsertionDate());
 			if (petEntity.getRaceEn() != null) {
 				petDto.setRace(RaceMapper.transformRaceEntityToRaceDto(petEntity.getRaceEn()));
 			}

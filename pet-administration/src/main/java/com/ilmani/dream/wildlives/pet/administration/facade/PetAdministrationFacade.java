@@ -13,23 +13,23 @@ public class PetAdministrationFacade {
 	RaceAdministrationDomain raceDomain;
 
 	public boolean isRaceExists(String code) {
-		return raceDomain.isRaceExists(code);
+		return raceDomain.isExists(code);
 	}
 
 	public RaceDto findRaceByCode(String code) {
-		return raceDomain.findRaceByCode(code);
+		return raceDomain.findByCode(code);
 	}
 
 	public Set<RaceDto> searchRaces(RaceDto race) {
-		return raceDomain.searchRaces(race);
+		return raceDomain.search(race);
 	}
 
 	public RaceDto saveRace(RaceDto race) {
-		return raceDomain.saveRace(race);
+		return raceDomain.save(race);
 	}
 
 	public void deleteRace(String code) {
-		raceDomain.deleteRace(code);
+		raceDomain.delete(code);
 	}
 
 	public RaceDto updateRace(RaceDto race, String codeToUpdate) {

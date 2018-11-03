@@ -5,6 +5,7 @@ import java.util.Set;
 import javax.ejb.Local;
 
 import com.ilmani.dream.wildlives.framework.dto.advert.FormatDto;
+import com.ilmani.dream.wildlives.framework.exceptions.AuthenticationException;
 import com.ilmani.dream.wildlives.framework.exceptions.EntityAlreadyExistException;
 import com.ilmani.dream.wildlives.framework.exceptions.EntityNotFoundException;
 import com.ilmani.dream.wildlives.framework.exceptions.RequiredFieldException;
@@ -17,7 +18,7 @@ public interface AdvertAdministrationLocal {
 			throws RequiredFieldException, EntityAlreadyExistException, RestClientException;
 	
 	public FormatDto updateFormat(FormatDto format, String codeToUpdate)
-			throws RequiredFieldException, EntityNotFoundException, RestClientException;
+			throws RequiredFieldException, EntityNotFoundException, RestClientException, AuthenticationException;
 
 	public FormatDto findFormatByCode(String code) throws EntityNotFoundException;
 	
