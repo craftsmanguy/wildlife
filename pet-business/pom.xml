@@ -40,6 +40,11 @@
 			<groupId>com.ilmani.dream.wildlives</groupId>
 			<artifactId>wildlife-framework</artifactId>
 		</dependency>
+
+		<dependency>
+			<groupId>commons-validator</groupId>
+			<artifactId>commons-validator</artifactId>
+		</dependency>
 	</dependencies>
 
 	<build>

@@ -53,7 +53,7 @@ public class FormatDaoTest extends DataBaseCreationTest {
 	@Test
 	public void searchByOptionalAttribute() {
 		Set<FormatEntity> results = formatDao.getByAttributes(new FormatEntity());
-		assertEquals(7, results.size());
+		assertEquals(8, results.size());
 	}
 
 	@Test

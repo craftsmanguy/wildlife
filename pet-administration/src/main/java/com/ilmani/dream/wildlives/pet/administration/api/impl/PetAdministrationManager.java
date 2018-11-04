@@ -56,27 +56,14 @@ public class PetAdministrationManager implements PetAdministrationLocal {
 	@Override
 	public RaceDto saveRace(RaceDto race)
 			throws RequiredFieldException, RestClientException, EntityAlreadyExistException {
-
 		RaceDto result = null;
 
-		if (race == null || StringUtils.isEmpty(race.getName()) || StringUtils.isEmpty(race.getSpecie())
-				|| StringUtils.isEmpty(race.getClan())) {
-			throw new RequiredFieldException(BAD_REQUEST, ErrorEntity.ErrorKey.FIELD_IS_MISSING.getValue());
-		}
+		throwsExceptionIfAllFieldsAreNotFill(race);
 		sanitizeFieldsOfRace(race);
-
-		boolean isValuable = isVertebrateEnumContainsValue(race.getClan());
-		if (!isValuable) {
-			throw new RequiredFieldException(BAD_REQUEST, ErrorEntity.ErrorKey.UNAUTHORIZED_ACTION.getValue());
-		}
-
+		throwsExceptionIfVertebrateEnumNotContainValue(race.getClan());
 		getCodeFromFields(race);
 		race.setActive(false);
-
-		boolean ifRaceExists = petFacade.isRaceExists(race.getCode());
-		if (ifRaceExists) {
-			throw new EntityAlreadyExistException(CONFLICT, ErrorEntity.ErrorKey.RESOURCE_ALREADY_EXIST.getValue());
-		}
+		throwsExceptionIfExistingRace(race.getCode());
 
 		try {
 			utx.begin();
@@ -105,21 +92,11 @@ public class PetAdministrationManager implements PetAdministrationLocal {
 			throws RequiredFieldException, EntityNotFoundException, RestClientException, AuthenticationException {
 		RaceDto result = null;
 
-		if (race == null || StringUtils.isEmpty(race.getName()) || StringUtils.isEmpty(race.getSpecie())
-				|| StringUtils.isEmpty(race.getClan())) {
-			throw new RequiredFieldException(BAD_REQUEST, ErrorEntity.ErrorKey.FIELD_IS_MISSING.getValue());
-		}
-		boolean ifRaceExists = petFacade.isRaceExists(code);
-		if (!ifRaceExists) {
-			throw new EntityNotFoundException(NOT_FOUND, ErrorEntity.ErrorKey.RESOURCE_NOT_FOUND.getValue());
-		}
+		throwsExceptionIfAllFieldsAreNotFill(race);
+		throwsExceptionIfNotExistingRace(code);
 		sanitizeFieldsOfRace(race);
 		getCodeFromFields(race);
-
-		boolean ifRaceToUpdateExists = petFacade.isRaceExists(race.getCode());
-		if (ifRaceToUpdateExists && !code.equals(race.getCode())) {
-			throw new AuthenticationException(FORBIDDEN, ErrorEntity.ErrorKey.RESOURCE_NOT_FOUND.getValue());
-		}
+		throwsExceptionIfNewRaceAlreadyExist(code, race.getCode());
 
 		try {
 			utx.begin();
@@ -136,11 +113,7 @@ public class PetAdministrationManager implements PetAdministrationLocal {
 
 	@Override
 	public void deleteRace(String code) throws EntityNotFoundException, RestClientException {
-
-		boolean ifRaceExists = petFacade.isRaceExists(code);
-		if (!ifRaceExists) {
-			throw new EntityNotFoundException(NOT_FOUND, ErrorEntity.ErrorKey.RESOURCE_NOT_FOUND.getValue());
-		}
+		throwsExceptionIfNotExistingRace(code);
 		try {
 			utx.begin();
 			petFacade.deleteRace(code);
@@ -165,6 +138,35 @@ public class PetAdministrationManager implements PetAdministrationLocal {
 		}
 	}
 
+	private static void throwsExceptionIfAllFieldsAreNotFill(RaceDto race) throws RequiredFieldException {
+		if (race == null || StringUtils.isEmpty(race.getName()) || StringUtils.isEmpty(race.getSpecie())
+				|| StringUtils.isEmpty(race.getClan())) {
+			throw new RequiredFieldException(BAD_REQUEST, ErrorEntity.ErrorKey.FIELD_IS_MISSING.getValue());
+		}
+	}
+
+	private void throwsExceptionIfNotExistingRace(String code) throws EntityNotFoundException {
+		boolean ifRaceExists = petFacade.isRaceExists(code);
+		if (!ifRaceExists) {
+			throw new EntityNotFoundException(NOT_FOUND, ErrorEntity.ErrorKey.RESOURCE_NOT_FOUND.getValue());
+		}
+	}
+
+	private void throwsExceptionIfExistingRace(String code) throws EntityAlreadyExistException {
+		boolean ifRaceExists = petFacade.isRaceExists(code);
+		if (ifRaceExists) {
+			throw new EntityAlreadyExistException(CONFLICT, ErrorEntity.ErrorKey.RESOURCE_ALREADY_EXIST.getValue());
+		}
+	}
+
+	private void throwsExceptionIfNewRaceAlreadyExist(String codeToUpdate, String newCode)
+			throws AuthenticationException {
+		boolean ifRaceToUpdateExists = petFacade.isRaceExists(newCode);
+		if (ifRaceToUpdateExists && !codeToUpdate.equals(newCode)) {
+			throw new AuthenticationException(FORBIDDEN, ErrorEntity.ErrorKey.RESOURCE_NOT_FOUND.getValue());
+		}
+	}
+
 	private void sanitizeFieldsOfRace(RaceDto race) {
 		race.setName(TransformationHelper.cleanAllSpecialsCharacters(race.getName().toUpperCase()));
 		race.setSpecie(TransformationHelper.cleanAllSpecialsCharacters(race.getSpecie().toUpperCase()));
@@ -174,6 +176,13 @@ public class PetAdministrationManager implements PetAdministrationLocal {
 	private void getCodeFromFields(RaceDto race) throws RestClientException {
 		String textToEncrypt = race.getName() + "-" + race.getSpecie();
 		race.setCode(SlugHelper.makeSlug(textToEncrypt));
+	}
+
+	private static void throwsExceptionIfVertebrateEnumNotContainValue(String value) throws RequiredFieldException {
+		boolean isValuable = isVertebrateEnumContainsValue(value);
+		if (!isValuable) {
+			throw new RequiredFieldException(BAD_REQUEST, ErrorEntity.ErrorKey.UNAUTHORIZED_ACTION.getValue());
+		}
 	}
 
 	private static boolean isVertebrateEnumContainsValue(String value) {

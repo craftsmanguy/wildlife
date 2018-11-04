@@ -25,7 +25,7 @@ public class AdvertEntity {
 	@Column(name = "functional_id", updatable = false, nullable = false)
 	private String functionalIdentifier;
 
-	@Column(name = "insertion_date", updatable = false)
+	@Column(name = "insertion_date",  insertable = false, updatable = false)
 	private Date insertionDate;
 
 	@Column(name = "start_date")

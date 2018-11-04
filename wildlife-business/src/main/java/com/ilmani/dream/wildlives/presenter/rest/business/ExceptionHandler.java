@@ -11,6 +11,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.ilmani.dream.wildlives.framework.exceptions.AuthenticationException;
 import com.ilmani.dream.wildlives.framework.exceptions.EntityAlreadyExistException;
 import com.ilmani.dream.wildlives.framework.exceptions.EntityNotFoundException;
+import com.ilmani.dream.wildlives.framework.exceptions.MalformedFieldException;
 import com.ilmani.dream.wildlives.framework.exceptions.RequiredFieldException;
 import com.ilmani.dream.wildlives.framework.exceptions.RestClientException;
 import com.ilmani.dream.wildlives.framework.rest.responseheader.ResponseHeaderBuilder;
@@ -37,6 +38,10 @@ public class ExceptionHandler implements ExceptionMapper<Exception> {
 
 		} else if (throwable instanceof RequiredFieldException) {
 			RequiredFieldException exception = (RequiredFieldException) throwable;
+			return responseHeader.responseBuilder(exception.getStatus()).header("Reason", exception.getError()).build();
+			
+		} else if (throwable instanceof MalformedFieldException) {
+			MalformedFieldException exception = (MalformedFieldException) throwable;
 			return responseHeader.responseBuilder(exception.getStatus()).header("Reason", exception.getError()).build();
 
 		} else if (throwable instanceof JsonMappingException) {

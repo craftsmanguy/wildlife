@@ -14,7 +14,7 @@
     	<createSequence catalogName="GENERIQUE"
             minValue="1" incrementBy="1" sequenceName="RACE_SEQ_ID" startValue="1" cycle="true"/>
         <createSequence catalogName="GENERIQUE"
-            minValue="1" incrementBy="1" sequenceName="FORMAT_SEQ_ID" startValue="1" ordered="true" cycle="true"/>
+            minValue="1" incrementBy="1" sequenceName="FORMAT_SEQ_ID" startValue="1" cycle="true"/>
     </changeSet>
     
     <changeSet author="LOKO" id="2" labels="structure">
@@ -92,7 +92,7 @@
 			</column>
 			<column name="NAME" remarks="Les formats de prestations"
 				type="VARCHAR(50)" />
-				<column name="CODE" remarks="Code technique"
+			<column name="CODE" remarks="Code technique"
 				type="VARCHAR(41)">
 				<constraints unique="true" nullable="false" />
 			</column>
@@ -155,5 +155,35 @@
 			referencedTableName="FORMAT" referencedColumnNames="ID"
 			baseTableName="ADVERT_JOIN_FORMAT" baseColumnNames="FORMAT_ID" />
     </changeSet>
+    
+    <changeSet author="LOKO" id="4" labels="structure">       
+        <createTable tableName="PARTICIPANT">
+        	<column name="ID" type="${uuid_type}" remarks="ID des utilisateurs">
+				<constraints nullable="false" primaryKey="true"/>
+			</column>
+			<column defaultValueDate="now()" name="INSERTION_DATE" remarks="Date d'Inscription" type="timestamp with time zone">
+                <constraints nullable="false" />
+            </column>
+			<column name="PSEUDONYM" remarks="Pseudonym." type="VARCHAR(100)">
+				<constraints nullable="false" unique="true"/>
+			</column>
+			<column name="EMAIL" remarks="Mail." type="VARCHAR(200)">
+				<constraints nullable="false" unique="true"/>
+			</column>
+			<column name="COUNTRY" remarks="Country." type="VARCHAR(100)">
+				<constraints nullable="false"/>
+			</column>
+			<column name="POSTAL_CODE" remarks="Postal code." type="VARCHAR(12)">
+				<constraints nullable="false"/>
+			</column>
+			<column name="CITY" remarks="City." type="VARCHAR(200)">
+				<constraints nullable="false"/>
+			</column>
+			<column name="PASS" remarks="Password" type="VARCHAR(60)">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+		
+	</changeSet>
 
 </databaseChangeLog>

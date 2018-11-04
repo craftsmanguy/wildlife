@@ -49,22 +49,12 @@ public class AdvertAdministrationManager implements AdvertAdministrationLocal {
 			throws RequiredFieldException, EntityAlreadyExistException, RestClientException {
 		FormatDto result = null;
 
-		if (format == null || format.getName() == null || format.getFeature() == null) {
-			throw new RequiredFieldException(BAD_REQUEST, ErrorEntity.ErrorKey.FIELD_IS_MISSING.getValue());
-		}
-
+		throwsExceptionIfAllFieldsAreNotFill(format);
 		sanitizeFieldsOfFormat(format);
-		boolean isValuable = isFormatEnumContainsValue(format.getName());
-		if (!isValuable) {
-			throw new RequiredFieldException(UNAUTHORIZED, ErrorEntity.ErrorKey.UNAUTHORIZED_ACTION.getValue());
-		}
+		throwsExceptionIfFormatEnumNotContainValue(format.getName());
 		format.setActive(false);
 		getCodeFromFields(format);
-
-		boolean isExists = advertFacade.isFormatExists(format.getCode());
-		if (isExists) {
-			throw new EntityAlreadyExistException(CONFLICT, ErrorEntity.ErrorKey.RESOURCE_ALREADY_EXIST.getValue());
-		}
+		throwsExceptionWhenFormatAlreadyExists(format.getCode());
 
 		try {
 			utx.begin();
@@ -84,20 +74,11 @@ public class AdvertAdministrationManager implements AdvertAdministrationLocal {
 			throws RequiredFieldException, EntityNotFoundException, RestClientException, AuthenticationException {
 		FormatDto result = null;
 
-		if (format == null || StringUtils.isEmpty(format.getName()) || StringUtils.isEmpty(format.getFeature())) {
-			throw new RequiredFieldException(BAD_REQUEST, ErrorEntity.ErrorKey.FIELD_IS_MISSING.getValue());
-		}
-		boolean ifFormatExists = advertFacade.isFormatExists(codeToUpdate);
-		if (!ifFormatExists) {
-			throw new EntityNotFoundException(NOT_FOUND, ErrorEntity.ErrorKey.RESOURCE_NOT_FOUND.getValue());
-		}
+		throwsExceptionIfAllFieldsAreNotFill(format);
+		throwsExceptionWhenFormatDoesNotExists(codeToUpdate);
 		sanitizeFieldsOfFormat(format);
 		getCodeFromFields(format);
-
-		boolean ifFormatToUpdateExists = advertFacade.isFormatExists(format.getCode());
-		if (ifFormatToUpdateExists && !codeToUpdate.equals(format.getCode())) {
-			throw new AuthenticationException(FORBIDDEN, ErrorEntity.ErrorKey.RESOURCE_NOT_FOUND.getValue());
-		}
+		throwsExceptionWhenNewFormatAlreadyExists(codeToUpdate, format.getCode());
 
 		try {
 			utx.begin();
@@ -132,10 +113,8 @@ public class AdvertAdministrationManager implements AdvertAdministrationLocal {
 
 	@Override
 	public void deleteFormat(String code) throws EntityNotFoundException, RestClientException {
-		boolean ifRaceExists = advertFacade.isFormatExists(code);
-		if (!ifRaceExists) {
-			throw new EntityNotFoundException(NOT_FOUND, ErrorEntity.ErrorKey.RESOURCE_NOT_FOUND.getValue());
-		}
+		throwsExceptionWhenFormatDoesNotExists(code);
+
 		try {
 			utx.begin();
 			advertFacade.deleteFormat(code);
@@ -145,12 +124,18 @@ public class AdvertAdministrationManager implements AdvertAdministrationLocal {
 		} finally {
 			closeTransaction(utx);
 		}
-
 	}
 
 	private void sanitizeFieldsOfFormat(FormatDto format) {
 		format.setName(TransformationHelper.cleanAllSpecialsCharacters(format.getName().toUpperCase()));
 		format.setFeature(TransformationHelper.cleanAllSpecialsCharacters(format.getFeature().toUpperCase()));
+	}
+
+	private static void throwsExceptionIfFormatEnumNotContainValue(String value) throws RequiredFieldException {
+		boolean isValuable = isFormatEnumContainsValue(value);
+		if (!isValuable) {
+			throw new RequiredFieldException(UNAUTHORIZED, ErrorEntity.ErrorKey.UNAUTHORIZED_ACTION.getValue());
+		}
 	}
 
 	private static boolean isFormatEnumContainsValue(String value) {
@@ -160,6 +145,12 @@ public class AdvertAdministrationManager implements AdvertAdministrationLocal {
 			}
 		}
 		return false;
+	}
+
+	private void throwsExceptionIfAllFieldsAreNotFill(FormatDto format) throws RequiredFieldException {
+		if (format == null || StringUtils.isEmpty(format.getName()) || StringUtils.isEmpty(format.getFeature())) {
+			throw new RequiredFieldException(BAD_REQUEST, ErrorEntity.ErrorKey.FIELD_IS_MISSING.getValue());
+		}
 	}
 
 	private void getCodeFromFields(FormatDto format) throws RestClientException {
@@ -177,6 +168,28 @@ public class AdvertAdministrationManager implements AdvertAdministrationLocal {
 			}
 		} catch (Exception e) {
 			throw new RestClientException();
+		}
+	}
+
+	private void throwsExceptionWhenFormatDoesNotExists(String code) throws EntityNotFoundException {
+		boolean ifFormatExists = advertFacade.isFormatExists(code);
+		if (!ifFormatExists) {
+			throw new EntityNotFoundException(NOT_FOUND, ErrorEntity.ErrorKey.RESOURCE_NOT_FOUND.getValue());
+		}
+	}
+
+	private void throwsExceptionWhenNewFormatAlreadyExists(String codeToUpdate, String newCode)
+			throws AuthenticationException {
+		boolean ifFormatToUpdateExists = advertFacade.isFormatExists(newCode);
+		if (ifFormatToUpdateExists && !codeToUpdate.equals(newCode)) {
+			throw new AuthenticationException(FORBIDDEN, ErrorEntity.ErrorKey.RESOURCE_NOT_FOUND.getValue());
+		}
+	}
+
+	private void throwsExceptionWhenFormatAlreadyExists(String code) throws EntityAlreadyExistException {
+		boolean isExists = advertFacade.isFormatExists(code);
+		if (isExists) {
+			throw new EntityAlreadyExistException(CONFLICT, ErrorEntity.ErrorKey.RESOURCE_ALREADY_EXIST.getValue());
 		}
 	}
 

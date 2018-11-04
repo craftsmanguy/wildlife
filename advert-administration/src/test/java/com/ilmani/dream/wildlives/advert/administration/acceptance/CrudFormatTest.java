@@ -72,6 +72,7 @@ public class CrudFormatTest {
 		Boolean isExists = true;
 		when(advertFacade.isFormatExists(oldCode)).thenReturn(isExists);
 		when(advertFacade.updateFormat(format, oldCode)).thenReturn(format);
+		format.setFeature("WALK");
 		FormatDto raceUpdated = advertMngr.updateFormat(format, oldCode);
 		assertEquals(expectedFormat, raceUpdated);
 	}
