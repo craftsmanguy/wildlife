@@ -53,14 +53,9 @@ public class TokenHelper {
 	}
 
 	public static String parseJWT(String jwtToken, String secretKey) {
-		Claims claims = Jwts.parser().setSigningKey(DatatypeConverter.parseBase64Binary(secretKey)).parseClaimsJws(jwtToken)
-				.getBody();
-		System.out.println("ID: " + claims.getId());
-		System.out.println("Subject: " + claims.getSubject());
-		System.out.println("Issuer: " + claims.getIssuer());
-		System.out.println("Expiration: " + claims.getExpiration());
+		Claims claims = Jwts.parser().setSigningKey(DatatypeConverter.parseBase64Binary(secretKey))
+				.parseClaimsJws(jwtToken).getBody();
 		return claims.getSubject();
-
 	}
 
 }

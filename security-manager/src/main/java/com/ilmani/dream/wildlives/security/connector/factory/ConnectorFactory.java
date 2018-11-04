@@ -6,6 +6,7 @@ import javax.inject.Inject;
 
 import com.ilmani.dream.wildlives.framework.dto.auth.AuthentifyPersonDto;
 import com.ilmani.dream.wildlives.framework.dto.auth.ConnectionFieldsDto;
+import com.ilmani.dream.wildlives.framework.exceptions.AuthenticationException;
 import com.ilmani.dream.wildlives.framework.exceptions.EntityNotFoundException;
 import com.ilmani.dream.wildlives.security.connector.Connectivity;
 import com.ilmani.dream.wildlives.security.connector.LoginAdministrator;
@@ -35,18 +36,30 @@ public class ConnectorFactory {
 		return token;
 	}
 
-	public String findProfil(ConnectionFieldsDto fields, String profil) throws EntityNotFoundException {
-		String idProfil = null;
-
+	public String findIdentifiantByProfil(ConnectionFieldsDto fields, String profil) throws EntityNotFoundException {
+		String result = null;
 		switch (profil) {
 		case "ADMIN":
-			idProfil = loginAdministrator.findProfilByLoginAndPassword(fields);
+			result = loginAdministrator.findIdentifiant(fields);
 			break;
 		case "USER":
-			idProfil = loginUser.findProfilByLoginAndPassword(fields);
+			result = loginUser.findIdentifiant(fields);
 			break;
 		}
-		return idProfil;
+		return result;
+	}
+
+	public String getToken(String token, String profil) throws AuthenticationException {
+		String result = null;
+		switch (profil) {
+		case "ADMIN":
+			result = loginAdministrator.getJwtToken(token);
+			break;
+		case "USER":
+			result = loginUser.getJwtToken(token);
+			break;
+		}
+		return result;
 	}
 
 }

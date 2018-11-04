@@ -12,4 +12,6 @@ public interface GatewayLocal {
 	public String authenticate(ConnectionFieldsDto fields, String profil, String issuer)
 			throws AuthenticationException, RestClientException;
 
+	public void checkToken(String token, String profil) throws AuthenticationException;
+
 }

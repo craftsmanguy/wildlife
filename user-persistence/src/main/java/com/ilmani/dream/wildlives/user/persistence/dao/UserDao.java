@@ -75,4 +75,41 @@ public class UserDao {
 		return em.createQuery(criteriaQuery).getSingleResult();
 	}
 
+	public boolean isProfilExists(String email, String password) throws NoResultException {
+		String passwordDb = findPasswordByEmail(email);
+		StringBuffer queryBuilder = new StringBuffer();
+		queryBuilder.append("SELECT users.pass =  crypt('").append(password).append("', '").append(passwordDb)
+				.append("') FROM PARTICIPANT as users WHERE users.email = '").append(email).append("';");
+		return (boolean) em.createNativeQuery(queryBuilder.toString()).getSingleResult();
+	}
+
+	private String findPasswordByEmail(String email) throws NoResultException {
+		CriteriaBuilder builder = em.getCriteriaBuilder();
+		CriteriaQuery<UserEntity> criteriaQuery = builder.createQuery(UserEntity.class);
+		Root<UserEntity> userFromDb = criteriaQuery.from(UserEntity.class);
+
+		criteriaQuery.select(userFromDb);
+		List<Predicate> predicateList = new ArrayList<Predicate>();
+
+		predicateList.add(builder.equal(userFromDb.<String>get("email"), email));
+
+		criteriaQuery.where(predicateList.toArray(new Predicate[] {}));
+		return em.createQuery(criteriaQuery).getSingleResult().getPass();
+	}
+	
+	public String findPseudonymByEmail(String email) throws NoResultException {
+
+		CriteriaBuilder builder = em.getCriteriaBuilder();
+		CriteriaQuery<UserEntity> criteriaQuery = builder.createQuery(UserEntity.class);
+		Root<UserEntity> userFromDb = criteriaQuery.from(UserEntity.class);
+
+		criteriaQuery.select(userFromDb);
+		List<Predicate> predicateList = new ArrayList<Predicate>();
+
+		predicateList.add(builder.equal(userFromDb.<String>get("email"), email));
+
+		criteriaQuery.where(predicateList.toArray(new Predicate[] {}));
+		return em.createQuery(criteriaQuery).getSingleResult().getPseudonym();
+	}
+
 }

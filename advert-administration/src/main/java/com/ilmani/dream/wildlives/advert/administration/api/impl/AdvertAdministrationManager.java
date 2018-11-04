@@ -5,7 +5,6 @@ import static javax.ws.rs.core.Response.Status.CONFLICT;
 import static javax.ws.rs.core.Response.Status.FORBIDDEN;
 import static javax.ws.rs.core.Response.Status.NOT_FOUND;
 import static javax.ws.rs.core.Response.Status.NO_CONTENT;
-import static javax.ws.rs.core.Response.Status.UNAUTHORIZED;
 
 import java.util.Set;
 
@@ -134,7 +133,7 @@ public class AdvertAdministrationManager implements AdvertAdministrationLocal {
 	private static void throwsExceptionIfFormatEnumNotContainValue(String value) throws RequiredFieldException {
 		boolean isValuable = isFormatEnumContainsValue(value);
 		if (!isValuable) {
-			throw new RequiredFieldException(UNAUTHORIZED, ErrorEntity.ErrorKey.UNAUTHORIZED_ACTION.getValue());
+			throw new RequiredFieldException(FORBIDDEN, ErrorEntity.ErrorKey.UNAUTHORIZED_ACTION.getValue());
 		}
 	}
 

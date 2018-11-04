@@ -8,6 +8,8 @@ import javax.ws.rs.core.Application;
 
 import com.ilmani.dream.wildlives.presenter.rest.business.advert.v1.AdvertBusinessResource;
 import com.ilmani.dream.wildlives.presenter.rest.business.pet.v1.PetBusinessResource;
+import com.ilmani.dream.wildlives.presenter.rest.business.security.v1.AuthenticationRequestUserFilter;
+import com.ilmani.dream.wildlives.presenter.rest.business.security.v1.AuthenticationUserService;
 import com.ilmani.dream.wildlives.presenter.rest.business.user.v1.UserBusinessResource;
 
 
@@ -20,6 +22,8 @@ public class ApplicationConfig  extends Application {
 		
 		resources.add(ExceptionHandler.class);
 
+		resources.add(AuthenticationRequestUserFilter.class);
+		resources.add(AuthenticationUserService.class);
 		resources.add(AdvertBusinessResource.class);
 		resources.add(PetBusinessResource.class);
 		resources.add(UserBusinessResource.class);

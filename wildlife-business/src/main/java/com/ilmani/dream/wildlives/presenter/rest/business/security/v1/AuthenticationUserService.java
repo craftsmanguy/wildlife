@@ -15,7 +15,7 @@ import com.ilmani.dream.wildlives.framework.rest.service.AbstractService;
 
 @Singleton
 @Path("/v1")
-public class AuthenticationUserrService extends AbstractService {
+public class AuthenticationUserService extends AbstractService {
 
 	@Inject
 	AuthenticationUserProvider authProvider;
