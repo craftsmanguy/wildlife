@@ -1,7 +1,9 @@
 package com.ilmani.dream.wildlives.user.business.api.impl;
 
+import static com.ilmani.dream.wildlives.framework.security.SecurityInformationFacade.getInstance;
 import static javax.ws.rs.core.Response.Status.BAD_REQUEST;
 import static javax.ws.rs.core.Response.Status.CONFLICT;
+import static javax.ws.rs.core.Response.Status.NOT_FOUND;
 
 import java.nio.channels.AlreadyBoundException;
 import java.util.regex.Matcher;
@@ -12,6 +14,7 @@ import javax.ejb.Stateless;
 import javax.ejb.TransactionManagement;
 import javax.ejb.TransactionManagementType;
 import javax.inject.Inject;
+import javax.persistence.NoResultException;
 import javax.transaction.NotSupportedException;
 import javax.transaction.Status;
 import javax.transaction.SystemException;
@@ -20,10 +23,11 @@ import javax.transaction.UserTransaction;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.validator.routines.EmailValidator;
 
-import com.ilmani.dream.wildlives.framework.dto.user.UserDto;
+import com.ilmani.dream.wildlives.framework.dto.user.AbstractUserDto;
 import com.ilmani.dream.wildlives.framework.dto.user.UserInscriptionDto;
 import com.ilmani.dream.wildlives.framework.error.ErrorEntity;
 import com.ilmani.dream.wildlives.framework.exceptions.EntityAlreadyExistException;
+import com.ilmani.dream.wildlives.framework.exceptions.EntityNotFoundException;
 import com.ilmani.dream.wildlives.framework.exceptions.MalformedFieldException;
 import com.ilmani.dream.wildlives.framework.exceptions.RequiredFieldException;
 import com.ilmani.dream.wildlives.framework.exceptions.RestClientException;
@@ -36,7 +40,7 @@ public class UserBusinessManager implements UserBusinessLocal {
 
 	@Inject
 	UserBusinessFacade userFacade;
-	
+
 	@Inject
 	@Resource
 	private UserTransaction utx;
@@ -47,14 +51,14 @@ public class UserBusinessManager implements UserBusinessLocal {
 	private static final String PASSWORD_PATTERN = "((?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[$&+,:;=?@#|'<>.^*()%!-]).{6,20})";
 
 	@Override
-	public void saveUser(UserDto user) throws RestClientException, RequiredFieldException, AlreadyBoundException,
-			MalformedFieldException, EntityAlreadyExistException {
+	public void saveUser(AbstractUserDto user) throws RestClientException, RequiredFieldException,
+			AlreadyBoundException, MalformedFieldException, EntityAlreadyExistException {
 
 		throwsExceptionWhenAllFieldsAreNotFill(user);
 		checkPasswordRecommandation(user);
 		checkEmailRecommandation(user.getEmail());
 		throwsExceptionWhenUserAlreadyExists(user.getEmail(), user.getPseudonym());
-		
+
 		try {
 			utx.begin();
 			userFacade.saveUser(user);
@@ -65,7 +69,22 @@ public class UserBusinessManager implements UserBusinessLocal {
 			closeTransaction(utx);
 		}
 	}
-	
+
+	@Override
+	public AbstractUserDto findProfilByIdentifier(String pseudonym) throws EntityNotFoundException {
+		try {
+			return userFacade.findProfilByIdentifier(pseudonym);
+		} catch (NoResultException e) {
+			throw new EntityNotFoundException(NOT_FOUND, ErrorEntity.ErrorKey.RESOURCE_NOT_FOUND.getValue());
+		}
+	}
+
+	@Override
+	public AbstractUserDto getPersonalProfil() {
+		String identifier = getInstance().getAuthenticationLogin();
+		return userFacade.findProfilByIdentifier(identifier);
+	}
+
 	private void closeTransaction(UserTransaction utx) throws RestClientException {
 		try {
 			if (utx.getStatus() == Status.STATUS_ACTIVE) {
@@ -79,7 +98,7 @@ public class UserBusinessManager implements UserBusinessLocal {
 		}
 	}
 
-	private static void throwsExceptionWhenAllFieldsAreNotFill(UserDto user) throws RequiredFieldException {
+	private static void throwsExceptionWhenAllFieldsAreNotFill(AbstractUserDto user) throws RequiredFieldException {
 		if (user == null || StringUtils.isEmpty(user.getPseudonym()) || StringUtils.isEmpty(user.getEmail())
 				|| StringUtils.isEmpty(user.getCountry()) || StringUtils.isEmpty(user.getPostalCode())
 				|| StringUtils.isEmpty(user.getCity()) || StringUtils.isEmpty(((UserInscriptionDto) user).getPassword())
@@ -88,7 +107,8 @@ public class UserBusinessManager implements UserBusinessLocal {
 		}
 	}
 
-	private static void checkPasswordRecommandation(UserDto user) throws RequiredFieldException, MalformedFieldException {
+	private static void checkPasswordRecommandation(AbstractUserDto user)
+			throws RequiredFieldException, MalformedFieldException {
 		pattern = Pattern.compile(PASSWORD_PATTERN);
 		matcher = pattern.matcher(((UserInscriptionDto) user).getPassword());
 		boolean isMatch = matcher.matches();
@@ -109,16 +129,17 @@ public class UserBusinessManager implements UserBusinessLocal {
 		}
 	}
 
-	private void throwsExceptionWhenUserAlreadyExists(String email, String pseudonym) throws EntityAlreadyExistException {
+	private void throwsExceptionWhenUserAlreadyExists(String email, String pseudonym)
+			throws EntityAlreadyExistException {
 		boolean isEmailExists = userFacade.isEmailExists(email);
 		if (isEmailExists) {
 			throw new EntityAlreadyExistException(CONFLICT, ErrorEntity.ErrorKey.EMAIL_ALREADY_EXIST.getValue());
 		}
-		
+
 		boolean isPseudonymExists = userFacade.isPseudonymExists(pseudonym);
 		if (isPseudonymExists) {
 			throw new EntityAlreadyExistException(CONFLICT, ErrorEntity.ErrorKey.PSEUDO_ALREADY_EXIST.getValue());
-		}		
+		}
 	}
 
 }

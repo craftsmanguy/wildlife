@@ -41,6 +41,21 @@ public class UserEntity {
 	private String pass;
 
 
+	public UserEntity() {
+		super();
+	}
+
+	
+	public UserEntity(String pseudonym, String email, String country, String postalCode, String city) {
+		super();
+		this.pseudonym = pseudonym;
+		this.email = email;
+		this.country = country;
+		this.postalCode = postalCode;
+		this.city = city;
+	}
+
+
 	public UUID getId() {
 		return id;
 	}

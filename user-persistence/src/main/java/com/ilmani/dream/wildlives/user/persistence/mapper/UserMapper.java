@@ -4,26 +4,26 @@ import java.lang.reflect.InvocationTargetException;
 
 import org.apache.commons.beanutils.BeanUtils;
 
-import com.ilmani.dream.wildlives.framework.dto.user.UserDto;
+import com.ilmani.dream.wildlives.framework.dto.user.AbstractUserDto;
 import com.ilmani.dream.wildlives.framework.dto.user.UserInscriptionDto;
 import com.ilmani.dream.wildlives.user.persistence.entity.UserEntity;
 
 public class UserMapper {
 
-	public static UserDto transformUserEntityToUserDto(UserEntity userEn) {
-		UserDto UserDto = new UserInscriptionDto();
+	public static AbstractUserDto transformUserEntityToUserDto(UserEntity userEn) {
+		AbstractUserDto userDto = new UserInscriptionDto();
 		if (userEn == null) {
-			return UserDto;
+			return userDto;
 		}
 		try {
-			BeanUtils.copyProperties(UserDto, userEn);
+			BeanUtils.copyProperties(userDto, userEn);
 		} catch (IllegalAccessException | InvocationTargetException e) {
 			// TODO log
 		}
-		return UserDto;
+		return userDto;
 	}
 
-	public static UserEntity transformUserDtoToUserEntity(UserDto userDto) {
+	public static UserEntity transformUserDtoToUserEntity(AbstractUserDto userDto) {
 		UserEntity userEntity = new UserEntity();
 		if (userDto == null) {
 			return userEntity;

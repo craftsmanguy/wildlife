@@ -1,6 +1,6 @@
 package com.ilmani.dream.wildlives.framework.dto.user;
 
-public class UserInscriptionDto extends UserDto {
+public class UserInscriptionDto extends AbstractUserDto {
 
 	private static final long serialVersionUID = -2462849373611428172L;
 

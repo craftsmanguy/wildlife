@@ -10,7 +10,7 @@ import com.ilmani.dream.wildlives.presenter.rest.business.advert.v1.AdvertBusine
 import com.ilmani.dream.wildlives.presenter.rest.business.pet.v1.PetBusinessService;
 import com.ilmani.dream.wildlives.presenter.rest.business.security.v1.AuthenticationRequestUserFilter;
 import com.ilmani.dream.wildlives.presenter.rest.business.security.v1.AuthenticationUserService;
-import com.ilmani.dream.wildlives.presenter.rest.business.user.v1.UserBusinessResource;
+import com.ilmani.dream.wildlives.presenter.rest.business.user.v1.UserBusinessService;
 
 
 @ApplicationPath("/")
@@ -26,7 +26,7 @@ public class ApplicationConfig  extends Application {
 		resources.add(AuthenticationUserService.class);
 		resources.add(AdvertBusinessResource.class);
 		resources.add(PetBusinessService.class);
-		resources.add(UserBusinessResource.class);
+		resources.add(UserBusinessService.class);
 
 		return resources;
 	}
