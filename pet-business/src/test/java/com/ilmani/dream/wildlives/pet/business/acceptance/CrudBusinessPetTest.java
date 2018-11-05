@@ -34,36 +34,34 @@ public class CrudBusinessPetTest {
 
 	@Test
 	public void insertionOfNewPetIsPossible() throws Exception {
-		PetDto expectedResult = new PetDto("af508a2e7a33055e308387eaad72e3fd3a6a9cbe-affenpinscher-rex-2018-anything", "Rex", "anything", true, "MALE",
-				2018, new RaceDto("AFFENPINSCHER", "af508a2e7a33055e308387eaad72e3fd3a6a9cbe"));
+		PetDto expectedResult = new PetDto("af508a2e7a33055e308387eaad72e3fd3a6a9cbe-affenpinscher-rex-2018-anything",
+				"Rex", "anything", true, "MALE", 2018,
+				new RaceDto("AFFENPINSCHER", "af508a2e7a33055e308387eaad72e3fd3a6a9cbe"));
 		PetDto toInsert = new PetDto("", "rex", "anything", true, "male", 2018,
 				new RaceDto("AFFENPINSCHER", "af508a2e7a33055e308387eaad72e3fd3a6a9cbe"));
 
 		when(petFacade.savePet(toInsert)).thenReturn(toInsert);
-		
 		PetDto actual = managePet.savePet(toInsert);
 		assertEquals(expectedResult.getFunctionalIdentifier(), actual.getFunctionalIdentifier().substring(0, 72));
 		assertEquals(expectedResult.getName(), actual.getName());
 		assertEquals(expectedResult.getGender(), actual.getGender());
 	}
-	
+
 	@Test(expected = RequiredFieldException.class)
 	public void testGenerateExceptionBecauseAttributePetIsNull() throws Exception {
 		managePet.savePet(new PetDto());
 	}
-	
+
 	@Test(expected = RequiredFieldException.class)
 	public void insertionOfNewPetWithWrongGenderIsPossible() throws Exception {
 		PetDto toInsert = new PetDto("", "rex", "anything", true, "malebi", 2018,
 				new RaceDto("AFFENPINSCHER", "af508a2e7a33055e308387eaad72e3fd3a6a9cbe"));
 		managePet.savePet(toInsert);
 	}
-	
+
 	@Test(expected = EntityNotFoundException.class)
 	public void attemptToRemoveResourceWichNotExist() throws Exception {
-		managePet.deletePet(new String ("some_code"));
+		managePet.deletePet(new String("some_code"));
 	}
-	
-	
 
 }

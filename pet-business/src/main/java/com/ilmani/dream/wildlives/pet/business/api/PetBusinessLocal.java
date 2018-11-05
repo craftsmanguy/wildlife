@@ -12,6 +12,6 @@ public interface PetBusinessLocal {
 	
 	public PetDto savePet(PetDto pet) throws RestClientException, RequiredFieldException, EntityNotFoundException;
 	
-	public void deletePet(String functionalId) throws EntityNotFoundException, RestClientException;
+	public void deletePet(String id) throws EntityNotFoundException, RestClientException;
 
 }

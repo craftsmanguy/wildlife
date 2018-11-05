@@ -57,9 +57,6 @@
         	<column name="CLAN"/>
     	</createIndex>
 		
-		<comment>Init data (race)</comment>	
-		<sqlFile dbms="h2" encoding="utf8" path="Test_data_race_1.sql" relativeToChangelogFile="true" />
-		
 		<createTable tableName="PET">
         	<column name="ID" type="${uuid_type}">
 				<constraints nullable="false" primaryKey="true"/>
@@ -80,6 +77,9 @@
         	<column name="RACE_ID" remarks="ID de l'espèce" type="SMALLINT">
 				<constraints nullable="false" />
 			</column>
+			<column name="PARTICIPANT_ID" remarks="ID de l'utilisateur" type="${uuid_type}">
+				<constraints nullable="false" />
+			</column>
         </createTable>
         <addForeignKeyConstraint constraintName="FK_PET_RACE_ID"
 			referencedTableName="RACE" referencedColumnNames="ID"
@@ -87,9 +87,6 @@
 			deferrable="false" initiallyDeferred="false" onDelete="RESTRICT"
 			onUpdate="RESTRICT" />
        
-        <comment>Init data (pet)</comment>	
-		<sqlFile dbms="h2" encoding="utf8" path="Test_data_pet_1.sql" relativeToChangelogFile="true" />
-		
 		<rollback>
             drop table pet;
             drop table race;
@@ -117,9 +114,6 @@
 			</column>
 		</createTable>
 		<addUniqueConstraint columnNames="NAME, FEATURE" constraintName="UC_FORMAT_NAME_FEATURE" tableName="FORMAT" />
-		
-		<comment>Init data (format)</comment>	
-		<sqlFile dbms="h2" encoding="utf8" path="Test_data_format_1.sql" relativeToChangelogFile="true" />    
     
 		<createTable tableName="ADVERT">
 			<column name="ID" type="${uuid_type}" remarks="ID de la demande ou de l'offre">
@@ -168,10 +162,7 @@
 		<addForeignKeyConstraint constraintName="FK_ADVERT_JOIN_FORMAT_FORMAT_ID"
 			referencedTableName="FORMAT" referencedColumnNames="ID"
 			baseTableName="ADVERT_JOIN_FORMAT" baseColumnNames="FORMAT_ID" />
-			
-			<comment>Init data (advert)</comment>	
-		<sqlFile dbms="h2" encoding="utf8" path="Test_data_advert_1.sql" relativeToChangelogFile="true" /> 
-		
+					
 		<rollback>
             drop table advert_join_format;
             drop table advert;
@@ -180,7 +171,7 @@
 	</changeSet>
 	
 	<changeSet author="LOKO" id="4" labels="structure">       
-        <createTable tableName="USER">
+        <createTable tableName="PARTICIPANT">
         	<column name="ID" type="${uuid_type}" remarks="ID des utilisateurs">
 				<constraints nullable="false" primaryKey="true"/>
 			</column>
@@ -206,6 +197,30 @@
 				<constraints nullable="false" />
 			</column>
 		</createTable>
+		
+		<addForeignKeyConstraint constraintName="FK_PET_PARTICIPANT_ID"
+			referencedTableName="PARTICIPANT" referencedColumnNames="ID"
+			baseTableName="PET" baseColumnNames="PARTICIPANT_ID"
+			deferrable="false" initiallyDeferred="false" onDelete="RESTRICT"
+			onUpdate="RESTRICT" />
+		
+	</changeSet>
+	
+	<changeSet author="LOKO" id="10000" labels="data">
+		<comment>Init data (user)</comment>	
+		<sqlFile dbms="h2" encoding="utf8" path="Test_data_user_1.sql" relativeToChangelogFile="true"/>
+		
+		<comment>Init data (race)</comment>	
+		<sqlFile dbms="h2" encoding="utf8" path="Test_data_race_1.sql" relativeToChangelogFile="true"/>
+		
+		<comment>Init data (pet)</comment>	
+		<sqlFile dbms="h2" encoding="utf8" path="Test_data_pet_1.sql" relativeToChangelogFile="true"/>
+		
+		<comment>Init data (format)</comment>	
+		<sqlFile dbms="h2" encoding="utf8" path="Test_data_format_1.sql" relativeToChangelogFile="true"/>
+		
+		<comment>Init data (advert)</comment>	
+		<sqlFile dbms="h2" encoding="utf8" path="Test_data_advert_1.sql" relativeToChangelogFile="true"/> 
 		
 	</changeSet>
     

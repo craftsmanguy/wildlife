@@ -54,7 +54,6 @@ public class GatewayManager implements GatewayLocal {
 		String identifiant = connectorFactory.getToken(token, profil);
 		getInstance().setAuthenticationToken(token);
 		getInstance().setAuthenticationLogin(identifiant);
-
 	}
 
 	private static void throwsExceptionWhenAllFieldsAreNotFill(ConnectionFieldsDto fields)

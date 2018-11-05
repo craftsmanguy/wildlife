@@ -77,12 +77,16 @@
             <column name="RACE_ID" remarks="ID de l'espèce" type="SMALLINT">
 				<constraints nullable="false" />
 			</column>
+			<column name="PARTICIPANT_ID" remarks="ID de l'utilisateur" type="${uuid_type}">
+				<constraints nullable="false" />
+			</column>
         </createTable>
         <addForeignKeyConstraint constraintName="FK_PET_RACE_ID"
 			referencedTableName="RACE" referencedColumnNames="ID"
 			baseTableName="PET" baseColumnNames="RACE_ID"
 			deferrable="false" initiallyDeferred="false" onDelete="RESTRICT"
 			onUpdate="RESTRICT" />
+		
 	</changeSet>
 	
 	<changeSet author="LOKO" id="3" labels="structure">
@@ -183,6 +187,12 @@
 				<constraints nullable="false" />
 			</column>
 		</createTable>
+		
+		<addForeignKeyConstraint constraintName="FK_PET_PARTICIPANT_ID"
+			referencedTableName="PARTICIPANT" referencedColumnNames="ID"
+			baseTableName="PET" baseColumnNames="PARTICIPANT_ID"
+			deferrable="false" initiallyDeferred="false" onDelete="RESTRICT"
+			onUpdate="RESTRICT" />
 		
 	</changeSet>
 

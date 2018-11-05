@@ -2,7 +2,7 @@ package com.ilmani.dream.wildlives.framework.dto.pet;
 
 import java.io.Serializable;
 
-public class PetDto implements Serializable{
+public class AbstractPetDto implements Serializable{
 
 	private static final long serialVersionUID = 2811739234678308526L;
 
@@ -20,14 +20,12 @@ public class PetDto implements Serializable{
 
 	private RaceDto race;
 	
-	private String userForPet;
 
-
-	public PetDto() {
+	public AbstractPetDto() {
 		super();
 	}
 
-	public PetDto(String functionalIdentifier, String name, String description, boolean isLof,
+	public AbstractPetDto(String functionalIdentifier, String name, String description, boolean isLof,
 			String gender, Integer birth, RaceDto race) {
 		super();
 		this.functionalIdentifier = functionalIdentifier;
@@ -95,13 +93,6 @@ public class PetDto implements Serializable{
 		this.race = race;
 	}
 	
-	public String getUserForPet() {
-		return userForPet;
-	}
-
-	public void setUserForPet(String userForPet) {
-		this.userForPet = userForPet;
-	}
 
 	@Override
 	public int hashCode() {
@@ -125,10 +116,10 @@ public class PetDto implements Serializable{
 		if (obj == null) {
 			return false;
 		}
-		if (!(obj instanceof PetDto)) {
+		if (!(obj instanceof AbstractPetDto)) {
 			return false;
 		}
-		PetDto other = (PetDto) obj;
+		AbstractPetDto other = (AbstractPetDto) obj;
 		if (birth == null) {
 			if (other.birth != null) {
 				return false;

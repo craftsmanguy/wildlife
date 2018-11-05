@@ -1,5 +1,6 @@
 package com.ilmani.dream.wildlives.pet.business.api.impl;
 
+import static com.ilmani.dream.wildlives.framework.security.SecurityInformationFacade.getInstance;
 import static javax.ws.rs.core.Response.Status.BAD_REQUEST;
 import static javax.ws.rs.core.Response.Status.NOT_FOUND;
 
@@ -58,6 +59,7 @@ public class PetBusinessManager implements PetBusinessLocal {
 
 		try {
 			utx.begin();
+			pet.setUserForPet(getInstance().getAuthenticationLogin());
 			result = petFacade.savePet(pet);
 		} catch (NotSupportedException | SystemException e) {
 			// TODO Auto-generated catch block

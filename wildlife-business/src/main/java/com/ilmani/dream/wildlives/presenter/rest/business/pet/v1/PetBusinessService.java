@@ -12,13 +12,14 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import com.ilmani.dream.wildlives.framework.dto.pet.PetDto;
 import com.ilmani.dream.wildlives.framework.rest.service.AbstractService;
 import com.ilmani.dream.wildlives.framework.security.TokenAuthentication;
+import com.ilmani.dream.wildlives.presenter.rest.business.pet.v1.resources.PetBusinessProvider;
+import com.ilmani.dream.wildlives.presenter.rest.business.pet.v1.resources.PetResource;
 
 @Singleton
 @Path("/v1")
-public class PetBusinessResource extends AbstractService {
+public class PetBusinessService extends AbstractService {
 
 	@Inject
 	PetBusinessProvider petProvider;
@@ -30,18 +31,18 @@ public class PetBusinessResource extends AbstractService {
 	@TokenAuthentication
 	@Consumes({ MediaType.APPLICATION_JSON })
 	@Produces({ MediaType.APPLICATION_JSON })
-	public Response savePet(PetDto pet) throws Exception {
+	public Response savePet(PetResource pet) throws Exception {
 		return responseHeader.responseBuilder(HttpMethod.POST, Response.Status.CREATED)
 				.entity(petProvider.savePet(pet)).build();
 	}
 	
 	@DELETE
-	@Path("pets/{functionalId}")
+	@Path("pets/{id}")
 	@TokenAuthentication
 	@Consumes({ MediaType.APPLICATION_JSON })
 	@Produces({ MediaType.APPLICATION_JSON })
-	public Response deletePet(@PathParam("functionalId") String functionalId) throws Exception {
-		petProvider.deletePet(functionalId);
+	public Response deletePet(@PathParam("id") String id) throws Exception {
+		petProvider.deletePet(id);
 		return responseHeader.responseBuilder(HttpMethod.GET, Response.Status.RESET_CONTENT).build();
 	}
 

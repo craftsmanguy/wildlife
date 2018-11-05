@@ -1,12 +1,14 @@
-package com.ilmani.dream.wildlives.framework.dto.pet;
+package com.ilmani.dream.wildlives.presenter.rest.business.pet.v1.resources;
 
 import java.io.Serializable;
 
-public class PetDto implements Serializable{
+import com.ilmani.dream.wildlives.framework.dto.pet.RaceDto;
+
+public class PetResource implements Serializable{
 
 	private static final long serialVersionUID = 2811739234678308526L;
 
-	private String functionalIdentifier;
+	private String id;
 
 	private String name;
 
@@ -19,32 +21,22 @@ public class PetDto implements Serializable{
 	private Integer birth;
 
 	private RaceDto race;
-	
-	private String userForPet;
 
-
-	public PetDto() {
+	public PetResource() {
 		super();
 	}
 
-	public PetDto(String functionalIdentifier, String name, String description, boolean isLof,
-			String gender, Integer birth, RaceDto race) {
+	public PetResource(RaceDto race) {
 		super();
-		this.functionalIdentifier = functionalIdentifier;
-		this.name = name;
-		this.description = description;
-		this.isLof = isLof;
-		this.gender = gender;
-		this.birth = birth;
 		this.race = race;
 	}
 
-	public String getFunctionalIdentifier() {
-		return functionalIdentifier;
+	public String getId() {
+		return id;
 	}
 
-	public void setFunctionalIdentifier(String functionalIdentifier) {
-		this.functionalIdentifier = functionalIdentifier;
+	public void setId(String id) {
+		this.id = id;
 	}
 
 	public String getName() {
@@ -94,14 +86,6 @@ public class PetDto implements Serializable{
 	public void setRace(RaceDto race) {
 		this.race = race;
 	}
-	
-	public String getUserForPet() {
-		return userForPet;
-	}
-
-	public void setUserForPet(String userForPet) {
-		this.userForPet = userForPet;
-	}
 
 	@Override
 	public int hashCode() {
@@ -109,7 +93,7 @@ public class PetDto implements Serializable{
 		int result = 1;
 		result = prime * result + ((birth == null) ? 0 : birth.hashCode());
 		result = prime * result + ((description == null) ? 0 : description.hashCode());
-		result = prime * result + ((functionalIdentifier == null) ? 0 : functionalIdentifier.hashCode());
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((gender == null) ? 0 : gender.hashCode());
 		result = prime * result + (isLof ? 1231 : 1237);
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
@@ -125,10 +109,10 @@ public class PetDto implements Serializable{
 		if (obj == null) {
 			return false;
 		}
-		if (!(obj instanceof PetDto)) {
+		if (!(obj instanceof PetResource)) {
 			return false;
 		}
-		PetDto other = (PetDto) obj;
+		PetResource other = (PetResource) obj;
 		if (birth == null) {
 			if (other.birth != null) {
 				return false;
@@ -143,11 +127,11 @@ public class PetDto implements Serializable{
 		} else if (!description.equals(other.description)) {
 			return false;
 		}
-		if (functionalIdentifier == null) {
-			if (other.functionalIdentifier != null) {
+		if (id == null) {
+			if (other.id != null) {
 				return false;
 			}
-		} else if (!functionalIdentifier.equals(other.functionalIdentifier)) {
+		} else if (!id.equals(other.id)) {
 			return false;
 		}
 		if (gender == null) {

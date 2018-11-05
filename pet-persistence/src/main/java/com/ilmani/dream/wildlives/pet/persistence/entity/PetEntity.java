@@ -43,6 +43,10 @@ public class PetEntity {
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@JoinColumn(name = "race_id")
 	private RaceEntity raceEn;
+	
+	@ManyToOne
+	@JoinColumn(name = "participant_id")
+	private UserForPetEntity userEn;
 
 	public PetEntity() {
 		super();
@@ -138,5 +142,14 @@ public class PetEntity {
 	public void setRaceEn(RaceEntity raceEn) {
 		this.raceEn = raceEn;
 	}
+	
+	public UserForPetEntity getUserEn() {
+		return userEn;
+	}
+
+	public void setUserEn(UserForPetEntity userEn) {
+		this.userEn = userEn;
+	}
+	
 
 }

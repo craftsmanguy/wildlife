@@ -1,4 +1,4 @@
-package com.ilmani.dream.wildlives.presenter.rest.business.pet.v1;
+package com.ilmani.dream.wildlives.presenter.rest.business.pet.v1.resources;
 
 import javax.ejb.EJB;
 import javax.ws.rs.ext.Provider;
@@ -15,12 +15,15 @@ public class PetBusinessProvider {
 	@EJB(name = "PetBusinessManager")
 	PetBusinessLocal petLocal;
 
-	public PetDto savePet(PetDto pet) throws RestClientException, RequiredFieldException, EntityNotFoundException {
-		return petLocal.savePet(pet);
+	public PetResource savePet(PetResource pet)
+			throws RestClientException, RequiredFieldException, EntityNotFoundException {
+		PetDto petDto = PetResourceMapper.transformPetResourceToPetDto(pet);
+		PetDto result = petLocal.savePet(petDto);
+		return PetResourceMapper.transformPetDtoToPetResource(result);
 	}
 
-	public void deletePet(String functionalId) throws EntityNotFoundException, RestClientException {
-		petLocal.deletePet(functionalId);
+	public void deletePet(String id) throws EntityNotFoundException, RestClientException {
+		petLocal.deletePet(id);
 	}
 
 }
