@@ -1,11 +1,14 @@
 package com.ilmani.dream.wildlives.user.persistence.entity;
 
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.ColumnTransformer;
@@ -36,16 +39,17 @@ public class UserEntity {
 	@Column(name = "city")
 	private String city;
 
-	@ColumnTransformer (write = "crypt( " + " ?, " + "gen_salt('bf', 12))")
+	@ColumnTransformer(write = "crypt( " + " ?, " + "gen_salt('bf', 12))")
 	@Column(name = "pass")
 	private String pass;
 
+	@OneToMany(mappedBy = "userEn", fetch = FetchType.LAZY)
+	private List<PetForUserEntity> petsEn;
 
 	public UserEntity() {
 		super();
 	}
 
-	
 	public UserEntity(String pseudonym, String email, String country, String postalCode, String city) {
 		super();
 		this.pseudonym = pseudonym;
@@ -54,7 +58,6 @@ public class UserEntity {
 		this.postalCode = postalCode;
 		this.city = city;
 	}
-
 
 	public UUID getId() {
 		return id;
@@ -120,7 +123,14 @@ public class UserEntity {
 		this.pass = pass;
 	}
 
-	
+	public List<PetForUserEntity> getPetsEn() {
+		return petsEn;
+	}
 
+	public void setPetsEn(List<PetForUserEntity> petsEn) {
+		this.petsEn = petsEn;
+	}
+
+	
 
 }
