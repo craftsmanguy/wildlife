@@ -3,13 +3,13 @@ package com.ilmani.dream.wildlives.framework.dto.user;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.ilmani.dream.wildlives.framework.dto.pet.PetDto;
+import com.ilmani.dream.wildlives.framework.dto.pet.AbstractPetDto;
 
 public class UserDto extends AbstractUserDto {
 
 	private static final long serialVersionUID = -8951795870529852049L;
 
-	private List<PetDto> pets = new ArrayList<PetDto>();
+	private List<AbstractPetDto> pets = new ArrayList<AbstractPetDto>();
 
 	public UserDto() {
 		super();
@@ -24,12 +24,12 @@ public class UserDto extends AbstractUserDto {
 		this.city = city;
 	}
 
-	public List<PetDto> getPets() {
+	public List<AbstractPetDto> getPets() {
 		return pets;
 	}
 
-	public void setPets(List<PetDto> pets) {
-		this.pets = pets;
+	public void setPets(List<AbstractPetDto> petsDto) {
+		this.pets = petsDto;
 	}
 
 }

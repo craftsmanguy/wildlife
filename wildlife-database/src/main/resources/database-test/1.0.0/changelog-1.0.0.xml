@@ -142,6 +142,9 @@
 				type="VARCHAR(30)">
 				<constraints nullable="false" />
 			</column>
+			<column name="PARTICIPANT_ID" remarks="ID de l'utilisateur" type="${uuid_type}">
+				<constraints nullable="false" />
+			</column>
 		</createTable>
 		
 		<createTable tableName="ADVERT_JOIN_FORMAT">
@@ -203,24 +206,38 @@
 			baseTableName="PET" baseColumnNames="PARTICIPANT_ID"
 			deferrable="false" initiallyDeferred="false" onDelete="RESTRICT"
 			onUpdate="RESTRICT" />
+			
+		<addForeignKeyConstraint constraintName="FK_ADVERT_PARTICIPANT_ID"
+			referencedTableName="PARTICIPANT" referencedColumnNames="ID"
+			baseTableName="ADVERT" baseColumnNames="PARTICIPANT_ID"
+			deferrable="false" initiallyDeferred="false" onDelete="RESTRICT"
+			onUpdate="RESTRICT" />
+			
+		<createTable tableName="ADVERT_JOIN_PET">
+			<column name="ADVERT_ID" remarks="ID du format de prestation" type="${uuid_type}">
+				<constraints nullable="false" />
+			</column>
+			<column name="PET_ID" remarks="ID de l'animal" type="${uuid_type}">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+			
+		<addUniqueConstraint
+			columnNames="ADVERT_ID, PET_ID"
+			constraintName="UC_ADVERT_ID_PET_ID" tableName="ADVERT_JOIN_PET" />
+		<addForeignKeyConstraint constraintName="FK_ADVERT_JOIN_PET_ADVERT_ID"
+			referencedTableName="ADVERT" referencedColumnNames="ID"
+			baseTableName="ADVERT_JOIN_PET" baseColumnNames="ADVERT_ID" />
+		<addForeignKeyConstraint constraintName="FK_ADVERT_JOIN_PET_PET_ID"
+			referencedTableName="PET" referencedColumnNames="ID"
+			baseTableName="ADVERT_JOIN_PET" baseColumnNames="PET_ID" />
+
 		
 	</changeSet>
 	
 	<changeSet author="LOKO" id="10000" labels="data">
-		<comment>Init data (user)</comment>	
-		<sqlFile dbms="h2" encoding="utf8" path="Test_data_user_1.sql" relativeToChangelogFile="true"/>
-		
-		<comment>Init data (race)</comment>	
-		<sqlFile dbms="h2" encoding="utf8" path="Test_data_race_1.sql" relativeToChangelogFile="true"/>
-		
-		<comment>Init data (pet)</comment>	
-		<sqlFile dbms="h2" encoding="utf8" path="Test_data_pet_1.sql" relativeToChangelogFile="true"/>
-		
-		<comment>Init data (format)</comment>	
-		<sqlFile dbms="h2" encoding="utf8" path="Test_data_format_1.sql" relativeToChangelogFile="true"/>
-		
-		<comment>Init data (advert)</comment>	
-		<sqlFile dbms="h2" encoding="utf8" path="Test_data_advert_1.sql" relativeToChangelogFile="true"/> 
+		<comment>Init data </comment>	
+		<sqlFile dbms="h2" encoding="utf8" path="Test_data_1.sql" relativeToChangelogFile="true"/>
 		
 	</changeSet>
     

@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.apache.commons.beanutils.BeanUtils;
 
-import com.ilmani.dream.wildlives.framework.dto.pet.PetDto;
+import com.ilmani.dream.wildlives.framework.dto.pet.AbstractPetDto;
 import com.ilmani.dream.wildlives.framework.dto.user.AbstractUserDto;
 import com.ilmani.dream.wildlives.framework.dto.user.UserDto;
 import com.ilmani.dream.wildlives.framework.dto.user.UserInscriptionDto;
@@ -50,7 +50,7 @@ public class UserMapper {
 		try {
 			BeanUtils.copyProperties(userDto, userEn);
 			if (userEn.getPetsEn() != null) {
-				List<PetDto> pets = PetForUserEntityMapper.transformListForUserEntityToListPetDto(userEn.getPetsEn());
+				List<AbstractPetDto> pets = PetForUserMapper.transformListForUserEntityToListAbstractPetDto(userEn.getPetsEn());
 				((UserDto) userDto).setPets(pets);
 			}
 		} catch (IllegalAccessException | InvocationTargetException e) {

@@ -6,13 +6,14 @@ import java.util.List;
 
 import org.apache.commons.beanutils.BeanUtils;
 
-import com.ilmani.dream.wildlives.framework.dto.pet.PetDto;
+import com.ilmani.dream.wildlives.framework.dto.pet.AbstractPetDto;
+import com.ilmani.dream.wildlives.framework.dto.pet.PetMinimalDto;
 import com.ilmani.dream.wildlives.user.persistence.entity.PetForUserEntity;
 
-public class PetForUserEntityMapper {
+public class PetForUserMapper {
 	
-	public static PetDto transformPetForUserEntityToPetDto(PetForUserEntity petEntity) {
-		PetDto petDto = new PetDto();
+	public static AbstractPetDto transformPetForUserEntityToAbstractPetDto(PetForUserEntity petEntity) {
+		PetMinimalDto petDto = new PetMinimalDto();
 		if (petEntity == null) {
 			return petDto;
 		}
@@ -23,14 +24,14 @@ public class PetForUserEntityMapper {
 		}
 		return petDto;
 	}
-
-	public static List<PetDto> transformListForUserEntityToListPetDto(List<PetForUserEntity> petsEntity) {
-		List<PetDto> petsDto = new ArrayList<PetDto>();
+	
+	public static List<AbstractPetDto> transformListForUserEntityToListAbstractPetDto(List<PetForUserEntity> petsEntity) {
+		List<AbstractPetDto> petsDto = new ArrayList<AbstractPetDto>();
 		if (petsEntity.isEmpty()) {
 			return petsDto;
 		}
 		for (PetForUserEntity petEnTemp : petsEntity) {
-			PetDto petDtoTemp = transformPetForUserEntityToPetDto(petEnTemp);
+			PetMinimalDto petDtoTemp = (PetMinimalDto) transformPetForUserEntityToAbstractPetDto(petEnTemp);
 			petsDto.add(petDtoTemp);
 		}
 		return petsDto;

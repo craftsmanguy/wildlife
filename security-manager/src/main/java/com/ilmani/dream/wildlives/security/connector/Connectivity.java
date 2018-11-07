@@ -11,8 +11,8 @@ public interface Connectivity {
 
 	public String findIdentifiant(ConnectionFieldsDto fields) throws EntityNotFoundException;
 
-	public String createJwtToken(AuthentifyPersonDto person) throws NoSuchAlgorithmException;
+	public String createToken(AuthentifyPersonDto person) throws NoSuchAlgorithmException;
 	
-	public String getJwtToken(String token) throws AuthenticationException;
+	public String getUserFromToken(String token) throws AuthenticationException;
 
 }

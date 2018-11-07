@@ -138,6 +138,9 @@
 				type="VARCHAR(30)">
 				<constraints nullable="false" />
 			</column>
+			<column name="PARTICIPANT_ID" remarks="ID de l'utilisateur" type="${uuid_type}">
+				<constraints nullable="false" />
+			</column>
 		</createTable>
 		
 		<createTable tableName="ADVERT_JOIN_FORMAT">
@@ -194,6 +197,33 @@
 			deferrable="false" initiallyDeferred="false" onDelete="RESTRICT"
 			onUpdate="RESTRICT" />
 		
+		<addForeignKeyConstraint constraintName="FK_ADVERT_PARTICIPANT_ID"
+			referencedTableName="PARTICIPANT" referencedColumnNames="ID"
+			baseTableName="ADVERT" baseColumnNames="PARTICIPANT_ID"
+			deferrable="false" initiallyDeferred="false" onDelete="RESTRICT"
+			onUpdate="RESTRICT" />
+		
+	</changeSet>
+	
+	<changeSet author="LOKO" id="5" labels="structure">			
+		<createTable tableName="ADVERT_JOIN_PET">
+			<column name="ADVERT_ID" remarks="ID du format de prestation" type="${uuid_type}">
+				<constraints nullable="false" />
+			</column>
+			<column name="PET_ID" remarks="ID de l'animal" type="${uuid_type}">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+				
+		<addUniqueConstraint
+			columnNames="ADVERT_ID, PET_ID"
+			constraintName="UC_ADVERT_ID_PET_ID" tableName="ADVERT_JOIN_PET" />
+		<addForeignKeyConstraint constraintName="FK_ADVERT_JOIN_PET_ADVERT_ID"
+			referencedTableName="ADVERT" referencedColumnNames="ID"
+			baseTableName="ADVERT_JOIN_PET" baseColumnNames="ADVERT_ID" />
+		<addForeignKeyConstraint constraintName="FK_ADVERT_JOIN_PET_PET_ID"
+			referencedTableName="PET" referencedColumnNames="ID"
+			baseTableName="ADVERT_JOIN_PET" baseColumnNames="PET_ID" />
 	</changeSet>
 
 </databaseChangeLog>

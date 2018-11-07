@@ -35,6 +35,7 @@ public class GatewayManager implements GatewayLocal {
 		throwsExceptionWhenAllFieldsAreNotFill(fields);
 
 		try {
+			
 			String identifiant = connectorFactory.findIdentifiantByProfil(fields, profil);
 			AuthentifyPersonDto person = new AuthentifyPersonDto(null, identifiant, issuer);
 

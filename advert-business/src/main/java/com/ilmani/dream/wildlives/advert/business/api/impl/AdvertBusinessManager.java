@@ -1,5 +1,8 @@
 package com.ilmani.dream.wildlives.advert.business.api.impl;
 
+import static com.ilmani.dream.wildlives.framework.security.SecurityInformationFacade.getInstance;
+
+
 import javax.ejb.Stateless;
 import javax.ejb.TransactionManagement;
 import javax.ejb.TransactionManagementType;

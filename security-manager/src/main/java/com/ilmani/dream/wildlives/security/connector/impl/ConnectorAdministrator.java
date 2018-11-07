@@ -28,12 +28,12 @@ public class ConnectorAdministrator implements Connectivity {
 	}
 
 	@Override
-	public String createJwtToken(AuthentifyPersonDto person) throws NoSuchAlgorithmException {
+	public String createToken(AuthentifyPersonDto person) throws NoSuchAlgorithmException {
 		return TokenHelper.createJwtTokenWithAESAlogirthm(person, validityTime, privateKey);
 	}
 
 	@Override
-	public String getJwtToken(String token) {
+	public String getUserFromToken(String token) {
 		// TODO Auto-generated method stub
 		return null;
 	}

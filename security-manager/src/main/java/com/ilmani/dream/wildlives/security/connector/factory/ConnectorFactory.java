@@ -27,10 +27,10 @@ public class ConnectorFactory {
 
 		switch (profil) {
 		case "ADMIN":
-			token = loginAdministrator.createJwtToken(person);
+			token = loginAdministrator.createToken(person);
 			break;
 		case "USER":
-			token = loginUser.createJwtToken(person);
+			token = loginUser.createToken(person);
 			break;
 		}
 		return token;
@@ -53,10 +53,10 @@ public class ConnectorFactory {
 		String result = null;
 		switch (profil) {
 		case "ADMIN":
-			result = loginAdministrator.getJwtToken(token);
+			result = loginAdministrator.getUserFromToken(token);
 			break;
 		case "USER":
-			result = loginUser.getJwtToken(token);
+			result = loginUser.getUserFromToken(token);
 			break;
 		}
 		return result;

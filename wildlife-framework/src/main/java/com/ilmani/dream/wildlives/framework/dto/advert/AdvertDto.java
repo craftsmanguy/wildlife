@@ -1,11 +1,15 @@
 package com.ilmani.dream.wildlives.framework.dto.advert;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
+import com.ilmani.dream.wildlives.framework.dto.pet.AbstractPetDto;
+
 public class AdvertDto {
-	
+
 	private String functionalIdentifier;
 
 	private Date insertionDate;
@@ -21,7 +25,11 @@ public class AdvertDto {
 	private String state;
 
 	private Set<FormatDto> formats = new HashSet<FormatDto>();
-	
+
+	private String userForAdvert;
+
+	private List<AbstractPetDto> pets = new ArrayList<AbstractPetDto>();
+
 	public AdvertDto() {
 		super();
 	}
@@ -41,7 +49,7 @@ public class AdvertDto {
 	public Date getInsertionDate() {
 		return insertionDate;
 	}
-	
+
 	public String getFunctionalIdentifier() {
 		return functionalIdentifier;
 	}
@@ -100,6 +108,22 @@ public class AdvertDto {
 
 	public void setFormats(Set<FormatDto> formats) {
 		this.formats = formats;
+	}
+
+	public String getUserForAdvert() {
+		return userForAdvert;
+	}
+
+	public void setUserForAdvert(String userForAdvert) {
+		this.userForAdvert = userForAdvert;
+	}
+
+	public List<AbstractPetDto> getPets() {
+		return pets;
+	}
+
+	public void setPets(List<AbstractPetDto> petsDto) {
+		this.pets = petsDto;
 	}
 
 	@Override
@@ -188,5 +212,4 @@ public class AdvertDto {
 		return true;
 	}
 
-	
 }

@@ -23,7 +23,7 @@ public class ConnectorUser implements Connectivity {
 
 	@Inject
 	private GatewayUserDomain gatewayUserDomain;
-
+	
 	private static String privateKey = "user";
 
 	private static long validityTime = 600000;
@@ -42,12 +42,12 @@ public class ConnectorUser implements Connectivity {
 	}
 
 	@Override
-	public String createJwtToken(AuthentifyPersonDto person) throws NoSuchAlgorithmException {
+	public String createToken(AuthentifyPersonDto person) throws NoSuchAlgorithmException {
 		return TokenHelper.createJwtTokenWithAESAlogirthm(person, validityTime, privateKey);
 	}
 
 	@Override
-	public String getJwtToken(String token) throws AuthenticationException  {
+	public String getUserFromToken(String token) throws AuthenticationException  {
 		try {
 			return TokenHelper.parseJWT(token, privateKey);
 		} catch (Exception e) {

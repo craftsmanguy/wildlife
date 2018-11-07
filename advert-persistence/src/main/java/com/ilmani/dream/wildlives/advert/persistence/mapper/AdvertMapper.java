@@ -9,9 +9,10 @@ import org.apache.commons.beanutils.BeanUtils;
 
 import com.ilmani.dream.wildlives.advert.persistence.entity.AdvertEntity;
 import com.ilmani.dream.wildlives.framework.dto.advert.AdvertDto;
+import com.ilmani.dream.wildlives.framework.dto.pet.AbstractPetDto;
 
 public class AdvertMapper {
-	
+
 	public static AdvertDto transformAdvertEntityToAdvertDto(AdvertEntity advertEn) {
 		AdvertDto advertDto = new AdvertDto();
 		if (advertEn == null) {
@@ -22,6 +23,11 @@ public class AdvertMapper {
 			advertDto.setInsertionDate(advertEn.getInsertionDate());
 			if (!advertEn.getFormatsEn().isEmpty()) {
 				advertDto.setFormats(FormatMapper.transformListFormatEntityToListFormatDto(advertEn.getFormatsEn()));
+			}
+			if (!advertEn.getPetsEn().isEmpty()) {
+				List<AbstractPetDto> pets = PetForAdvertMapper
+						.transformListForUserEntityToListAbstractPetDto(advertEn.getPetsEn());
+				advertDto.setPets(pets);
 			}
 		} catch (IllegalAccessException | InvocationTargetException e) {
 			// TODO log

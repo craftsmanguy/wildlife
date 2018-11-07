@@ -1,7 +1,9 @@
 package com.ilmani.dream.wildlives.advert.persistence.entity;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
@@ -12,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -25,7 +28,7 @@ public class AdvertEntity {
 	@Column(name = "functional_id", updatable = false, nullable = false)
 	private String functionalIdentifier;
 
-	@Column(name = "insertion_date",  insertable = false, updatable = false)
+	@Column(name = "insertion_date", insertable = false, updatable = false)
 	private Date insertionDate;
 
 	@Column(name = "start_date")
@@ -48,12 +51,21 @@ public class AdvertEntity {
 			@JoinColumn(name = "format_id") })
 	private Set<FormatEntity> formatsEn = new HashSet<FormatEntity>();
 
+	@ManyToOne
+	@JoinColumn(name = "participant_id")
+	private UserForAdvertEntity userEn;
+
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(name = "advert_join_pet", joinColumns = { @JoinColumn(name = "advert_id") }, inverseJoinColumns = {
+			@JoinColumn(name = "pet_id") })
+	private List<PetForAdvertEntity> petsEn = new ArrayList<PetForAdvertEntity>();
+
 	public AdvertEntity() {
 		super();
 	}
-	
-	public AdvertEntity(String functionalIdentifier, Date startDate, Date endDate,
-			 String title, String description, String state) {
+
+	public AdvertEntity(String functionalIdentifier, Date startDate, Date endDate, String title, String description,
+			String state) {
 		super();
 		this.functionalIdentifier = functionalIdentifier;
 		this.startDate = startDate;
@@ -64,7 +76,7 @@ public class AdvertEntity {
 	}
 
 	public AdvertEntity(UUID id, String functionalIdentifier, Date insertionDate, Date startDate, Date endDate,
-			 String title, String description, String state) {
+			String title, String description, String state) {
 		super();
 		this.id = id;
 		this.functionalIdentifier = functionalIdentifier;
@@ -142,6 +154,22 @@ public class AdvertEntity {
 
 	public void setFormatsEn(Set<FormatEntity> formats) {
 		this.formatsEn = formats;
+	}
+
+	public UserForAdvertEntity getUserEn() {
+		return userEn;
+	}
+
+	public void setUserEn(UserForAdvertEntity userEn) {
+		this.userEn = userEn;
+	}
+
+	public List<PetForAdvertEntity> getPetsEn() {
+		return petsEn;
+	}
+
+	public void setPetsEn(List<PetForAdvertEntity> petsEn) {
+		this.petsEn = petsEn;
 	}
 
 }

@@ -2,13 +2,9 @@ package com.ilmani.dream.wildlives.framework.dto.pet;
 
 import java.io.Serializable;
 
-public class PetDto implements Serializable{
+public class PetDto extends AbstractPetDto implements Serializable{
 
 	private static final long serialVersionUID = 2811739234678308526L;
-
-	private String functionalIdentifier;
-
-	private String name;
 
 	private String description;
 
@@ -39,21 +35,6 @@ public class PetDto implements Serializable{
 		this.race = race;
 	}
 
-	public String getFunctionalIdentifier() {
-		return functionalIdentifier;
-	}
-
-	public void setFunctionalIdentifier(String functionalIdentifier) {
-		this.functionalIdentifier = functionalIdentifier;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
 
 	public String getDescription() {
 		return description;
