@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence
+             http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd"
+	version="2.1">
+	<persistence-unit name="userPu" transaction-type="JTA">
+
+		<jta-data-source>java:jboss/datasources/wildlivesDS</jta-data-source>
+		<class>com.ilmani.dream.wildlives.user.persistence.entity.UserEntity</class>
+		<class>com.ilmani.dream.wildlives.user.persistence.entity.PetForUserEntity</class>
+		<class>com.ilmani.dream.wildlives.user.persistence.entity.AdvertForUserEntity</class>
+		<properties>
+			<!-- Enable Lazy without any transaction opened -->
+			<property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect" />
+			<property name="hibernate.enable_lazy_load_no_trans" value="true" />
+			<property name="hibernate.show_sql" value="false" />
+		</properties>
+	</persistence-unit>
+</persistence>

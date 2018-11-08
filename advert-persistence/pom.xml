@@ -27,10 +27,6 @@
 			<groupId>org.liquibase</groupId>
 			<artifactId>liquibase-core</artifactId>
 		</dependency>
-		<!-- <dependency> -->
-		<!-- <groupId>org.mockito</groupId> -->
-		<!-- <artifactId>mockito-core</artifactId> -->
-		<!-- </dependency> -->
 		<dependency>
 			<groupId>org.powermock</groupId>
 			<artifactId>powermock-module-junit4</artifactId>
@@ -48,12 +44,12 @@
 		
 		<dependency>
 			<groupId>com.ilmani.dream.wildlives</groupId>
-			<artifactId>advert-administration</artifactId>
+			<artifactId>advert-business</artifactId>
 			<type>ejb</type>
 		</dependency>
 		<dependency>
 			<groupId>com.ilmani.dream.wildlives</groupId>
-			<artifactId>advert-business</artifactId>
+			<artifactId>wildlife-administration</artifactId>
 			<type>ejb</type>
 		</dependency>
 		<dependency>

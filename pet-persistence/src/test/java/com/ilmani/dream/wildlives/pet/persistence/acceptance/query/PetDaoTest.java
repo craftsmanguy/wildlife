@@ -26,10 +26,10 @@ import com.ilmani.dream.wildlives.pet.persistence.entity.RaceEntity;
 public class PetDaoTest extends DataBaseCreationTest {
 
 	@InjectMocks
-	private PetDao petDao = new PetDao();
+	private PetDao petDao;
 
 	@InjectMocks
-	private RaceDao raceDao = new RaceDao();
+	private RaceDao raceDao;
 
 	@Before
 	public void initializeEnvironmentTest() {
@@ -40,13 +40,14 @@ public class PetDaoTest extends DataBaseCreationTest {
 	@Test
 	public void findByExactAttribute() {
 		PetEntity petEntity = new PetEntity("rex-pet-dog-affenpinsher-1995-0001", "Rex", "aucune", false, "MALE", 1995);
-		PetEntity result = petDao.findByIdentifier(petEntity);
+		PetEntity result = petDao.findByFunctionalIdentifier(petEntity.getFunctionalIdentifier());
 		assertEquals(petEntity.getFunctionalIdentifier(), result.getFunctionalIdentifier());
 	}
 
 	@Test(expected = NoResultException.class)
-	public void notBecauseAttributeIsWrong() {
-		petDao.findByIdentifier(new PetEntity("wrong_functional_id", "wrong_name", "aucune", false, "MALE", 1995));
+	public void notFindBecauseAttributeIsWrong() {
+		PetEntity pet = new PetEntity("wrong_functional_id", "wrong_name", "aucune", false, "MALE", 1995);
+		petDao.findByFunctionalIdentifier(pet.getFunctionalIdentifier());
 	}
 
 	@Test
@@ -61,14 +62,14 @@ public class PetDaoTest extends DataBaseCreationTest {
 		PetEntity updatablePet = new PetEntity("et_si-pet-dog-azawakh-2007-007", "coome", "nouveau commentaire", true,
 				"MALE", 2011);
 
-		PetEntity resultToUpdateFromDb = petDao.findByIdentifier(petToUpdate);
+		PetEntity resultToUpdateFromDb = petDao.findByFunctionalIdentifier(petToUpdate.getFunctionalIdentifier());
 		resultToUpdateFromDb.setGender(updatablePet.getGender());
 		resultToUpdateFromDb.setDescription(updatablePet.getDescription());
 		resultToUpdateFromDb.setLof(updatablePet.isLof());
 		resultToUpdateFromDb.setBirth(updatablePet.getBirth());
 
 		petDao.update(resultToUpdateFromDb);
-		PetEntity resultUpdatingFromDb = petDao.findByIdentifier(petToUpdate);
+		PetEntity resultUpdatingFromDb = petDao.findByFunctionalIdentifier(petToUpdate.getFunctionalIdentifier());
 		assertEquals(updatablePet.getDescription(), resultUpdatingFromDb.getDescription());
 		assertTrue(resultUpdatingFromDb.isLof());
 	}
@@ -77,8 +78,7 @@ public class PetDaoTest extends DataBaseCreationTest {
 	public void insertionOfNewPet() {
 		PetEntity pet = new PetEntity("slug-url-1", "Rex", "", true, "M", new Integer(2015));
 		Whitebox.setInternalState(raceDao, "em", entityManager);
-		RaceEntity resultRace = raceDao
-				.findByUniqueAttributConstraint(new RaceEntity("AFFENPINSCHER", "", "DOG", "MAMMALIA", true));
+		RaceEntity resultRace = raceDao.findByCode("AFFEN_DOG");
 		pet.setRaceEn(resultRace);
 		PetEntity petToSave = petDao.insert(pet);
 		assertNotNull(petToSave.getId().toString());

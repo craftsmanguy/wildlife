@@ -15,13 +15,34 @@ import javax.persistence.criteria.Root;
 
 import com.ilmani.dream.wildlives.advert.persistence.entity.FormatEntity;
 
-
 public class FormatDao {
-	
+
 	@PersistenceContext(unitName = "advertPu")
 	private EntityManager em;
-	
-	public FormatEntity findByUniqueAttributConstraint(FormatEntity format) throws NoResultException {
+
+	public boolean isExists(String code) {
+		boolean result = true;
+
+		try {
+			CriteriaBuilder builder = em.getCriteriaBuilder();
+			CriteriaQuery<FormatEntity> criteriaQuery = builder.createQuery(FormatEntity.class);
+			Root<FormatEntity> formatFromDb = criteriaQuery.from(FormatEntity.class);
+
+			criteriaQuery.select(formatFromDb);
+			List<Predicate> predicateList = new ArrayList<Predicate>();
+
+			predicateList.add(builder.equal(formatFromDb.<String>get("code"), code));
+
+			criteriaQuery.where(predicateList.toArray(new Predicate[] {}));
+			em.createQuery(criteriaQuery).getSingleResult();
+		} catch (NoResultException e) {
+			result = false;
+		}
+
+		return result;
+	}
+
+	public FormatEntity findByCode(String code) throws NoResultException {
 
 		CriteriaBuilder builder = em.getCriteriaBuilder();
 		CriteriaQuery<FormatEntity> criteriaQuery = builder.createQuery(FormatEntity.class);
@@ -30,9 +51,7 @@ public class FormatDao {
 		criteriaQuery.select(formatFromDb);
 		List<Predicate> predicateList = new ArrayList<Predicate>();
 
-		predicateList.add(builder.equal(builder.upper(formatFromDb.<String>get("name")), format.getName()));
-		predicateList.add(builder.equal(builder.upper(formatFromDb.<String>get("feature")), format.getFeature()));
-		predicateList.add(builder.equal(formatFromDb.get("isActive"), true));
+		predicateList.add(builder.equal(formatFromDb.<String>get("code"), code));
 
 		criteriaQuery.where(predicateList.toArray(new Predicate[] {}));
 		return em.createQuery(criteriaQuery).getSingleResult();
@@ -55,7 +74,7 @@ public class FormatDao {
 			predicateList.add(builder.like(builder.upper(formatFromDb.<String>get("feature")),
 					"%" + format.getFeature().toUpperCase() + "%"));
 		}
-		predicateList.add(builder.equal(formatFromDb.get("isActive"), true));
+//		predicateList.add(builder.equal(formatFromDb.get("isActive"), true));
 
 		criteriaQuery.where(predicateList.toArray(new Predicate[] {}));
 		criteriaQuery.orderBy(builder.asc(formatFromDb.get("name")));
@@ -76,6 +95,5 @@ public class FormatDao {
 		em.merge(format);
 		return format;
 	}
-
 
 }

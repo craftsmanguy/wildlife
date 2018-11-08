@@ -23,6 +23,8 @@ public class AdvertDao {
 	private EntityManager em;
 	
 	
+	
+	
 	public AdvertEntity findByIdentifier(AdvertEntity advert) throws NoResultException {
 
 		CriteriaBuilder builder = em.getCriteriaBuilder();

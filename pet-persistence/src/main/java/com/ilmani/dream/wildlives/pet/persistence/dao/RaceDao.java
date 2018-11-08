@@ -20,7 +20,7 @@ public class RaceDao {
 	@PersistenceContext(unitName = "petPu")
 	private EntityManager em;
 
-	public RaceEntity findByUniqueAttributConstraint(RaceEntity race) throws NoResultException {
+	public RaceEntity findByCode(String code) throws NoResultException {
 
 		CriteriaBuilder builder = em.getCriteriaBuilder();
 		CriteriaQuery<RaceEntity> criteriaQuery = builder.createQuery(RaceEntity.class);
@@ -29,13 +29,20 @@ public class RaceDao {
 		criteriaQuery.select(raceFromDb);
 		List<Predicate> predicateList = new ArrayList<Predicate>();
 
-		predicateList.add(builder.equal(builder.upper(raceFromDb.<String>get("name")), race.getName()));
-		predicateList.add(builder.equal(builder.upper(raceFromDb.<String>get("specie")), race.getSpecie()));
-		predicateList.add(builder.equal(builder.upper(raceFromDb.<String>get("clan")), race.getClan()));
-		predicateList.add(builder.equal(raceFromDb.get("isActive"), true));
+		predicateList.add(builder.equal(raceFromDb.<String>get("code"), code));
 
 		criteriaQuery.where(predicateList.toArray(new Predicate[] {}));
 		return em.createQuery(criteriaQuery).getSingleResult();
+	}
+
+	public boolean isExists(String code) throws NoResultException {
+		boolean result = true;
+		try {
+			findByCode(code);
+		} catch (NoResultException e) {
+			result = false;
+		}
+		return result;
 	}
 
 	public Set<RaceEntity> getByAttributes(RaceEntity race) {
@@ -60,7 +67,7 @@ public class RaceDao {
 			predicateList.add(builder.like(builder.upper(raceFromDb.<String>get("clan")),
 					"%" + race.getClan().toUpperCase() + "%"));
 		}
-		predicateList.add(builder.equal(raceFromDb.get("isActive"), true));
+		predicateList.add(builder.equal(raceFromDb.get("isActive"), race.isActive()));
 
 		criteriaQuery.where(predicateList.toArray(new Predicate[] {}));
 		criteriaQuery.orderBy(builder.asc(raceFromDb.get("name")));

@@ -1,7 +1,6 @@
 package com.ilmani.dream.wildlives.pet.persistence.acceptance.query;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import java.util.Set;
 
@@ -23,7 +22,7 @@ import com.ilmani.dream.wildlives.pet.persistence.entity.RaceEntity;
 public class RaceDaoTest extends DataBaseCreationTest {
 
 	@InjectMocks
-	private RaceDao raceDao = new RaceDao();
+	private RaceDao raceDao;
 
 	@Before
 	public void initializeEnvironmentTest() {
@@ -32,22 +31,33 @@ public class RaceDaoTest extends DataBaseCreationTest {
 	}
 
 	@Test
+	public void raceDoesnotExist() throws NoResultException {
+		boolean isExists = raceDao.isExists("WRONG_CODE");
+		assertFalse(isExists);
+	}
+
+	@Test
 	public void findByExactAttribute() {
-		RaceEntity raceEntity = new RaceEntity("AFFENPINSCHER", "", "DOG", "MAMMALIA", true);
-		RaceEntity result = raceDao.findByUniqueAttributConstraint(raceEntity);
+		RaceEntity raceEntity = new RaceEntity("AFFENPINSCHER", "AFFEN_DOG", "DOG", "MAMMALIA", true);
+		RaceEntity result = raceDao.findByCode(raceEntity.getCode());
 		assertEquals(raceEntity.getName(), result.getName());
 	}
 
 	@Test(expected = NoResultException.class)
 	public void notBecauseAttributeIsWrong() {
-		raceDao.findByUniqueAttributConstraint(
-				new RaceEntity("WRONG_RACE", "", "WRONG_SPECIE", "WRONG_CLAN", true));
+		raceDao.findByCode("WRONG_CODE");
 	}
 
 	@Test
 	public void searchByOptionalAttribute() {
 		Set<RaceEntity> results = raceDao.getByAttributes(new RaceEntity());
-		assertEquals(7, results.size());
+		assertEquals(1, results.size());
+	}
+	
+	@Test
+	public void returnNotResultWithOptionalAttribute() {
+		Set<RaceEntity> results = raceDao.getByAttributes(new RaceEntity("AFFENPINSCHERI", "AFFEN_DOG", "DOG", "WHET", true));
+		assertEquals(0, results.size());
 	}
 
 	@Test
@@ -55,14 +65,14 @@ public class RaceDaoTest extends DataBaseCreationTest {
 		RaceEntity raceToUpdate = new RaceEntity("AIREDALE_TERRIER", "AI_TE_DOG", "DOG", "MAMMALIA", true);
 		RaceEntity updatableRace = new RaceEntity(2, "BENGAL", "", "BENG_CAT", "CAT", "MAMMALIA", false);
 
-		RaceEntity resultToUpdateFromDb = raceDao.findByUniqueAttributConstraint(raceToUpdate);
+		RaceEntity resultToUpdateFromDb = raceDao.findByCode(raceToUpdate.getCode());
 		resultToUpdateFromDb.setActive(updatableRace.isActive());
 		resultToUpdateFromDb.setName(updatableRace.getName());
 		resultToUpdateFromDb.setCode(updatableRace.getCode());
 		resultToUpdateFromDb.setSpecie(updatableRace.getSpecie());
 
 		raceDao.update(resultToUpdateFromDb);
-		RaceEntity resultpdatingFromDb = raceDao.findByUniqueAttributConstraint(raceToUpdate);
+		RaceEntity resultpdatingFromDb = raceDao.findByCode(raceToUpdate.getCode());
 		assertEquals(updatableRace.getName(), resultpdatingFromDb.getName());
 		assertTrue(false == resultpdatingFromDb.isActive());
 	}

@@ -6,7 +6,7 @@
 	version="2.1">
 	<persistence-unit name="advertPu" transaction-type="JTA">
 
-		<!-- <jta-data-source>java:jboss/datasources/wildlivesDS</jta-data-source> -->
+		<jta-data-source>java:jboss/datasources/wildlivesDS</jta-data-source>
 		<class>com.ilmani.dream.wildlives.advert.persistence.entity.AdvertEntity</class>
 		<class>com.ilmani.dream.wildlives.advert.persistence.entity.FormatEntity</class>
 		<properties>

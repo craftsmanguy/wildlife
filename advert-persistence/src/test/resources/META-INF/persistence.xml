@@ -8,6 +8,8 @@
 
 		<class>com.ilmani.dream.wildlives.advert.persistence.entity.AdvertEntity</class>
 		<class>com.ilmani.dream.wildlives.advert.persistence.entity.FormatEntity</class>
+		<class>com.ilmani.dream.wildlives.advert.persistence.entity.UserForAdvertEntity</class>
+		<class>com.ilmani.dream.wildlives.advert.persistence.entity.PetForAdvertEntity</class>
 		<properties>
 			<property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect" />
 			<property name="hibernate.connection.url"

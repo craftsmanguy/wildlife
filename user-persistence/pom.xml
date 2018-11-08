@@ -11,6 +11,10 @@
 
 	<dependencies>
 		<dependency>
+			<groupId>javax</groupId>
+			<artifactId>javaee-api</artifactId>
+		</dependency>
+		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 		</dependency>
@@ -46,7 +50,13 @@
 			<artifactId>security-manager</artifactId>
 			<type>ejb</type>
 		</dependency>
+		<dependency>
+			<groupId>com.ilmani.dream.wildlives</groupId>
+			<artifactId>user-business</artifactId>
+			<type>ejb</type>
+		</dependency>
 	</dependencies>
+
 
 	<build>
 		<plugins>

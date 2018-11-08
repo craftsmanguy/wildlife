@@ -22,7 +22,7 @@ public class PetEntity {
 	@Column(name = "functional_id", updatable = false, nullable = false)
 	private String functionalIdentifier;
 
-	@Column(name = "insertion_date", updatable = false)
+	@Column(name = "insertion_date", insertable = false, updatable = false)
 	private Date insertionDate;
 
 	@Column(name = "name")
@@ -43,6 +43,10 @@ public class PetEntity {
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@JoinColumn(name = "race_id")
 	private RaceEntity raceEn;
+	
+	@ManyToOne
+	@JoinColumn(name = "participant_id")
+	private UserForPetEntity userEn;
 
 	public PetEntity() {
 		super();
@@ -138,5 +142,14 @@ public class PetEntity {
 	public void setRaceEn(RaceEntity raceEn) {
 		this.raceEn = raceEn;
 	}
+	
+	public UserForPetEntity getUserEn() {
+		return userEn;
+	}
+
+	public void setUserEn(UserForPetEntity userEn) {
+		this.userEn = userEn;
+	}
+	
 
 }

@@ -23,13 +23,21 @@ public class ConnectorAdministrator implements Connectivity {
 	private static long validityTime = 6000000;
 
 	@Override
-	public String findProfilByLoginAndPassword(ConnectionFieldsDto fields) throws EntityNotFoundException {
-		return gatewayAdministratorDomain.findProfilByLoginAndPassword(fields);
+	public String findIdentifiant(ConnectionFieldsDto fields) throws EntityNotFoundException {
+		return gatewayAdministratorDomain.findProfilByEmail(fields);
 	}
 
 	@Override
-	public String createJwtToken(AuthentifyPersonDto person) throws NoSuchAlgorithmException {
+	public String createToken(AuthentifyPersonDto person) throws NoSuchAlgorithmException {
 		return TokenHelper.createJwtTokenWithAESAlogirthm(person, validityTime, privateKey);
 	}
+
+	@Override
+	public String getUserFromToken(String token) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
 
 }

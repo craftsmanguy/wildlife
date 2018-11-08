@@ -11,7 +11,7 @@ import com.ilmani.dream.wildlives.advert.persistence.entity.AdvertEntity;
 import com.ilmani.dream.wildlives.advert.persistence.entity.FormatEntity;
 import com.ilmani.dream.wildlives.advert.persistence.mapper.AdvertMapper;
 import com.ilmani.dream.wildlives.framework.constants.ConstantsCrud;
-import com.ilmani.dream.wildlives.framework.dto.advert.AdvertDto;
+import com.ilmani.dream.wildlives.framework.dto.advert.AdvertBusinessDto;
 
 public class AdvertFactory {
 	
@@ -21,18 +21,15 @@ public class AdvertFactory {
 	@Inject
 	FormatDao formatDao;
 	
-	public AdvertDto getAdvertDto(AdvertDto advertDto, String action) {
+	public AdvertBusinessDto getAdvertDto(AdvertBusinessDto advertDto, String action) {
 		AdvertEntity advertEn = AdvertMapper.transformAdvertDtoToAdvertEntity(advertDto);
 		AdvertEntity result = new AdvertEntity();
 		
 		for (FormatEntity formatEnTemp : advertEn.getFormatsEn()){
-			advertEn.getFormatsEn().add(formatDao.findByUniqueAttributConstraint(formatEnTemp));
+			advertEn.getFormatsEn().add(formatDao.findByCode(formatEnTemp.getCode()));
 		}
 		
 		switch (action) {
-		case ConstantsCrud.SAVE:
-			result = advertDao.insert(advertEn);
-			break;
 		case ConstantsCrud.UPDATE:
 			result = advertDao.update(advertEn);
 			break;
@@ -44,13 +41,13 @@ public class AdvertFactory {
 		return AdvertMapper.transformAdvertEntityToAdvertDto(result);
 	}
 
-	public List<AdvertDto> getAdvertsDto(AdvertDto advertDto) {
+	public List<AdvertBusinessDto> getAdvertsDto(AdvertBusinessDto advertDto) {
 		AdvertEntity advertEn = AdvertMapper.transformAdvertDtoToAdvertEntity(advertDto);
 		Set<AdvertEntity> results = advertDao.getByAttributes(advertEn);
 		return AdvertMapper.transformListAdvertEntityToListAdvertDto(results);
 	}
 
-	public void delete(AdvertDto advertDto) {
+	public void delete(AdvertBusinessDto advertDto) {
 		AdvertEntity advertEn = AdvertMapper.transformAdvertDtoToAdvertEntity(advertDto);
 		advertDao.delete(advertEn);
 	}

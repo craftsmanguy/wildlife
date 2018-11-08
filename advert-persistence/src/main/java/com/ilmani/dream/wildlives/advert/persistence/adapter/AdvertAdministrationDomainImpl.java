@@ -1,37 +1,34 @@
 package com.ilmani.dream.wildlives.advert.persistence.adapter;
 
-import javax.inject.Inject;
-
 import com.ilmani.dream.wildlives.advert.administration.port.AdvertAdministrationDomain;
-import com.ilmani.dream.wildlives.advert.persistence.factory.AdvertFactory;
-import com.ilmani.dream.wildlives.framework.dto.advert.AdvertDto;
-import com.ilmani.dream.wildlives.framework.version.Crud;
+import com.ilmani.dream.wildlives.framework.dto.advert.AdvertBusinessDto;
 
 public class AdvertAdministrationDomainImpl implements AdvertAdministrationDomain {
 
-	
-	@Inject
-	AdvertFactory advertFact;
-	
 	@Override
-	public AdvertDto getByIdenfier(AdvertDto advert) {
-		return advertFact.getAdvertDto(advert, Crud.valueOf("FIND").getAction());
+	public AdvertBusinessDto getByIdenfier(AdvertBusinessDto advert) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override
-	public AdvertDto save(AdvertDto advert) {
-		return advertFact.getAdvertDto(advert, Crud.valueOf("SAVE").getAction());
+	public AdvertBusinessDto save(AdvertBusinessDto advert) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override
-	public void delete(AdvertDto advert) {
-		advertFact.delete(advert);
-
+	public void delete(AdvertBusinessDto advert) {
+		// TODO Auto-generated method stub
+		
 	}
 
 	@Override
-	public AdvertDto update(AdvertDto advert) {
-		return advertFact.getAdvertDto(advert, Crud.valueOf("UPDATE").getAction());
+	public AdvertBusinessDto update(AdvertBusinessDto advert) {
+		// TODO Auto-generated method stub
+		return null;
 	}
+
+
 
 }

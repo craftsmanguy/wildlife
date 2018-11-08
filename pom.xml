@@ -11,11 +11,17 @@
 	<properties>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
-		<liquibase.version>3.4.1</liquibase.version>
 		<version.full>${project.version}</version.full>
 
 		<powermock.version>1.7.1</powermock.version>
+		<liquibase.version>3.6.1</liquibase.version>
 	</properties>
+
+	<profiles>
+		<profile>
+			<id>wildlives-dev</id>
+		</profile>
+	</profiles>
 
 	<modules>
 		<module>wildlife-ear</module>
@@ -27,16 +33,14 @@
 		<module>user-persistence</module>
 
 		<!-- EJB -->
-		<module>advert-administration</module>
-		<module>pet-administration</module>
-		<module>user-administration</module>
+		<module>wildlife-administration</module>
 		<module>advert-business</module>
 		<module>user-business</module>
 		<module>pet-business</module>
 
 		<!-- WAR -->
-		<module>wildlife-administration</module>
-		<module>wildlife-business</module>
+		<module>administration-api</module>
+		<module>business-api</module>
 		<module>security-manager</module>
 	</modules>
 
@@ -76,14 +80,9 @@
 			<dependency>
 				<groupId>org.liquibase</groupId>
 				<artifactId>liquibase-core</artifactId>
-				<version>3.6.0</version>
+				<version>${liquibase.version}</version>
+				<scope>test</scope>
 			</dependency>
-			<!-- <dependency> -->
-			<!-- <groupId>org.mockito</groupId> -->
-			<!-- <artifactId>mockito-core</artifactId> -->
-			<!-- <version>2.13.0</version> -->
-			<!-- <scope>test</scope> -->
-			<!-- </dependency> -->
 			<dependency>
 				<groupId>org.powermock</groupId>
 				<artifactId>powermock-module-junit4</artifactId>
@@ -149,19 +148,7 @@
 			<!-- administration -->
 			<dependency>
 				<groupId>com.ilmani.dream.wildlives</groupId>
-				<artifactId>advert-administration</artifactId>
-				<type>ejb</type>
-				<version>${project.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>com.ilmani.dream.wildlives</groupId>
-				<artifactId>pet-administration</artifactId>
-				<type>ejb</type>
-				<version>${project.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>com.ilmani.dream.wildlives</groupId>
-				<artifactId>user-administration</artifactId>
+				<artifactId>wildlife-administration</artifactId>
 				<type>ejb</type>
 				<version>${project.version}</version>
 			</dependency>
@@ -176,13 +163,13 @@
 			<!-- api -->
 			<dependency>
 				<groupId>com.ilmani.dream.wildlives</groupId>
-				<artifactId>wildlife-administration</artifactId>
+				<artifactId>administration-api</artifactId>
 				<type>war</type>
 				<version>${project.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>com.ilmani.dream.wildlives</groupId>
-				<artifactId>wildlife-business</artifactId>
+				<artifactId>business-api</artifactId>
 				<type>war</type>
 				<version>${project.version}</version>
 			</dependency>
@@ -209,6 +196,16 @@
 				<artifactId>resteasy-jaxrs</artifactId>
 				<version>2.3.2.Final</version>
 				<scope>provided</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.commons</groupId>
+				<artifactId>commons-lang3</artifactId>
+				<version>3.7</version>
+			</dependency>
+			<dependency>
+				<groupId>commons-validator</groupId>
+				<artifactId>commons-validator</artifactId>
+				<version>1.6</version>
 			</dependency>
 
 		</dependencies>
@@ -276,16 +273,6 @@
 					<version>${liquibase.version}</version>
 				</plugin>
 
-
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-surefire-plugin</artifactId>
-					<version>2.7.1</version>
-					<configuration>
-						<parallel>classes</parallel>
-						<threadCount>5</threadCount>
-					</configuration>
-				</plugin>
 			</plugins>
 		</pluginManagement>
 	</build>

@@ -78,11 +78,10 @@ public class AdvertDaoTest extends DataBaseCreationTest {
 
 	@Test
 	public void insertionOfNewPet() {
-		AdvertEntity advert = new AdvertEntity("tex8-descrip8-2018-azawakh-2007-008", new Date(), new Date(),
-				"titre 8", "description 8", "TEST");
+		AdvertEntity advert = new AdvertEntity("tex8-descrip8-2018-azawakh-2007-008", new Date(), new Date(), "titre 8",
+				"description 8", "TEST");
 		Whitebox.setInternalState(formatDao, "em", entityManager);
-		FormatEntity resultRace = formatDao
-				.findByUniqueAttributConstraint(new FormatEntity("REQUEST", "PET_CARE", true));
+		FormatEntity resultRace = formatDao.findByCode("REQ_PET_CAR");
 		advert.getFormatsEn().add(resultRace);
 		AdvertEntity advertToSave = advertDao.insert(advert);
 		assertNotNull(advertToSave.getId().toString());

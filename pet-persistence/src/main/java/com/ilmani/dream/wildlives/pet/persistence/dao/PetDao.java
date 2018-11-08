@@ -19,7 +19,7 @@ public class PetDao {
 	@PersistenceContext(unitName = "petPu")
 	private EntityManager em;
 
-	public PetEntity findByIdentifier(PetEntity pet) throws NoResultException {
+	public PetEntity findByFunctionalIdentifier(String functionalId) throws NoResultException {
 
 		CriteriaBuilder builder = em.getCriteriaBuilder();
 		CriteriaQuery<PetEntity> criteriaQuery = builder.createQuery(PetEntity.class);
@@ -28,11 +28,21 @@ public class PetDao {
 		criteriaQuery.select(petFromDb);
 		List<Predicate> predicateList = new ArrayList<Predicate>();
 
-		predicateList.add(builder.equal(builder.lower(petFromDb.<String>get("functionalIdentifier")),
-				pet.getFunctionalIdentifier().toLowerCase()));
+		predicateList.add(builder.equal(petFromDb.<String>get("functionalIdentifier"),
+				functionalId));
 
 		criteriaQuery.where(predicateList.toArray(new Predicate[] {}));
 		return em.createQuery(criteriaQuery).getSingleResult();
+	}
+	
+	public boolean isExists(String functionalId) throws NoResultException {
+		boolean result = true;
+		try {
+			findByFunctionalIdentifier(functionalId);
+		} catch (NoResultException e) {
+			result = false;
+		}
+		return result;
 	}
 
 	public List<PetEntity> getByAttributes(PetEntity pet) {
