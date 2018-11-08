@@ -9,14 +9,14 @@ import org.junit.Test;
 import com.ilmani.dream.wildlives.advert.persistence.entity.AdvertEntity;
 import com.ilmani.dream.wildlives.advert.persistence.entity.FormatEntity;
 import com.ilmani.dream.wildlives.advert.persistence.mapper.AdvertMapper;
-import com.ilmani.dream.wildlives.framework.dto.advert.AdvertDto;
-import com.ilmani.dream.wildlives.framework.dto.advert.FormatDto;
+import com.ilmani.dream.wildlives.framework.dto.advert.AdvertBusinessDto;
+import com.ilmani.dream.wildlives.framework.dto.advert.FormatAdministratorDto;
 
 public class AdvertMapperTest {
 
-	static AdvertDto advertDto;
+	static AdvertBusinessDto advertDto;
 
-	static FormatDto formatDto;
+	static FormatAdministratorDto formatDto;
 
 	static AdvertEntity advertEn;
 
@@ -28,22 +28,22 @@ public class AdvertMapperTest {
 		AdvertEntity advertEnTest = new AdvertEntity("tex1-descrip1-2013-affenpinsher-1995-0001", new Date(),
 				new Date(), "titre 1", "description 1", "STEP_1");
 		advertEnTest.getFormatsEn().add(formatEn);
-		AdvertDto resultDto = AdvertMapper.transformAdvertEntityToAdvertDto(advertEnTest);
+		AdvertBusinessDto resultDto = AdvertMapper.transformAdvertEntityToAdvertDto(advertEnTest);
 		assertEquals(advertEnTest.getFunctionalIdentifier(), resultDto.getFunctionalIdentifier());
 		assertEquals(advertEnTest.getFormatsEn().iterator().next().getCode(), resultDto.getFormats().iterator().next().getCode());
 	}
 
 	@Test
 	public void transformAdvertEntityNullToAdvertDtoTest() {
-		AdvertDto resultDto = AdvertMapper.transformAdvertEntityToAdvertDto(null);
-		assertEquals(new AdvertDto(), resultDto);
+		AdvertBusinessDto resultDto = AdvertMapper.transformAdvertEntityToAdvertDto(null);
+		assertEquals(new AdvertBusinessDto(), resultDto);
 	}
 
 	@Test
 	public void transformAdvertDtoToFormatEntityTest() {
-		formatDto = new FormatDto("OFFER", "OFF_TRA", "TRAINING", false);
-		AdvertDto advertDtoTest = new AdvertDto("tex6-descrip6-2013-azawakh-2007-007", new Date(), new Date(),
-				new Date(), "titre 6", "description 6", "STEP_6");
+		formatDto = new FormatAdministratorDto("OFFER", "OFF_TRA", "TRAINING", false);
+		AdvertBusinessDto advertDtoTest = new AdvertBusinessDto("tex6-descrip6-2013-azawakh-2007-007", new Date(),
+				new Date(), "titre 6", "description 6");
 		AdvertEntity resultEn = AdvertMapper.transformAdvertDtoToAdvertEntity(advertDtoTest);
 		assertEquals(advertDtoTest.getFunctionalIdentifier(), resultEn.getFunctionalIdentifier());
 	}

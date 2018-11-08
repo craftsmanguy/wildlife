@@ -17,7 +17,8 @@ import javax.transaction.UserTransaction;
 
 import org.apache.commons.lang3.StringUtils;
 
-import com.ilmani.dream.wildlives.framework.dto.pet.PetDto;
+import com.ilmani.dream.wildlives.framework.dto.pet.AbstractPetDto;
+import com.ilmani.dream.wildlives.framework.dto.pet.PetBusinessDto;
 import com.ilmani.dream.wildlives.framework.error.ErrorEntity;
 import com.ilmani.dream.wildlives.framework.exceptions.EntityNotFoundException;
 import com.ilmani.dream.wildlives.framework.exceptions.RequiredFieldException;
@@ -39,28 +40,29 @@ public class PetBusinessManager implements PetBusinessLocal {
 	private PetBusinessFacade petFacade;
 
 	@Override
-	public PetDto savePet(PetDto pet) throws RestClientException, RequiredFieldException, EntityNotFoundException {
-		PetDto result = null;
+	public AbstractPetDto savePet(AbstractPetDto pet)
+			throws RestClientException, RequiredFieldException, EntityNotFoundException {
+		PetBusinessDto result = null;
 
-		if (pet == null || pet.getRace() == null || StringUtils.isEmpty(pet.getName())
-				|| StringUtils.isEmpty(pet.getGender()) || pet.getBirth().intValue() < 0
-				|| StringUtils.isEmpty(pet.getName()) || StringUtils.isEmpty(pet.getRace().getCode())) {
+		if (pet == null || ((PetBusinessDto) pet).getRace() == null || StringUtils.isEmpty(pet.getName())
+				|| StringUtils.isEmpty(((PetBusinessDto) pet).getGender()) || ((PetBusinessDto) pet).getBirth().intValue() < 0
+				|| StringUtils.isEmpty(pet.getName()) || StringUtils.isEmpty(((PetBusinessDto) pet).getRace().getCode())) {
 			throw new RequiredFieldException(BAD_REQUEST, ErrorEntity.ErrorKey.FIELD_IS_MISSING.getValue());
 		}
 
 		generateFunctionalId(pet);
 		pet.setName(pet.getName().substring(0, 1).toUpperCase() + pet.getName().substring(1));
-		pet.setGender(TransformationHelper.cleanAllSpecialsCharacters(pet.getGender().toUpperCase()));
+		((PetBusinessDto) pet).setGender(TransformationHelper.cleanAllSpecialsCharacters(((PetBusinessDto) pet).getGender().toUpperCase()));
 
-		boolean isGenderBelongEnum = TransformationHelper.isGenderEnumContainsValue(pet.getGender());
+		boolean isGenderBelongEnum = TransformationHelper.isGenderEnumContainsValue(((PetBusinessDto) pet).getGender());
 		if (!isGenderBelongEnum) {
 			throw new RequiredFieldException(BAD_REQUEST, ErrorEntity.ErrorKey.UNAUTHORIZED_ACTION.getValue());
 		}
 
 		try {
 			utx.begin();
-			pet.setUserForPet(getInstance().getAuthenticationLogin());
-			result = petFacade.savePet(pet);
+			((PetBusinessDto) pet).setUserForPet(getInstance().getAuthenticationLogin());
+			result = (PetBusinessDto) petFacade.savePet(pet);
 		} catch (NotSupportedException | SystemException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -103,9 +105,9 @@ public class PetBusinessManager implements PetBusinessLocal {
 		}
 	}
 
-	private static void generateFunctionalId(PetDto pet) {
-		pet.setFunctionalIdentifier(SlugHelper.makeSlug(pet.getRace().getCode() + "-" + pet.getRace().getName() + "-"
-				+ pet.getName() + "-" + pet.getBirth().toString() + "-" + pet.getDescription() + "-"
+	private static void generateFunctionalId(AbstractPetDto pet) {
+		pet.setFunctionalIdentifier(SlugHelper.makeSlug(((PetBusinessDto) pet).getRace().getCode() + "-" + ((PetBusinessDto) pet).getRace().getName() + "-"
+						+ pet.getName() + "-" + ((PetBusinessDto) pet).getBirth().toString() + "-" + ((PetBusinessDto) pet).getDescription() + "-"
 				+ TransformationHelper.getRandomString(50)));
 
 	}

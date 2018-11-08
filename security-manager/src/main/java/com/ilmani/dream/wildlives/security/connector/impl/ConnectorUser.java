@@ -26,7 +26,7 @@ public class ConnectorUser implements Connectivity {
 	
 	private static String privateKey = "user";
 
-	private static long validityTime = 600000;
+	private static long validityTime = 60000000;
 
 	@Override
 	public String findIdentifiant(ConnectionFieldsDto fields) throws EntityNotFoundException {

@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.apache.commons.beanutils.BeanUtils;
 
+import com.ilmani.dream.wildlives.framework.dto.advert.AbstractAdvertDto;
 import com.ilmani.dream.wildlives.framework.dto.pet.AbstractPetDto;
 import com.ilmani.dream.wildlives.framework.dto.user.AbstractUserDto;
 import com.ilmani.dream.wildlives.framework.dto.user.UserDto;
@@ -34,14 +35,13 @@ public class UserMapper {
 		try {
 			BeanUtils.copyProperties(userEntity, userDto);
 			userEntity.setPass(((UserInscriptionDto) userDto).getPassword());
-			
+
 		} catch (IllegalAccessException | InvocationTargetException e) {
 			// TODO log
 		}
 		return userEntity;
 	}
-	
-	
+
 	public static AbstractUserDto transformUserEntityToUserDto(UserEntity userEn) {
 		AbstractUserDto userDto = new UserDto();
 		if (userEn == null) {
@@ -50,8 +50,14 @@ public class UserMapper {
 		try {
 			BeanUtils.copyProperties(userDto, userEn);
 			if (userEn.getPetsEn() != null) {
-				List<AbstractPetDto> pets = PetForUserMapper.transformListForUserEntityToListAbstractPetDto(userEn.getPetsEn());
+				List<AbstractPetDto> pets = PetForUserMapper.transformListPetsEntityToListPetsDto(userEn.getPetsEn());
 				((UserDto) userDto).setPets(pets);
+			}
+
+			if (userEn.getAdvertsEn() != null) {
+				List<AbstractAdvertDto> adverts = AdvertForUserMapper
+						.transformListAdvertsEntityToListAdvertDto(userEn.getAdvertsEn());
+				((UserDto) userDto).setAdverts(adverts);
 			}
 		} catch (IllegalAccessException | InvocationTargetException e) {
 			// TODO log

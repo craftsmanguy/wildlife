@@ -3,6 +3,7 @@ package com.ilmani.dream.wildlives.framework.dto.user;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.ilmani.dream.wildlives.framework.dto.advert.AbstractAdvertDto;
 import com.ilmani.dream.wildlives.framework.dto.pet.AbstractPetDto;
 
 public class UserDto extends AbstractUserDto {
@@ -10,6 +11,8 @@ public class UserDto extends AbstractUserDto {
 	private static final long serialVersionUID = -8951795870529852049L;
 
 	private List<AbstractPetDto> pets = new ArrayList<AbstractPetDto>();
+
+	private List<AbstractAdvertDto> adverts = new ArrayList<AbstractAdvertDto>();
 
 	public UserDto() {
 		super();
@@ -30,6 +33,14 @@ public class UserDto extends AbstractUserDto {
 
 	public void setPets(List<AbstractPetDto> petsDto) {
 		this.pets = petsDto;
+	}
+
+	public List<AbstractAdvertDto> getAdverts() {
+		return adverts;
+	}
+
+	public void setAdverts(List<AbstractAdvertDto> adverts) {
+		this.adverts = adverts;
 	}
 
 }

@@ -35,17 +35,7 @@
 		<!-- administration -->
 		<dependency>
 			<groupId>com.ilmani.dream.wildlives</groupId>
-			<artifactId>pet-administration</artifactId>
-			<type>ejb</type>
-		</dependency>
-		<dependency>
-			<groupId>com.ilmani.dream.wildlives</groupId>
-			<artifactId>advert-administration</artifactId>
-			<type>ejb</type>
-		</dependency>
-		<dependency>
-			<groupId>com.ilmani.dream.wildlives</groupId>
-			<artifactId>user-administration</artifactId>
+			<artifactId>wildlife-administration</artifactId>
 			<type>ejb</type>
 		</dependency>
 		<dependency>
@@ -75,12 +65,12 @@
 		<!-- api -->
 		<dependency>
 			<groupId>com.ilmani.dream.wildlives</groupId>
-			<artifactId>wildlife-administration</artifactId>
+			<artifactId>administration-api</artifactId>
 			<type>war</type>
 		</dependency>
 		<dependency>
 			<groupId>com.ilmani.dream.wildlives</groupId>
-			<artifactId>wildlife-business</artifactId>
+			<artifactId>business-api</artifactId>
 			<type>war</type>
 		</dependency>
 	</dependencies>
@@ -122,15 +112,7 @@
 					<modules>
 					<ejbModule>
 							<groupId>com.ilmani.dream.wildlives</groupId>
-							<artifactId>advert-administration</artifactId>
-						</ejbModule>
-						<ejbModule>
-							<groupId>com.ilmani.dream.wildlives</groupId>
-							<artifactId>pet-administration</artifactId>
-						</ejbModule>
-						<ejbModule>
-							<groupId>com.ilmani.dream.wildlives</groupId>
-							<artifactId>user-administration</artifactId>
+							<artifactId>wildlife-administration</artifactId>
 						</ejbModule>
 						
 						<ejbModule>
@@ -153,11 +135,11 @@
 						
 						<webModule>
 							<groupId>com.ilmani.dream.wildlives</groupId>
-							<artifactId>wildlife-administration</artifactId>
+							<artifactId>administration-api</artifactId>
 						</webModule>
 						<webModule>
 							<groupId>com.ilmani.dream.wildlives</groupId>
-							<artifactId>wildlife-business</artifactId>
+							<artifactId>business-api</artifactId>
 						</webModule>
 					</modules>
 				</configuration>

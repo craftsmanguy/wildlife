@@ -2,7 +2,8 @@ package com.ilmani.dream.wildlives.pet.persistence.adapter;
 
 import javax.inject.Inject;
 
-import com.ilmani.dream.wildlives.framework.dto.pet.PetDto;
+import com.ilmani.dream.wildlives.framework.dto.pet.AbstractPetDto;
+import com.ilmani.dream.wildlives.framework.dto.pet.PetBusinessDto;
 import com.ilmani.dream.wildlives.pet.business.port.PetBusinessDomain;
 import com.ilmani.dream.wildlives.pet.persistence.dao.PetDao;
 import com.ilmani.dream.wildlives.pet.persistence.dao.RaceDao;
@@ -22,12 +23,12 @@ public class PetBusinessDomainImpl implements PetBusinessDomain {
 	UserForPetDao userDao;
 
 	@Override
-	public PetDto save(PetDto pet) {
-		PetEntity petEn = PetMapper.transformPetDtoToPetEntity(pet);
+	public AbstractPetDto save(AbstractPetDto pet) {
+		PetEntity petEn = PetMapper.transformPetBusinessDtoToPetEntity(pet);
 		petEn.setRaceEn(raceDao.findByCode(petEn.getRaceEn().getCode()));
-		petEn.setUserEn(userDao.findUserByPseudonym(pet.getUserForPet()));
+		petEn.setUserEn(userDao.findUserByPseudonym(((PetBusinessDto) pet).getUserForPet()));
 		PetEntity result = petDao.insert(petEn);
-		return PetMapper.transformPetEntityToPetDto(result);
+		return PetMapper.transformPetEntityToPetBusinessDto(result);
 	}
 
 	@Override

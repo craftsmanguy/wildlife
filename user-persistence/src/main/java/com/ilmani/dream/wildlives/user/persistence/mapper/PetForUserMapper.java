@@ -25,7 +25,7 @@ public class PetForUserMapper {
 		return petDto;
 	}
 	
-	public static List<AbstractPetDto> transformListForUserEntityToListAbstractPetDto(List<PetForUserEntity> petsEntity) {
+	public static List<AbstractPetDto> transformListPetsEntityToListPetsDto(List<PetForUserEntity> petsEntity) {
 		List<AbstractPetDto> petsDto = new ArrayList<AbstractPetDto>();
 		if (petsEntity.isEmpty()) {
 			return petsDto;

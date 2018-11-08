@@ -10,7 +10,7 @@
 	<packaging>ejb</packaging>
 	<name>Advert Business Manager</name>
 	<description>Manage advert for client</description>
-	
+
 	<dependencies>
 		<dependency>
 			<groupId>javax</groupId>
@@ -27,6 +27,14 @@
 		<dependency>
 			<groupId>io.cucumber</groupId>
 			<artifactId>cucumber-junit</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.powermock</groupId>
+			<artifactId>powermock-module-junit4</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.powermock</groupId>
+			<artifactId>powermock-api-mockito2</artifactId>
 		</dependency>
 
 		<dependency>

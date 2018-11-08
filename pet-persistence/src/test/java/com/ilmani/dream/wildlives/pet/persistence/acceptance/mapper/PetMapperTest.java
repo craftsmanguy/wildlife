@@ -4,17 +4,16 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-import com.ilmani.dream.wildlives.framework.dto.pet.PetDto;
-import com.ilmani.dream.wildlives.framework.dto.pet.RaceDto;
+import com.ilmani.dream.wildlives.framework.dto.pet.AbstractRaceDto;
+import com.ilmani.dream.wildlives.framework.dto.pet.PetBusinessDto;
+import com.ilmani.dream.wildlives.framework.dto.pet.RaceMinimalDto;
 import com.ilmani.dream.wildlives.pet.persistence.entity.PetEntity;
 import com.ilmani.dream.wildlives.pet.persistence.entity.RaceEntity;
 import com.ilmani.dream.wildlives.pet.persistence.mapper.PetMapper;
 
 public class PetMapperTest {
 
-	static PetDto petDto;
-
-	static RaceDto raceDto;
+	static PetBusinessDto petDto;
 
 	static PetEntity petEntity;
 
@@ -26,22 +25,22 @@ public class PetMapperTest {
 		PetEntity petEnTest = new PetEntity("coby-pet-dog-akita_americain-1999-003", "Coby", "la question", false,
 				"FEMALE", 1999);
 		petEnTest.setRaceEn(raceEntity);
-		PetDto resultDto = PetMapper.transformPetEntityToPetDto(petEnTest);
+		PetBusinessDto resultDto = (PetBusinessDto) PetMapper.transformPetEntityToPetBusinessDto(petEnTest);
 		assertEquals(petEnTest.getFunctionalIdentifier(), resultDto.getFunctionalIdentifier());
 		assertEquals(petEnTest.getRaceEn().getCode(), resultDto.getRace().getCode());
 	}
 
 	@Test
 	public void transformPetEntityNullToPetDtoTest() {
-		PetDto resultDto = PetMapper.transformPetEntityToPetDto(null);
-		assertEquals(new PetDto(), resultDto);
+		PetBusinessDto resultDto = (PetBusinessDto) PetMapper.transformPetEntityToPetBusinessDto(null);
+		assertEquals(new PetBusinessDto(), resultDto);
 	}
 
 	@Test
 	public void transformPetDtoToRaceEntityTest() {
-		raceDto = new RaceDto("AFFENPINSCHER", "", "AFFEN", "DOG", "MAMMALIA", true);
-		PetDto petDtoTest = new PetDto("rex-pet-dog-affenpinsher-1995-0001", "Rex", "aucune", false, "MALE",
-				1995, raceDto);
+		AbstractRaceDto raceDto = new RaceMinimalDto("AFFENPINSCHER", "");
+		PetBusinessDto petDtoTest = new PetBusinessDto("rex-pet-dog-affenpinsher-1995-0001", "Rex", "aucune", false, "MALE",
+				1995, (RaceMinimalDto) raceDto);
 		PetEntity resultEn = PetMapper.transformPetDtoToPetEntity(petDtoTest);
 		assertEquals(petDtoTest.getFunctionalIdentifier(), resultEn.getFunctionalIdentifier());
 	}

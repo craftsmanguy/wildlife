@@ -46,6 +46,9 @@ public class UserEntity {
 	@OneToMany(mappedBy = "userEn", fetch = FetchType.LAZY)
 	private List<PetForUserEntity> petsEn;
 
+	@OneToMany(mappedBy = "userEn", fetch = FetchType.LAZY)
+	private List<AdvertForUserEntity> advertsEn;
+
 	public UserEntity() {
 		super();
 	}
@@ -131,6 +134,12 @@ public class UserEntity {
 		this.petsEn = petsEn;
 	}
 
-	
+	public List<AdvertForUserEntity> getAdvertsEn() {
+		return advertsEn;
+	}
+
+	public void setAdvertsEn(List<AdvertForUserEntity> advertsEn) {
+		this.advertsEn = advertsEn;
+	}
 
 }

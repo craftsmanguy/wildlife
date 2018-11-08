@@ -44,12 +44,12 @@
 		
 		<dependency>
 			<groupId>com.ilmani.dream.wildlives</groupId>
-			<artifactId>advert-administration</artifactId>
+			<artifactId>advert-business</artifactId>
 			<type>ejb</type>
 		</dependency>
 		<dependency>
 			<groupId>com.ilmani.dream.wildlives</groupId>
-			<artifactId>advert-business</artifactId>
+			<artifactId>wildlife-administration</artifactId>
 			<type>ejb</type>
 		</dependency>
 		<dependency>

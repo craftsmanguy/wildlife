@@ -9,7 +9,7 @@ import com.ilmani.dream.wildlives.advert.administration.port.FormatAdministratio
 import com.ilmani.dream.wildlives.advert.persistence.dao.FormatDao;
 import com.ilmani.dream.wildlives.advert.persistence.entity.FormatEntity;
 import com.ilmani.dream.wildlives.advert.persistence.mapper.FormatMapper;
-import com.ilmani.dream.wildlives.framework.dto.advert.FormatDto;
+import com.ilmani.dream.wildlives.framework.dto.advert.AbstractFormatDto;
 
 public class FormatAdministrationDomainImpl implements FormatAdministrationDomain {
 
@@ -22,16 +22,16 @@ public class FormatAdministrationDomainImpl implements FormatAdministrationDomai
 	}
 
 	@Override
-	public FormatDto findFormatByCode(String code) throws NoResultException {
+	public AbstractFormatDto findFormatByCode(String code) throws NoResultException {
 		FormatEntity formatFromDb = formatDao.findByCode(code);
-		return FormatMapper.transformFormatEntityToFormatDto(formatFromDb);
+		return FormatMapper.transformFormatEntityToFormatAdministratorDto(formatFromDb);
 	}
 
 	@Override
-	public FormatDto save(FormatDto format) {
+	public AbstractFormatDto save(AbstractFormatDto format) {
 		FormatEntity formatEn = FormatMapper.transformFormatDtoToFormatEntity(format);
 		FormatEntity result = formatDao.update(formatEn);
-		return FormatMapper.transformFormatEntityToFormatDto(result);
+		return FormatMapper.transformFormatEntityToFormatAdministratorDto(result);
 	}
 
 	@Override
@@ -42,16 +42,16 @@ public class FormatAdministrationDomainImpl implements FormatAdministrationDomai
 	}
 
 	@Override
-	public FormatDto update(FormatDto format, String code) {
+	public AbstractFormatDto update(AbstractFormatDto format, String code) {
 		FormatEntity raceEn = FormatMapper.transformFormatDtoToFormatEntity(format);
 		FormatEntity raceToUpdate = formatDao.findByCode(code);
 		FormatMapper.copyNewFormatEntityToOldFormatEntity(raceToUpdate, raceEn);
 		FormatEntity result = formatDao.update(raceToUpdate);
-		return FormatMapper.transformFormatEntityToFormatDto(result);
+		return FormatMapper.transformFormatEntityToFormatAdministratorDto(result);
 	}
 
 	@Override
-	public Set<FormatDto> searchFormats(FormatDto format) {
+	public Set<AbstractFormatDto> searchFormats(AbstractFormatDto format) {
 		FormatEntity formatEn = FormatMapper.transformFormatDtoToFormatEntity(format);
 		Set<FormatEntity> result = formatDao.getByAttributes(formatEn);
 		return FormatMapper.transformListFormatEntityToListFormatDto(result);

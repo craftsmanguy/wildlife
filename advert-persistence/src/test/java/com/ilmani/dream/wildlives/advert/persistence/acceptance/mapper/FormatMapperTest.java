@@ -7,17 +7,18 @@ import org.junit.Test;
 
 import com.ilmani.dream.wildlives.advert.persistence.entity.FormatEntity;
 import com.ilmani.dream.wildlives.advert.persistence.mapper.FormatMapper;
-import com.ilmani.dream.wildlives.framework.dto.advert.FormatDto;
+import com.ilmani.dream.wildlives.framework.dto.advert.AbstractFormatDto;
+import com.ilmani.dream.wildlives.framework.dto.advert.FormatAdministratorDto;
 
 public class FormatMapperTest {
 
-	static FormatDto formatDto;
+	static FormatAdministratorDto formatDto;
 
 	static FormatEntity formatEn;
 
 	@Before
 	public void setUp() throws Exception {
-		formatDto = new FormatDto("REQUEST", "REQ_PET_CAR", "PET_CARE", true);
+		formatDto = new FormatAdministratorDto("REQUEST", "REQ_PET_CAR", "PET_CARE", true);
 
 		formatEn = new FormatEntity("OFFER", "OFF_PET_CAR", "PET_CARE", true);
 	}
@@ -25,19 +26,19 @@ public class FormatMapperTest {
 	@Test
 	public void transformFormatEntityToFormatDtoTest() {
 		FormatEntity formatEnTest = new FormatEntity("REQUEST", "REQ_PET_CAR", "PET_CARE", true);
-		FormatDto resultDto = FormatMapper.transformFormatEntityToFormatDto(formatEnTest);
+		AbstractFormatDto resultDto = FormatMapper.transformFormatEntityToFormatAdministratorDto(formatEnTest);
 		assertEquals(formatDto, resultDto);
 	}
 
 	@Test
 	public void transformFormatEntityNullToFormatDtoTest() {
-		FormatDto resultDto = FormatMapper.transformFormatEntityToFormatDto(null);
-		assertEquals(new FormatDto(), resultDto);
+		AbstractFormatDto resultDto = FormatMapper.transformFormatEntityToFormatAdministratorDto(null);
+		assertEquals(new FormatAdministratorDto(), resultDto);
 	}
 
 	@Test
 	public void transformFormatDtoToFormatEntityTest() {
-		FormatDto formatDtoTest = new FormatDto("OFFER", "OFF_PET_CAR", "PET_CARE", false);
+		FormatAdministratorDto formatDtoTest = new FormatAdministratorDto("OFFER", "OFF_PET_CAR", "PET_CARE", false);
 		FormatEntity resultEn = FormatMapper.transformFormatDtoToFormatEntity(formatDtoTest);
 		assertEquals(formatEn.getName(), resultEn.getName());
 	}

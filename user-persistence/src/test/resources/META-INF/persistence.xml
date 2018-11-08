@@ -7,6 +7,7 @@
 	<persistence-unit name="userPuTest" transaction-type="JTA">
 
 		<class>com.ilmani.dream.wildlives.user.persistence.entity.UserEntity</class>
+		<class>com.ilmani.dream.wildlives.user.persistence.entity.AdvertForUserEntity</class>
 		<class>com.ilmani.dream.wildlives.user.persistence.entity.PetForUserEntity</class>
 		<properties>
 			<property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect" />

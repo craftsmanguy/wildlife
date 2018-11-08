@@ -12,8 +12,8 @@ import org.mockito.Mock;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
-import com.ilmani.dream.wildlives.framework.dto.pet.PetDto;
-import com.ilmani.dream.wildlives.framework.dto.pet.RaceDto;
+import com.ilmani.dream.wildlives.framework.dto.pet.PetBusinessDto;
+import com.ilmani.dream.wildlives.framework.dto.pet.RaceMinimalDto;
 import com.ilmani.dream.wildlives.framework.exceptions.EntityNotFoundException;
 import com.ilmani.dream.wildlives.framework.exceptions.RequiredFieldException;
 import com.ilmani.dream.wildlives.pet.business.api.impl.PetBusinessManager;
@@ -34,14 +34,14 @@ public class CrudBusinessPetTest {
 
 	@Test
 	public void insertionOfNewPetIsPossible() throws Exception {
-		PetDto expectedResult = new PetDto("af508a2e7a33055e308387eaad72e3fd3a6a9cbe-affenpinscher-rex-2018-anything",
-				"Rex", "anything", true, "MALE", 2018,
-				new RaceDto("AFFENPINSCHER", "af508a2e7a33055e308387eaad72e3fd3a6a9cbe"));
-		PetDto toInsert = new PetDto("", "rex", "anything", true, "male", 2018,
-				new RaceDto("AFFENPINSCHER", "af508a2e7a33055e308387eaad72e3fd3a6a9cbe"));
+		PetBusinessDto expectedResult = new PetBusinessDto(
+				"af508a2e7a33055e308387eaad72e3fd3a6a9cbe-affenpinscher-rex-2018-anything", "Rex", "anything", true,
+				"MALE", 2018, new RaceMinimalDto("AFFENPINSCHER", "af508a2e7a33055e308387eaad72e3fd3a6a9cbe"));
+		PetBusinessDto toInsert = new PetBusinessDto("", "rex", "anything", true, "male", 2018,
+				new RaceMinimalDto("AFFENPINSCHER", "af508a2e7a33055e308387eaad72e3fd3a6a9cbe"));
 
 		when(petFacade.savePet(toInsert)).thenReturn(toInsert);
-		PetDto actual = managePet.savePet(toInsert);
+		PetBusinessDto actual = (PetBusinessDto) managePet.savePet(toInsert);
 		assertEquals(expectedResult.getFunctionalIdentifier(), actual.getFunctionalIdentifier().substring(0, 72));
 		assertEquals(expectedResult.getName(), actual.getName());
 		assertEquals(expectedResult.getGender(), actual.getGender());
@@ -49,13 +49,13 @@ public class CrudBusinessPetTest {
 
 	@Test(expected = RequiredFieldException.class)
 	public void testGenerateExceptionBecauseAttributePetIsNull() throws Exception {
-		managePet.savePet(new PetDto());
+		managePet.savePet(new PetBusinessDto());
 	}
 
 	@Test(expected = RequiredFieldException.class)
 	public void insertionOfNewPetWithWrongGenderIsPossible() throws Exception {
-		PetDto toInsert = new PetDto("", "rex", "anything", true, "malebi", 2018,
-				new RaceDto("AFFENPINSCHER", "af508a2e7a33055e308387eaad72e3fd3a6a9cbe"));
+		PetBusinessDto toInsert = new PetBusinessDto("", "rex", "anything", true, "malebi", 2018,
+				new RaceMinimalDto("AFFENPINSCHER", "af508a2e7a33055e308387eaad72e3fd3a6a9cbe"));
 		managePet.savePet(toInsert);
 	}
 
