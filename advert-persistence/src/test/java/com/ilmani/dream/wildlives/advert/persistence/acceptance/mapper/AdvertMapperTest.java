@@ -9,6 +9,7 @@ import org.junit.Test;
 import com.ilmani.dream.wildlives.advert.persistence.entity.AdvertEntity;
 import com.ilmani.dream.wildlives.advert.persistence.entity.FormatEntity;
 import com.ilmani.dream.wildlives.advert.persistence.mapper.AdvertMapper;
+import com.ilmani.dream.wildlives.framework.dto.advert.AbstractAdvertDto;
 import com.ilmani.dream.wildlives.framework.dto.advert.AdvertBusinessDto;
 import com.ilmani.dream.wildlives.framework.dto.advert.FormatAdministratorDto;
 
@@ -28,14 +29,15 @@ public class AdvertMapperTest {
 		AdvertEntity advertEnTest = new AdvertEntity("tex1-descrip1-2013-affenpinsher-1995-0001", new Date(),
 				new Date(), "titre 1", "description 1", "STEP_1");
 		advertEnTest.getFormatsEn().add(formatEn);
-		AdvertBusinessDto resultDto = AdvertMapper.transformAdvertEntityToAdvertDto(advertEnTest);
+		AbstractAdvertDto resultDto = AdvertMapper.transformAdvertEntityToAdvertDto(advertEnTest);
 		assertEquals(advertEnTest.getFunctionalIdentifier(), resultDto.getFunctionalIdentifier());
-		assertEquals(advertEnTest.getFormatsEn().iterator().next().getCode(), resultDto.getFormats().iterator().next().getCode());
+		assertEquals(advertEnTest.getFormatsEn().iterator().next().getCode(),
+				((AdvertBusinessDto) resultDto).getFormats().iterator().next().getCode());
 	}
 
 	@Test
 	public void transformAdvertEntityNullToAdvertDtoTest() {
-		AdvertBusinessDto resultDto = AdvertMapper.transformAdvertEntityToAdvertDto(null);
+		AbstractAdvertDto resultDto = AdvertMapper.transformAdvertEntityToAdvertDto(null);
 		assertEquals(new AdvertBusinessDto(), resultDto);
 	}
 

@@ -10,6 +10,7 @@ import javax.ejb.Stateless;
 import javax.ejb.TransactionManagement;
 import javax.ejb.TransactionManagementType;
 import javax.inject.Inject;
+import javax.ws.rs.core.Response.Status;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -50,11 +51,18 @@ public class GatewayManager implements GatewayLocal {
 	@Override
 	public void checkToken(String token, String profil) throws AuthenticationException {
 		if (StringUtils.isEmpty(token)) {
-			throw new AuthenticationException(UNAUTHORIZED, ErrorEntity.ErrorKey.TOKEN_NOT_FOUND.getValue());
+			throw new AuthenticationException(Status.FORBIDDEN, ErrorEntity.ErrorKey.TOKEN_NOT_FOUND.getValue());
 		}
 		String identifiant = connectorFactory.getToken(token, profil);
 		getInstance().setAuthenticationToken(token);
 		getInstance().setAuthenticationLogin(identifiant);
+	}
+	
+
+	@Override
+	public void checkRigths(String table, String profil) throws AuthenticationException {
+		// TODO Auto-generated method stub
+		
 	}
 
 	private static void throwsExceptionWhenAllFieldsAreNotFill(ConnectionFieldsDto fields)
@@ -63,5 +71,4 @@ public class GatewayManager implements GatewayLocal {
 			throw new AuthenticationException(BAD_REQUEST, ErrorEntity.ErrorKey.FIELD_IS_MISSING.getValue());
 		}
 	}
-
 }

@@ -1,9 +1,7 @@
 package com.ilmani.dream.wildlives.advert.persistence.dao;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
@@ -57,7 +55,7 @@ public class FormatDao {
 		return em.createQuery(criteriaQuery).getSingleResult();
 	}
 
-	public Set<FormatEntity> getByAttributes(FormatEntity format) {
+	public List<FormatEntity> getByAttributes(FormatEntity format) {
 
 		CriteriaBuilder builder = em.getCriteriaBuilder();
 		CriteriaQuery<FormatEntity> criteriaQuery = builder.createQuery(FormatEntity.class);
@@ -74,12 +72,13 @@ public class FormatDao {
 			predicateList.add(builder.like(builder.upper(formatFromDb.<String>get("feature")),
 					"%" + format.getFeature().toUpperCase() + "%"));
 		}
-//		predicateList.add(builder.equal(formatFromDb.get("isActive"), true));
+		if (format.isActive()) {
+			predicateList.add(builder.equal(formatFromDb.get("isActive"), true));
+		}
 
 		criteriaQuery.where(predicateList.toArray(new Predicate[] {}));
-		criteriaQuery.orderBy(builder.asc(formatFromDb.get("name")));
-		List<FormatEntity> results = em.createQuery(criteriaQuery).getResultList();
-		return new HashSet<FormatEntity>(results);
+		criteriaQuery.orderBy(builder.asc(formatFromDb.get("code")));
+		return em.createQuery(criteriaQuery).getResultList();
 	}
 
 	public FormatEntity insert(FormatEntity format) {

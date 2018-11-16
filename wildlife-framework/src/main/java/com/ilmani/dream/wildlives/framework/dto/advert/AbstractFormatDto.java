@@ -9,6 +9,8 @@ public class AbstractFormatDto implements Serializable {
 	protected String code;
 
 	protected String feature;
+	
+	protected String name;
 
 	public String getCode() {
 		return code;
@@ -25,6 +27,14 @@ public class AbstractFormatDto implements Serializable {
 	public void setFeature(String feature) {
 		this.feature = feature;
 	}
+	
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
 
 	@Override
 	public int hashCode() {
@@ -32,6 +42,7 @@ public class AbstractFormatDto implements Serializable {
 		int result = 1;
 		result = prime * result + ((code == null) ? 0 : code.hashCode());
 		result = prime * result + ((feature == null) ? 0 : feature.hashCode());
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		return result;
 	}
 
@@ -61,7 +72,13 @@ public class AbstractFormatDto implements Serializable {
 		} else if (!feature.equals(other.feature)) {
 			return false;
 		}
+		if (name == null) {
+			if (other.name != null) {
+				return false;
+			}
+		} else if (!name.equals(other.name)) {
+			return false;
+		}
 		return true;
 	}
-
 }

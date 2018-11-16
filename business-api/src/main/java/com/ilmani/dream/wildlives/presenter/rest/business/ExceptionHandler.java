@@ -14,6 +14,7 @@ import com.ilmani.dream.wildlives.framework.exceptions.EntityNotFoundException;
 import com.ilmani.dream.wildlives.framework.exceptions.MalformedFieldException;
 import com.ilmani.dream.wildlives.framework.exceptions.RequiredFieldException;
 import com.ilmani.dream.wildlives.framework.exceptions.RestClientException;
+import com.ilmani.dream.wildlives.framework.exceptions.UnauthorizedException;
 import com.ilmani.dream.wildlives.framework.rest.responseheader.ResponseHeaderBuilder;
 
 @Provider
@@ -32,6 +33,10 @@ public class ExceptionHandler implements ExceptionMapper<Exception> {
 			EntityAlreadyExistException exception = (EntityAlreadyExistException) throwable;
 			return responseHeader.responseBuilder(exception.getStatus()).header("Reason", exception.getError()).build();
 
+		} else if (throwable instanceof UnauthorizedException) {
+			UnauthorizedException exception = (UnauthorizedException) throwable;
+			return responseHeader.responseBuilder(exception.getStatus()).header("Reason", exception.getError()).build();
+
 		} else if (throwable instanceof EntityNotFoundException) {
 			EntityNotFoundException exception = (EntityNotFoundException) throwable;
 			return responseHeader.responseBuilder(exception.getStatus()).header("Reason", exception.getError()).build();
@@ -39,14 +44,14 @@ public class ExceptionHandler implements ExceptionMapper<Exception> {
 		} else if (throwable instanceof RequiredFieldException) {
 			RequiredFieldException exception = (RequiredFieldException) throwable;
 			return responseHeader.responseBuilder(exception.getStatus()).header("Reason", exception.getError()).build();
-			
+
 		} else if (throwable instanceof MalformedFieldException) {
 			MalformedFieldException exception = (MalformedFieldException) throwable;
 			return responseHeader.responseBuilder(exception.getStatus()).header("Reason", exception.getError()).build();
 
 		} else if (throwable instanceof JsonMappingException) {
 			return responseHeader.responseBuilder(Status.BAD_REQUEST).build();
-			
+
 		} else if (throwable instanceof WebApplicationException) {
 			WebApplicationException exception = (WebApplicationException) throwable;
 			return exception.getResponse();
@@ -55,7 +60,7 @@ public class ExceptionHandler implements ExceptionMapper<Exception> {
 			RestClientException exception = new RestClientException();
 			return responseHeader.responseBuilder(exception.getStatus()).entity(exception.getMessage()).build();
 		}
-		
+
 	}
 
 }

@@ -38,9 +38,15 @@ public class PetBusinessDomainImpl implements PetBusinessDomain {
 
 	@Override
 	public void delete(String functionalId) {
-		PetEntity petToDelete = petDao.findByFunctionalIdentifier(functionalId);
+		PetEntity petToDelete = petDao.findByFunctionalId(functionalId);
 		petDao.delete(petToDelete);
 
+	}
+
+	@Override
+	public AbstractPetDto find(String id) {
+		PetEntity result = petDao.findByFunctionalId(id);
+		return PetMapper.transformPetEntityToPetBusinessDto(result);
 	}
 
 }

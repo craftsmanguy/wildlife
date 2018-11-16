@@ -3,7 +3,6 @@ package com.ilmani.dream.wildlives.advert.persistence.mapper;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 import org.apache.commons.beanutils.BeanUtils;
 
@@ -14,21 +13,24 @@ import com.ilmani.dream.wildlives.framework.dto.pet.AbstractPetDto;
 
 public class AdvertMapper {
 
-	public static AdvertBusinessDto transformAdvertEntityToAdvertDto(AdvertEntity advertEn) {
-		AdvertBusinessDto advertDto = new AdvertBusinessDto();
+	public static AbstractAdvertDto transformAdvertEntityToAdvertDto(AdvertEntity advertEn) {
+		AbstractAdvertDto advertDto = new AdvertBusinessDto();
 		if (advertEn == null) {
 			return advertDto;
 		}
 		try {
 			BeanUtils.copyProperties(advertDto, advertEn);
 			if (!advertEn.getFormatsEn().isEmpty()) {
-				advertDto.setFormats(
-						FormatMapper.transformListFormatEntityToListFormatBusinessDto(advertEn.getFormatsEn()));
+				((AdvertBusinessDto) advertDto).setFormats(FormatMapper
+						.transformListFormatEntityToListFormatBusinessDto(new ArrayList<>(advertEn.getFormatsEn())));
 			}
 			if (!advertEn.getPetsEn().isEmpty()) {
 				List<AbstractPetDto> pets = PetForAdvertMapper
 						.transformListForUserEntityToListAbstractPetDto(advertEn.getPetsEn());
-				advertDto.setPets(pets);
+				((AdvertBusinessDto) advertDto).setPets(pets);
+			}
+			if (advertEn.getUserEn() != null) {
+				((AdvertBusinessDto) advertDto).setUser(advertEn.getUserEn().getPseudonym());
 			}
 		} catch (IllegalAccessException | InvocationTargetException e) {
 			// TODO log
@@ -36,13 +38,13 @@ public class AdvertMapper {
 		return advertDto;
 	}
 
-	public static List<AdvertBusinessDto> transformListAdvertEntityToListAdvertDto(Set<AdvertEntity> advertsEntity) {
-		List<AdvertBusinessDto> formatsDto = new ArrayList<AdvertBusinessDto>();
+	public static List<AbstractAdvertDto> transformListAdvertEntityToListAdvertDto(List<AdvertEntity> advertsEntity) {
+		List<AbstractAdvertDto> formatsDto = new ArrayList<AbstractAdvertDto>();
 		if (advertsEntity.isEmpty()) {
 			return formatsDto;
 		}
 		for (AdvertEntity formatEnTemp : advertsEntity) {
-			AdvertBusinessDto advertDtoTemp = transformAdvertEntityToAdvertDto(formatEnTemp);
+			AbstractAdvertDto advertDtoTemp = transformAdvertEntityToAdvertDto(formatEnTemp);
 			formatsDto.add(advertDtoTemp);
 		}
 		return formatsDto;

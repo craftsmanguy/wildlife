@@ -14,7 +14,7 @@ import javax.ws.rs.core.Response;
 
 import com.ilmani.dream.wildlives.framework.dto.user.UserInscriptionDto;
 import com.ilmani.dream.wildlives.framework.rest.service.AbstractService;
-import com.ilmani.dream.wildlives.framework.security.TokenAuthentication;
+import com.ilmani.dream.wildlives.framework.security.AuthenticationGateway;
 
 @Singleton
 @Path("/v1")
@@ -34,6 +34,7 @@ public class UserBusinessResource extends AbstractService {
 
 	@GET
 	@Path("users/{id}")
+	@AuthenticationGateway
 	@Consumes({ MediaType.APPLICATION_JSON })
 	@Produces({ MediaType.APPLICATION_JSON })
 	public Response findProfilByIdentifier(@PathParam("id") String pseudonym) throws Exception {
@@ -43,7 +44,7 @@ public class UserBusinessResource extends AbstractService {
 
 	@GET
 	@Path("users/current")
-	@TokenAuthentication
+	@AuthenticationGateway
 	@Consumes({ MediaType.APPLICATION_JSON })
 	@Produces({ MediaType.APPLICATION_JSON })
 	public Response getPersonalProfil() throws Exception {

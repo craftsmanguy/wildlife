@@ -40,14 +40,14 @@ public class PetDaoTest extends DataBaseCreationTest {
 	@Test
 	public void findByExactAttribute() {
 		PetEntity petEntity = new PetEntity("rex-pet-dog-affenpinsher-1995-0001", "Rex", "aucune", false, "MALE", 1995);
-		PetEntity result = petDao.findByFunctionalIdentifier(petEntity.getFunctionalIdentifier());
+		PetEntity result = petDao.findByFunctionalId(petEntity.getFunctionalIdentifier());
 		assertEquals(petEntity.getFunctionalIdentifier(), result.getFunctionalIdentifier());
 	}
 
 	@Test(expected = NoResultException.class)
 	public void notFindBecauseAttributeIsWrong() {
 		PetEntity pet = new PetEntity("wrong_functional_id", "wrong_name", "aucune", false, "MALE", 1995);
-		petDao.findByFunctionalIdentifier(pet.getFunctionalIdentifier());
+		petDao.findByFunctionalId(pet.getFunctionalIdentifier());
 	}
 
 	@Test
@@ -62,14 +62,14 @@ public class PetDaoTest extends DataBaseCreationTest {
 		PetEntity updatablePet = new PetEntity("et_si-pet-dog-azawakh-2007-007", "coome", "nouveau commentaire", true,
 				"MALE", 2011);
 
-		PetEntity resultToUpdateFromDb = petDao.findByFunctionalIdentifier(petToUpdate.getFunctionalIdentifier());
+		PetEntity resultToUpdateFromDb = petDao.findByFunctionalId(petToUpdate.getFunctionalIdentifier());
 		resultToUpdateFromDb.setGender(updatablePet.getGender());
 		resultToUpdateFromDb.setDescription(updatablePet.getDescription());
 		resultToUpdateFromDb.setLof(updatablePet.isLof());
 		resultToUpdateFromDb.setBirth(updatablePet.getBirth());
 
 		petDao.update(resultToUpdateFromDb);
-		PetEntity resultUpdatingFromDb = petDao.findByFunctionalIdentifier(petToUpdate.getFunctionalIdentifier());
+		PetEntity resultUpdatingFromDb = petDao.findByFunctionalId(petToUpdate.getFunctionalIdentifier());
 		assertEquals(updatablePet.getDescription(), resultUpdatingFromDb.getDescription());
 		assertTrue(resultUpdatingFromDb.isLof());
 	}

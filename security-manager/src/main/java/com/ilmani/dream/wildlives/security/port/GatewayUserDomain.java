@@ -7,5 +7,4 @@ public interface GatewayUserDomain {
 	public boolean isProfilExists(ConnectionFieldsDto fields);
 	
 	public String findPseudonymByEmail(ConnectionFieldsDto fields);
-
 }

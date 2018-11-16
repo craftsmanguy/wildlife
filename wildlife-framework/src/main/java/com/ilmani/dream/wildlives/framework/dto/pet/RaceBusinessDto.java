@@ -6,13 +6,11 @@ public class RaceBusinessDto extends AbstractRaceDto implements Serializable{
 
 	private static final long serialVersionUID = -2024163533028655253L;
 
-	private String scientistName;
+	protected String scientistName;
 
-	private String specie;
+	protected String specie;
 
-	private String clan;
-
-	private boolean isActive;
+	protected String clan;
 
 	public RaceBusinessDto() {
 
@@ -28,13 +26,12 @@ public class RaceBusinessDto extends AbstractRaceDto implements Serializable{
 		this.clan = clan;
 	}
 
-	public RaceBusinessDto(String name, String scientistName, String code, String specie, String clan, boolean isActive) {
+	public RaceBusinessDto(String name, String scientistName, String code, String specie, String clan) {
 		this.name = name;
 		this.scientistName = scientistName;
 		this.code = code;
 		this.specie = specie;
 		this.clan = clan;
-		this.isActive = isActive;
 	}
 
 	public String getName() {
@@ -77,21 +74,12 @@ public class RaceBusinessDto extends AbstractRaceDto implements Serializable{
 		this.clan = clan;
 	}
 
-	public boolean isActive() {
-		return isActive;
-	}
-
-	public void setActive(boolean isActive) {
-		this.isActive = isActive;
-	}
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((clan == null) ? 0 : clan.hashCode());
 		result = prime * result + ((code == null) ? 0 : code.hashCode());
-		result = prime * result + (isActive ? 1231 : 1237);
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		result = prime * result + ((scientistName == null) ? 0 : scientistName.hashCode());
 		result = prime * result + ((specie == null) ? 0 : specie.hashCode());
@@ -122,9 +110,6 @@ public class RaceBusinessDto extends AbstractRaceDto implements Serializable{
 				return false;
 			}
 		} else if (!code.equals(other.code)) {
-			return false;
-		}
-		if (isActive != other.isActive) {
 			return false;
 		}
 		if (name == null) {

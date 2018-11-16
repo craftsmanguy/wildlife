@@ -24,21 +24,21 @@ public class RaceAdministrationDomainImpl implements RaceAdministrationDomain {
 	@Override
 	public AbstractRaceDto findByCode(String code) throws NoResultException {
 		RaceEntity raceFromDb = raceDao.findByCode(code);
-		return RaceMapper.transformRaceEntityToRaceDto(raceFromDb);
+		return RaceMapper.transformRaceEntityToRaceAdministrationDto(raceFromDb);
 	}
 
 	@Override
 	public Set<AbstractRaceDto> search(AbstractRaceDto race) {
 		RaceEntity raceEn = RaceMapper.transformRaceDtoToRaceEntity(race);
 		Set<RaceEntity> results = raceDao.getByAttributes(raceEn);
-		return RaceMapper.transformListRaceEntityToListRaceDto(results);
+		return RaceMapper.transformListRaceEntityToListRaceAdministrationDto(results);
 	}
 
 	@Override
 	public AbstractRaceDto save(AbstractRaceDto race) {
 		RaceEntity raceEn = RaceMapper.transformRaceDtoToRaceEntity(race);
 		RaceEntity result = raceDao.insert(raceEn);
-		return RaceMapper.transformRaceEntityToRaceDto(result);
+		return RaceMapper.transformRaceEntityToRaceAdministrationDto(result);
 	}
 
 	@Override
@@ -54,7 +54,7 @@ public class RaceAdministrationDomainImpl implements RaceAdministrationDomain {
 		RaceEntity raceToUpdate = raceDao.findByCode(oldCode);
 		RaceMapper.copyNewRaceEntityToOldRaceEntity(raceToUpdate, raceEn);
 		RaceEntity result = raceDao.update(raceToUpdate);
-		return RaceMapper.transformRaceEntityToRaceDto(result);
+		return RaceMapper.transformRaceEntityToRaceAdministrationDto(result);
 	}
 
 }

@@ -1,5 +1,7 @@
 package com.ilmani.dream.wildlives.advert.persistence.adapter;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import com.ilmani.dream.wildlives.advert.business.port.AdvertBusinessDomain;
@@ -46,5 +48,32 @@ public class AdvertBusinessDomainImpl implements AdvertBusinessDomain {
 		advertEn.setUserEn(userDao.findUserByPseudonym(((AdvertBusinessDto) advert).getUser()));
 		result = advertDao.insert(advertEn);
 		return AdvertMapper.transformAdvertEntityToAdvertDto(result);
+	}
+
+	@Override
+	public boolean isExists(String id) {
+		return advertDao.isExists(id);
+	}
+	
+	
+
+	@Override
+	public void delete(String id) {
+		AdvertEntity advertToDelete = advertDao.findByFunctionalId(id);
+		advertDao.delete(advertToDelete);
+
+	}
+
+	@Override
+	public AbstractAdvertDto findById (String id) {
+		AdvertEntity result = advertDao.findByFunctionalId(id);
+		return AdvertMapper.transformAdvertEntityToAdvertDto(result);
+	}
+	
+	@Override
+	public List<AbstractAdvertDto> getAdvertByAttributes(AbstractAdvertDto advertDto) {
+		AdvertEntity advertEn = AdvertMapper.transformAdvertDtoToAdvertEntity(advertDto);
+		List<AdvertEntity> results = advertDao.getByAttributes(advertEn);
+		return AdvertMapper.transformListAdvertEntityToListAdvertDto(results);
 	}
 }

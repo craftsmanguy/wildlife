@@ -4,7 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import java.util.Set;
+import java.util.List;
 
 import javax.persistence.NoResultException;
 
@@ -31,7 +31,7 @@ public class FormatDaoTest extends DataBaseCreationTest {
 		initializeDataBase();
 		Whitebox.setInternalState(formatDao, "em", entityManager);
 	}
-	
+
 	@Test
 	public void formatDoesnotExist() throws NoResultException {
 		boolean isExists = formatDao.isExists("WRONG_CODE");
@@ -52,7 +52,7 @@ public class FormatDaoTest extends DataBaseCreationTest {
 
 	@Test
 	public void searchByOptionalAttribute() {
-		Set<FormatEntity> results = formatDao.getByAttributes(new FormatEntity());
+		List<FormatEntity> results = formatDao.getByAttributes(new FormatEntity());
 		assertEquals(8, results.size());
 	}
 

@@ -25,15 +25,15 @@ public class PetMapper {
 		return petsDto;
 	}
 
-	public static PetEntity transformPetDtoToPetEntity(PetBusinessDto petDto) {
+	public static PetEntity transformPetDtoToPetEntity(AbstractPetDto petDto) {
 		PetEntity petEntity = new PetEntity();
 		if (petDto == null) {
 			return petEntity;
 		}
 		try {
 			BeanUtils.copyProperties(petEntity, petDto);
-			if (petDto.getRace() != null) {
-				petEntity.setRaceEn(RaceMapper.transformRaceMinimalDtoToRaceEntity(petDto.getRace()));
+			if (((PetBusinessDto) petDto).getRace() != null) {
+				petEntity.setRaceEn(RaceMapper.transformRaceDtoToRaceEntity(((PetBusinessDto) petDto).getRace()));
 			}
 		} catch (IllegalAccessException | InvocationTargetException e) {
 			// TODO log
@@ -49,7 +49,7 @@ public class PetMapper {
 		try {
 			BeanUtils.copyProperties(petEntity, petDto);
 			if (((PetBusinessDto) petDto).getRace() != null) {
-				petEntity.setRaceEn(RaceMapper.transformRaceMinimalDtoToRaceEntity(((PetBusinessDto) petDto).getRace()));
+				petEntity.setRaceEn(RaceMapper.transformRaceDtoToRaceEntity(((PetBusinessDto) petDto).getRace()));
 			}
 		} catch (IllegalAccessException | InvocationTargetException e) {
 			// TODO log

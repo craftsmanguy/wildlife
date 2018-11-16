@@ -4,7 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 import java.util.Date;
-import java.util.Set;
+import java.util.List;
 
 import javax.persistence.NoResultException;
 
@@ -41,19 +41,18 @@ public class AdvertDaoTest extends DataBaseCreationTest {
 	public void findByExactAttribute() {
 		AdvertEntity advertEn = new AdvertEntity("tex1-descrip1-2013-affenpinsher-1995-0001", new Date(), new Date(),
 				"titre 1", "description 1", "TEST");
-		AdvertEntity result = advertDao.findByIdentifier(advertEn);
+		AdvertEntity result = advertDao.findByFunctionalId(advertEn.getFunctionalIdentifier());
 		assertEquals(advertEn.getFunctionalIdentifier(), result.getFunctionalIdentifier());
 	}
 
 	@Test(expected = NoResultException.class)
 	public void notBecauseAttributeIsWrong() {
-		advertDao.findByIdentifier(
-				new AdvertEntity("wrong_functional_id", new Date(), new Date(), "titre 1", "description 1", "TEST"));
+		advertDao.findByFunctionalId("wrong_functional_id");
 	}
 
 	@Test
 	public void searchByOptionalAttribute() {
-		Set<AdvertEntity> results = advertDao.getByAttributes(new AdvertEntity());
+		List<AdvertEntity> results = advertDao.getByAttributes(new AdvertEntity());
 		assertEquals(7, results.size());
 	}
 
@@ -64,14 +63,16 @@ public class AdvertDaoTest extends DataBaseCreationTest {
 		AdvertEntity updatableAdvert = new AdvertEntity("tex6-descrip6-2013-azawakh-2007-007", new Date(), new Date(),
 				"nouveau titre", "nouveau description", "AVANCE");
 
-		AdvertEntity resultToUpdateFromDb = advertDao.findByIdentifier(advertToUpdate);
+		AdvertEntity resultToUpdateFromDb = advertDao
+				.findByFunctionalId(advertToUpdate.getFunctionalIdentifier());
 		resultToUpdateFromDb.setStartDate(updatableAdvert.getStartDate());
 		resultToUpdateFromDb.setDescription(updatableAdvert.getDescription());
 		resultToUpdateFromDb.setTitle(updatableAdvert.getTitle());
 		resultToUpdateFromDb.setState(updatableAdvert.getState());
 
 		advertDao.update(resultToUpdateFromDb);
-		AdvertEntity resultUpdatingFromDb = advertDao.findByIdentifier(advertToUpdate);
+		AdvertEntity resultUpdatingFromDb = advertDao
+				.findByFunctionalId(advertToUpdate.getFunctionalIdentifier());
 		assertEquals(updatableAdvert.getTitle(), resultUpdatingFromDb.getTitle());
 		assertEquals(updatableAdvert.getDescription(), resultUpdatingFromDb.getDescription());
 	}

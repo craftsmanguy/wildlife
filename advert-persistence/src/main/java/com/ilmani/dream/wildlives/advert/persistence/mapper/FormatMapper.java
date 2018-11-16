@@ -2,6 +2,7 @@ package com.ilmani.dream.wildlives.advert.persistence.mapper;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.apache.commons.beanutils.BeanUtils;
@@ -13,7 +14,7 @@ import com.ilmani.dream.wildlives.framework.dto.advert.FormatBusinessDto;
 
 public class FormatMapper {
 
-	public static AbstractFormatDto transformFormatEntityToFormatAdministratorDto(FormatEntity formatEn) {
+	public static AbstractFormatDto transformFormatEntityToFormatAdministrationDto(FormatEntity formatEn) {
 		AbstractFormatDto formatDto = new FormatAdministratorDto();
 		if (formatEn == null) {
 			return formatDto;
@@ -22,39 +23,39 @@ public class FormatMapper {
 			BeanUtils.copyProperties(formatDto, formatEn);
 		} catch (IllegalAccessException | InvocationTargetException e) {
 			// TODO log
-			formatDto = new FormatAdministratorDto(formatEn.getName(), formatEn.getFeature(), formatEn.isActive());
 		}
 		return formatDto;
 	}
 
-	public static Set<AbstractFormatDto> transformListFormatEntityToListFormatDto(Set<FormatEntity> formatsEntity) {
+	public static Set<AbstractFormatDto> transformListFormatEntityToListFormatAdministrationDto(
+			List<FormatEntity> formatsEntity) {
 		Set<AbstractFormatDto> formatsDto = new HashSet<AbstractFormatDto>();
 		if (formatsEntity.isEmpty()) {
 			return formatsDto;
 		}
 		for (FormatEntity formatEnTemp : formatsEntity) {
-			AbstractFormatDto formatDtoTemp = transformFormatEntityToFormatAdministratorDto(formatEnTemp);
+			AbstractFormatDto formatDtoTemp = transformFormatEntityToFormatAdministrationDto(formatEnTemp);
 			formatsDto.add(formatDtoTemp);
 		}
 		return formatsDto;
 	}
 
 	// Mapper for type Business
-	public static Set<FormatBusinessDto> transformListFormatEntityToListFormatBusinessDto(
-			Set<FormatEntity> formatsEntity) {
-		Set<FormatBusinessDto> formatsDto = new HashSet<FormatBusinessDto>();
+	public static Set<AbstractFormatDto> transformListFormatEntityToListFormatBusinessDto(
+			List<FormatEntity> formatsEntity) {
+		Set<AbstractFormatDto> formatsDto = new HashSet<AbstractFormatDto>();
 		if (formatsEntity.isEmpty()) {
 			return formatsDto;
 		}
 		for (FormatEntity formatEnTemp : formatsEntity) {
-			FormatBusinessDto formatDtoTemp = transformFormatEntityToFormatBusinessDto(formatEnTemp);
+			AbstractFormatDto formatDtoTemp = transformFormatEntityToFormatBusinessDto(formatEnTemp);
 			formatsDto.add(formatDtoTemp);
 		}
 		return formatsDto;
 	}
 
-	public static FormatBusinessDto transformFormatEntityToFormatBusinessDto(FormatEntity formatEn) {
-		FormatBusinessDto formatDto = new FormatBusinessDto();
+	public static AbstractFormatDto transformFormatEntityToFormatBusinessDto(FormatEntity formatEn) {
+		AbstractFormatDto formatDto = new FormatBusinessDto();
 		if (formatEn == null) {
 			return formatDto;
 		}

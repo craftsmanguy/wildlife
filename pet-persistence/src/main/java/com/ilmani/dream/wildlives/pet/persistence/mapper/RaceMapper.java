@@ -7,14 +7,15 @@ import java.util.Set;
 import org.apache.commons.beanutils.BeanUtils;
 
 import com.ilmani.dream.wildlives.framework.dto.pet.AbstractRaceDto;
+import com.ilmani.dream.wildlives.framework.dto.pet.RaceAdministrationDto;
 import com.ilmani.dream.wildlives.framework.dto.pet.RaceBusinessDto;
 import com.ilmani.dream.wildlives.framework.dto.pet.RaceMinimalDto;
 import com.ilmani.dream.wildlives.pet.persistence.entity.RaceEntity;
 
 public class RaceMapper {
 
-	public static RaceBusinessDto transformRaceEntityToRaceDto(RaceEntity raceEntity) {
-		RaceBusinessDto raceDto = new RaceBusinessDto();
+	public static AbstractRaceDto transformRaceEntityToRaceAdministrationDto(RaceEntity raceEntity) {
+		AbstractRaceDto raceDto = new RaceAdministrationDto();
 		if (raceEntity == null) {
 			return raceDto;
 		}
@@ -27,18 +28,18 @@ public class RaceMapper {
 		return raceDto;
 	}
 
-	public static Set<AbstractRaceDto> transformListRaceEntityToListRaceDto(Set<RaceEntity> racesEntity) {
+	public static Set<AbstractRaceDto> transformListRaceEntityToListRaceAdministrationDto(Set<RaceEntity> racesEntity) {
 		Set<AbstractRaceDto> racesDto = new HashSet<AbstractRaceDto>();
 		if (racesEntity.isEmpty()) {
 			return racesDto;
 		}
 		for (RaceEntity raceEnTemp : racesEntity) {
-			RaceBusinessDto raceDtoTemp = transformRaceEntityToRaceDto(raceEnTemp);
+			AbstractRaceDto raceDtoTemp = transformRaceEntityToRaceAdministrationDto(raceEnTemp);
 			racesDto.add(raceDtoTemp);
 		}
 		return racesDto;
 	}
-
+	
 	public static RaceEntity transformRaceDtoToRaceEntity(AbstractRaceDto raceDto) {
 		RaceEntity raceEntity = new RaceEntity();
 		if (raceDto == null) {
@@ -61,19 +62,6 @@ public class RaceMapper {
 		raceToUpdate.setActive(newRace.isActive());
 	}
 
-	public static RaceEntity transformRaceMinimalDtoToRaceEntity(RaceMinimalDto raceDto) {
-		RaceEntity raceEntity = new RaceEntity();
-		if (raceDto == null) {
-			return raceEntity;
-		}
-		try {
-			BeanUtils.copyProperties(raceEntity, raceDto);
-		} catch (IllegalAccessException | InvocationTargetException e) {
-			// TODO log
-		}
-		return raceEntity;
-	}
-
 	public static RaceMinimalDto transformRaceEntityToRaceMinimalDto(RaceEntity raceEntity) {
 		AbstractRaceDto raceDto = new RaceMinimalDto();
 		if (raceEntity == null) {
@@ -86,5 +74,17 @@ public class RaceMapper {
 			raceDto = new RaceBusinessDto(raceEntity.getName(), raceEntity.getSpecie(), raceEntity.getClan());
 		}
 		return (RaceMinimalDto) raceDto;
+	}
+	
+	public static Set<AbstractRaceDto> transformListRaceEntityToListRaceMinimalDto(Set<RaceEntity> racesEntity) {
+		Set<AbstractRaceDto> racesDto = new HashSet<AbstractRaceDto>();
+		if (racesEntity.isEmpty()) {
+			return racesDto;
+		}
+		for (RaceEntity raceEnTemp : racesEntity) {
+			AbstractRaceDto raceDtoTemp = transformRaceEntityToRaceMinimalDto(raceEnTemp);
+			racesDto.add(raceDtoTemp);
+		}
+		return racesDto;
 	}
 }
