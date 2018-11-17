@@ -51,7 +51,7 @@ public class RaceDaoTest extends DataBaseCreationTest {
 	@Test
 	public void searchByOptionalAttribute() {
 		Set<RaceEntity> results = raceDao.getByAttributes(new RaceEntity());
-		assertEquals(1, results.size());
+		assertEquals(8, results.size());
 	}
 	
 	@Test
