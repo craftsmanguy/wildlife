@@ -35,7 +35,7 @@
 		<!-- administration -->
 		<dependency>
 			<groupId>com.ilmani.dream.wildlives</groupId>
-			<artifactId>wildlife-administration</artifactId>
+			<artifactId>wildlife-supervisor</artifactId>
 			<type>ejb</type>
 		</dependency>
 		<dependency>
@@ -110,9 +110,9 @@
 					<defaultLibBundleDir>lib</defaultLibBundleDir>
 
 					<modules>
-					<ejbModule>
+						<ejbModule>
 							<groupId>com.ilmani.dream.wildlives</groupId>
-							<artifactId>wildlife-administration</artifactId>
+							<artifactId>wildlife-supervisor</artifactId>
 						</ejbModule>
 						
 						<ejbModule>

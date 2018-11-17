@@ -67,7 +67,9 @@ public class RaceDao {
 			predicateList.add(builder.like(builder.upper(raceFromDb.<String>get("clan")),
 					"%" + race.getClan().toUpperCase() + "%"));
 		}
-		predicateList.add(builder.equal(raceFromDb.get("isActive"), race.isActive()));
+		if (race.isActive()) {
+			predicateList.add(builder.equal(raceFromDb.get("isActive"), race.isActive()));
+		}
 
 		criteriaQuery.where(predicateList.toArray(new Predicate[] {}));
 		criteriaQuery.orderBy(builder.asc(raceFromDb.get("name")));

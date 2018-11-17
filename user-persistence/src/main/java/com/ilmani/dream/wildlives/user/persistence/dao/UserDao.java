@@ -80,6 +80,7 @@ public class UserDao {
 		StringBuffer queryBuilder = new StringBuffer();
 		queryBuilder.append("SELECT users.pass =  crypt('").append(password).append("', '").append(passwordDb)
 				.append("') FROM PARTICIPANT as users WHERE users.email = '").append(email).append("';");
+
 		return (boolean) em.createNativeQuery(queryBuilder.toString()).getSingleResult();
 	}
 
@@ -96,7 +97,7 @@ public class UserDao {
 		criteriaQuery.where(predicateList.toArray(new Predicate[] {}));
 		return em.createQuery(criteriaQuery).getSingleResult().getPass();
 	}
-	
+
 	public String findPseudonymByEmail(String email) throws NoResultException {
 
 		CriteriaBuilder builder = em.getCriteriaBuilder();

@@ -6,8 +6,10 @@ public interface PetBusinessDomain {
 
 	public AbstractPetDto save(AbstractPetDto pet);
 
-	public boolean isExists(String functionalId);
+	public boolean isExists(String id);
 
-	public void delete(String functionalId);
+	public void delete(String id);
+	
+	public AbstractPetDto find(String id);
 
 }

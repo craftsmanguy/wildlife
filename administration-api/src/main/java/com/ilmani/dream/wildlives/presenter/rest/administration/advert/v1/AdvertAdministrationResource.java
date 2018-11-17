@@ -67,7 +67,7 @@ public class AdvertAdministrationResource extends AbstractService {
 	@Produces({ MediaType.APPLICATION_JSON })
 	public Response searchFormatsByIdentifier(@QueryParam("name") String name, @QueryParam("feature") String feature)
 			throws Exception {
-		FormatAdministratorDto format = new FormatAdministratorDto(name, feature, true);
+		FormatAdministratorDto format = new FormatAdministratorDto(name, feature);
 		return responseHeader.responseBuilder(HttpMethod.GET, Response.Status.OK)
 				.entity(advertProvider.searchFormats(format)).build();
 	}

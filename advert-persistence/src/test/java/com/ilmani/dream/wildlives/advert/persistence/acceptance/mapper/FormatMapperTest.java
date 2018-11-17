@@ -26,13 +26,13 @@ public class FormatMapperTest {
 	@Test
 	public void transformFormatEntityToFormatDtoTest() {
 		FormatEntity formatEnTest = new FormatEntity("REQUEST", "REQ_PET_CAR", "PET_CARE", true);
-		AbstractFormatDto resultDto = FormatMapper.transformFormatEntityToFormatAdministratorDto(formatEnTest);
+		AbstractFormatDto resultDto = FormatMapper.transformFormatEntityToFormatAdministrationDto(formatEnTest);
 		assertEquals(formatDto, resultDto);
 	}
 
 	@Test
 	public void transformFormatEntityNullToFormatDtoTest() {
-		AbstractFormatDto resultDto = FormatMapper.transformFormatEntityToFormatAdministratorDto(null);
+		AbstractFormatDto resultDto = FormatMapper.transformFormatEntityToFormatAdministrationDto(null);
 		assertEquals(new FormatAdministratorDto(), resultDto);
 	}
 

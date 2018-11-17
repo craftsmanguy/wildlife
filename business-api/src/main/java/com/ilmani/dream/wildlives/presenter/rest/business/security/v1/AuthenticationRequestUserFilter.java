@@ -1,6 +1,6 @@
 package com.ilmani.dream.wildlives.presenter.rest.business.security.v1;
 
-import static javax.ws.rs.core.Response.Status.UNAUTHORIZED;
+import static javax.ws.rs.core.Response.Status.FORBIDDEN;
 
 import java.io.IOException;
 
@@ -14,11 +14,11 @@ import javax.ws.rs.ext.Provider;
 import com.ilmani.dream.wildlives.framework.error.ErrorEntity;
 import com.ilmani.dream.wildlives.framework.helper.TokenHelper;
 import com.ilmani.dream.wildlives.framework.rest.service.AbstractService;
-import com.ilmani.dream.wildlives.framework.security.TokenAuthentication;
+import com.ilmani.dream.wildlives.framework.security.AuthenticationGateway;
 import com.ilmani.dream.wildlives.security.api.GatewayLocal;
 
 @Provider
-@TokenAuthentication
+@AuthenticationGateway
 @Priority(Priorities.AUTHENTICATION)
 public class AuthenticationRequestUserFilter extends AbstractService implements ContainerRequestFilter {
 
@@ -31,7 +31,7 @@ public class AuthenticationRequestUserFilter extends AbstractService implements 
 		try {
 			gateway.checkToken(token, "USER");
 		} catch (Exception e) {
-			requestContext.abortWith(responseHeader.responseBuilder(requestContext.getMethod(), UNAUTHORIZED)
+			requestContext.abortWith(responseHeader.responseBuilder(requestContext.getMethod(), FORBIDDEN)
 					.header("Reason", ErrorEntity.ErrorKey.TOKEN_NOT_FOUND.getValue()).build());
 		}
 	}

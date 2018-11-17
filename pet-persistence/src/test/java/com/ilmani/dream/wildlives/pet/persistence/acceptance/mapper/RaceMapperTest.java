@@ -5,6 +5,8 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.ilmani.dream.wildlives.framework.dto.pet.AbstractRaceDto;
+import com.ilmani.dream.wildlives.framework.dto.pet.RaceAdministrationDto;
 import com.ilmani.dream.wildlives.framework.dto.pet.RaceBusinessDto;
 import com.ilmani.dream.wildlives.pet.persistence.entity.RaceEntity;
 import com.ilmani.dream.wildlives.pet.persistence.mapper.RaceMapper;
@@ -17,7 +19,7 @@ public class RaceMapperTest {
 
 	@Before
 	public void setUp() throws Exception {
-		raceDto = new RaceBusinessDto("AFFENPINSCHER", null, "AFFEN", "DOG", "MAMMALIA", true);
+		raceDto = new RaceAdministrationDto("AFFENPINSCHER", null, "AFFEN", "DOG", "MAMMALIA", true);
 
 		raceEntity = new RaceEntity("AFFENPINSCHER", "AFFEN", "DOG", "MAMMALIA", false);
 	}
@@ -25,19 +27,19 @@ public class RaceMapperTest {
 	@Test
 	public void transformRaceEntityToRaceDtoTest() {
 		RaceEntity raceEnTest = new RaceEntity("AFFENPINSCHER", "AFFEN", "DOG", "MAMMALIA", true);
-		RaceBusinessDto resultDto = RaceMapper.transformRaceEntityToRaceDto(raceEnTest);
+		AbstractRaceDto resultDto = RaceMapper.transformRaceEntityToRaceAdministrationDto(raceEnTest);
 		assertEquals(raceDto, resultDto);
 	}
 
 	@Test
 	public void transformRaceEntityNullToRaceDtoTest() {
-		RaceBusinessDto resultDto = RaceMapper.transformRaceEntityToRaceDto(null);
+		AbstractRaceDto resultDto = RaceMapper.transformRaceEntityToRaceAdministrationDto(null);
 		assertEquals(new RaceBusinessDto(), resultDto);
 	}
 
 	@Test
 	public void transformRaceDtoToRaceEntityTest() {
-		RaceBusinessDto raceDtoTest = new RaceBusinessDto("AFFENPINSCHER", "", "AFFEN", "CHIEN", "MAMMIFERE", false);
+		RaceAdministrationDto raceDtoTest = new RaceAdministrationDto("AFFENPINSCHER", "", "AFFEN", "CHIEN", "MAMMIFERE", false);
 		RaceEntity resultEn = RaceMapper.transformRaceDtoToRaceEntity(raceDtoTest);
 		assertEquals(raceEntity.getName(), resultEn.getName());
 	}

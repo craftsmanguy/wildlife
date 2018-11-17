@@ -6,19 +6,16 @@ public class FormatAdministratorDto extends AbstractFormatDto implements Seriali
 
 	private static final long serialVersionUID = 1608491616188675082L;
 
-	protected String name;
-
 	protected boolean isActive;
 
 	public FormatAdministratorDto() {
 		super();
 	}
 
-	public FormatAdministratorDto(String code, String feature, boolean isActive) {
+	public FormatAdministratorDto(String code, String feature) {
 		super();
 		this.code = code;
 		this.feature = feature;
-		this.isActive = isActive;
 	}
 
 	public FormatAdministratorDto(String name, String code, String feature, boolean isActive) {
@@ -27,14 +24,6 @@ public class FormatAdministratorDto extends AbstractFormatDto implements Seriali
 		this.code = code;
 		this.feature = feature;
 		this.isActive = isActive;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
 	}
 
 	public boolean isActive() {
@@ -48,34 +37,8 @@ public class FormatAdministratorDto extends AbstractFormatDto implements Seriali
 	@Override
 	public int hashCode() {
 		final int prime = 31;
-		int result = super.hashCode();
+		int result = 1;
 		result = prime * result + (isActive ? 1231 : 1237);
-		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
-			return true;
-		}
-		if (!super.equals(obj)) {
-			return false;
-		}
-		if (!(obj instanceof FormatAdministratorDto)) {
-			return false;
-		}
-		FormatAdministratorDto other = (FormatAdministratorDto) obj;
-		if (isActive != other.isActive) {
-			return false;
-		}
-		if (name == null) {
-			if (other.name != null) {
-				return false;
-			}
-		} else if (!name.equals(other.name)) {
-			return false;
-		}
-		return true;
 	}
 }

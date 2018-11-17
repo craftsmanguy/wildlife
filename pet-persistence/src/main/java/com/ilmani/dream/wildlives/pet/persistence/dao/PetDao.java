@@ -19,7 +19,7 @@ public class PetDao {
 	@PersistenceContext(unitName = "petPu")
 	private EntityManager em;
 
-	public PetEntity findByFunctionalIdentifier(String functionalId) throws NoResultException {
+	public PetEntity findByFunctionalId(String functionalId) throws NoResultException {
 
 		CriteriaBuilder builder = em.getCriteriaBuilder();
 		CriteriaQuery<PetEntity> criteriaQuery = builder.createQuery(PetEntity.class);
@@ -38,7 +38,7 @@ public class PetDao {
 	public boolean isExists(String functionalId) throws NoResultException {
 		boolean result = true;
 		try {
-			findByFunctionalIdentifier(functionalId);
+			findByFunctionalId(functionalId);
 		} catch (NoResultException e) {
 			result = false;
 		}

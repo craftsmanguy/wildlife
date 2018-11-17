@@ -10,6 +10,11 @@ public class FormatBusinessDto extends AbstractFormatDto implements Serializable
 		super();
 	}
 	
+	public FormatBusinessDto(String name) {
+		super();
+		this.name = name;
+	}
+	
 	public FormatBusinessDto(String code, String feature) {
 		super();
 		this.code = code;

@@ -13,5 +13,7 @@ public interface GatewayLocal {
 			throws AuthenticationException, RestClientException;
 
 	public void checkToken(String token, String profil) throws AuthenticationException;
+	
+	public void checkRigths(String ressource, String profil) throws AuthenticationException;
 
 }

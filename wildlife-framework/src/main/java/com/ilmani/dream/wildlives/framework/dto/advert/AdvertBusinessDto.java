@@ -9,7 +9,7 @@ import java.util.Set;
 import com.ilmani.dream.wildlives.framework.dto.pet.AbstractPetDto;
 
 public class AdvertBusinessDto extends AbstractAdvertDto {
-	
+
 	protected Date startDate;
 
 	protected Date endDate;
@@ -17,15 +17,20 @@ public class AdvertBusinessDto extends AbstractAdvertDto {
 	protected String description;
 
 	protected List<AbstractPetDto> pets = new ArrayList<AbstractPetDto>();
-	
+
 	private String user;
-	
+
 	private String state = "TO_VALIDATE";
-	
-	protected Set<FormatBusinessDto> formats = new HashSet<FormatBusinessDto>();
+
+	protected Set<AbstractFormatDto> formats = new HashSet<AbstractFormatDto>();
 
 	public AdvertBusinessDto() {
 		super();
+	}
+
+	public AdvertBusinessDto(String functionalIdentifier) {
+		super();
+		this.functionalIdentifier = functionalIdentifier;
 	}
 
 	public AdvertBusinessDto(String functionalIdentifier, Date startDate, Date endDate, String title,
@@ -86,11 +91,11 @@ public class AdvertBusinessDto extends AbstractAdvertDto {
 		this.state = state;
 	}
 
-	public Set<FormatBusinessDto> getFormats() {
+	public Set<AbstractFormatDto> getFormats() {
 		return formats;
 	}
 
-	public void setFormats(Set<FormatBusinessDto> formats) {
+	public void setFormats(Set<AbstractFormatDto> formats) {
 		this.formats = formats;
 	}
 
@@ -172,5 +177,4 @@ public class AdvertBusinessDto extends AbstractAdvertDto {
 		return true;
 	}
 
-	
 }

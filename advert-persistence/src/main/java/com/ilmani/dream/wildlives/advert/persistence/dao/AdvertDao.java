@@ -1,9 +1,7 @@
 package com.ilmani.dream.wildlives.advert.persistence.dao;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.UUID;
 
 import javax.persistence.EntityManager;
@@ -16,16 +14,12 @@ import javax.persistence.criteria.Root;
 
 import com.ilmani.dream.wildlives.advert.persistence.entity.AdvertEntity;
 
-
 public class AdvertDao {
-	
+
 	@PersistenceContext(unitName = "advertPu")
 	private EntityManager em;
-	
-	
-	
-	
-	public AdvertEntity findByIdentifier(AdvertEntity advert) throws NoResultException {
+
+	public AdvertEntity findByFunctionalId(String functionalId) throws NoResultException {
 
 		CriteriaBuilder builder = em.getCriteriaBuilder();
 		CriteriaQuery<AdvertEntity> criteriaQuery = builder.createQuery(AdvertEntity.class);
@@ -34,14 +28,23 @@ public class AdvertDao {
 		criteriaQuery.select(advertFromDb);
 		List<Predicate> predicateList = new ArrayList<Predicate>();
 
-		predicateList.add(builder.equal(builder.lower(advertFromDb.<String>get("functionalIdentifier")),
-				advert.getFunctionalIdentifier().toLowerCase()));
+		predicateList.add(builder.equal(advertFromDb.<String>get("functionalIdentifier"), functionalId));
 
 		criteriaQuery.where(predicateList.toArray(new Predicate[] {}));
 		return em.createQuery(criteriaQuery).getSingleResult();
 	}
 
-	public Set<AdvertEntity> getByAttributes(AdvertEntity advert) {
+	public boolean isExists(String functionalId) throws NoResultException {
+		boolean result = true;
+		try {
+			findByFunctionalId(functionalId);
+		} catch (NoResultException e) {
+			result = false;
+		}
+		return result;
+	}
+
+	public List<AdvertEntity> getByAttributes(AdvertEntity advert) {
 
 		CriteriaBuilder builder = em.getCriteriaBuilder();
 		CriteriaQuery<AdvertEntity> criteriaQuery = builder.createQuery(AdvertEntity.class);
@@ -60,8 +63,7 @@ public class AdvertDao {
 
 		criteriaQuery.where(predicateList.toArray(new Predicate[] {}));
 		criteriaQuery.orderBy(builder.asc(advertFromDb.get("title")));
-		List<AdvertEntity> results = em.createQuery(criteriaQuery).getResultList();
-		return new HashSet<AdvertEntity>(results);
+		return em.createQuery(criteriaQuery).getResultList();
 	}
 
 	public AdvertEntity insert(AdvertEntity advert) {
@@ -73,13 +75,11 @@ public class AdvertDao {
 
 	public void delete(AdvertEntity advert) {
 		em.remove(advert);
-
 	}
 
 	public AdvertEntity update(AdvertEntity advert) {
 		em.merge(advert);
 		return advert;
 	}
-
 
 }

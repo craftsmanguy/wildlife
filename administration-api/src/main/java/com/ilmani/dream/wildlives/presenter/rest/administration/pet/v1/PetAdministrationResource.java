@@ -15,6 +15,7 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import com.ilmani.dream.wildlives.framework.dto.pet.RaceAdministrationDto;
 import com.ilmani.dream.wildlives.framework.dto.pet.RaceBusinessDto;
 import com.ilmani.dream.wildlives.framework.rest.service.AbstractService;
 
@@ -29,7 +30,7 @@ public class PetAdministrationResource extends AbstractService {
 	@Path("races")
 	@Consumes({ MediaType.APPLICATION_JSON })
 	@Produces({ MediaType.APPLICATION_JSON })
-	public Response saveRace(RaceBusinessDto race) throws Exception {
+	public Response saveRace(RaceAdministrationDto race) throws Exception {
 		return responseHeader.responseBuilder(HttpMethod.POST, Response.Status.CREATED)
 				.entity(petProvider.saveRace(race)).build();
 	}
@@ -38,7 +39,7 @@ public class PetAdministrationResource extends AbstractService {
 	@Path("races/{code}")
 	@Consumes({ MediaType.APPLICATION_JSON })
 	@Produces({ MediaType.APPLICATION_JSON })
-	public Response updateRace(@PathParam("code") String code, RaceBusinessDto race) throws Exception {
+	public Response updateRace(@PathParam("code") String code, RaceAdministrationDto race) throws Exception {
 		return responseHeader.responseBuilder(HttpMethod.PUT, Response.Status.OK)
 				.entity(petProvider.updateRace(race, code)).build();
 	}
@@ -65,7 +66,7 @@ public class PetAdministrationResource extends AbstractService {
 	@Path("races")
 	@Consumes({ MediaType.APPLICATION_JSON })
 	@Produces({ MediaType.APPLICATION_JSON })
-	public Response searchRacesByIdentifier(@QueryParam("name") String name, @QueryParam("specie") String specie,
+	public Response searchRacesById(@QueryParam("name") String name, @QueryParam("specie") String specie,
 			@QueryParam("clan") String clan) throws Exception {
 		RaceBusinessDto race = new RaceBusinessDto(name, specie, clan);
 		return responseHeader.responseBuilder(HttpMethod.GET, Response.Status.OK).entity(petProvider.searchRaces(race))

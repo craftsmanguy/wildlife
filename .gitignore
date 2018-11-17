@@ -5,10 +5,11 @@
 target/
 feature*Report/
 Feature*Report/
+Feature*Specie/
 wildlife-ear/src/main/application/META-INF/application.xml
-pet-administration/*/*.js
-pet-administration/*/*.html
-pet-administration/*/*.css
+wildlife-administration/*/*.js
+wildlife-administration/*/*.html
+wildlife-administration/*/*.css
 
 
 # Compiled class file

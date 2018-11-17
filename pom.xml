@@ -33,15 +33,15 @@
 		<module>user-persistence</module>
 
 		<!-- EJB -->
-		<module>wildlife-administration</module>
+		<module>wildlife-supervisor</module>
 		<module>advert-business</module>
 		<module>user-business</module>
 		<module>pet-business</module>
+		<module>security-manager</module>
 
 		<!-- WAR -->
 		<module>administration-api</module>
 		<module>business-api</module>
-		<module>security-manager</module>
 	</modules>
 
 	<dependencyManagement>
@@ -148,7 +148,7 @@
 			<!-- administration -->
 			<dependency>
 				<groupId>com.ilmani.dream.wildlives</groupId>
-				<artifactId>wildlife-administration</artifactId>
+				<artifactId>wildlife-supervisor</artifactId>
 				<type>ejb</type>
 				<version>${project.version}</version>
 			</dependency>

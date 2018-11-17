@@ -49,7 +49,7 @@
 		</dependency>
 		<dependency>
 			<groupId>com.ilmani.dream.wildlives</groupId>
-			<artifactId>wildlife-administration</artifactId>
+			<artifactId>wildlife-supervisor</artifactId>
 			<type>ejb</type>
 		</dependency>
 		<dependency>
