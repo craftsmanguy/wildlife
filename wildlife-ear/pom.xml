@@ -75,6 +75,23 @@
 		</dependency>
 	</dependencies>
 
+	<profiles>
+		<profile>
+			<id>wildlives-dev</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-ear-plugin</artifactId>
+						<configuration>
+							<packagingExcludes>conf/jboss-roles-mapping.conf</packagingExcludes>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
+
 	<build>
 		<plugins>
 			<plugin>
@@ -124,33 +141,40 @@
 						<ejbModule>
 							<groupId>com.ilmani.dream.wildlives</groupId>
 							<artifactId>wildlife-supervisor</artifactId>
+							<bundleFileName>wildlife-supervisor-${project.version}.jar</bundleFileName>
 						</ejbModule>
 
 						<ejbModule>
 							<groupId>com.ilmani.dream.wildlives</groupId>
 							<artifactId>advert-business</artifactId>
+							<bundleFileName>advert-business-${project.version}.jar</bundleFileName>
 						</ejbModule>
 						<ejbModule>
 							<groupId>com.ilmani.dream.wildlives</groupId>
 							<artifactId>pet-business</artifactId>
+							<bundleFileName>pet-business-${project.version}.jar</bundleFileName>
 						</ejbModule>
 						<ejbModule>
 							<groupId>com.ilmani.dream.wildlives</groupId>
 							<artifactId>user-business</artifactId>
+							<bundleFileName>user-business-${project.version}.jar</bundleFileName>
 						</ejbModule>
 						<ejbModule>
 							<groupId>com.ilmani.dream.wildlives</groupId>
 							<artifactId>security-manager</artifactId>
+							<bundleFileName>security-manager-${project.version}.jar</bundleFileName>
 						</ejbModule>
 
 
 						<webModule>
 							<groupId>com.ilmani.dream.wildlives</groupId>
 							<artifactId>administration-api</artifactId>
+							<bundleFileName>administration-api-${project.version}.war</bundleFileName>
 						</webModule>
 						<webModule>
 							<groupId>com.ilmani.dream.wildlives</groupId>
 							<artifactId>business-api</artifactId>
+							<bundleFileName>business-api-${project.version}.war</bundleFileName>
 						</webModule>
 					</modules>
 				</configuration>
