@@ -30,7 +30,7 @@
 		<connection>scm:git:https://github.com/craftsmanguy/wildlife.git</connection>
 		<developerConnection>scm:git:https://github.com/craftsmanguy/wildlife.git</developerConnection>
 		<url>https://github.com/craftsmanguy/wildlife/tree/${project.scm.tag}</url>
-		<tag>develop</tag>
+		<tag>master</tag>
 	</scm>
 
 
