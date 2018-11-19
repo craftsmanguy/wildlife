@@ -57,9 +57,9 @@ public class AdvertMapper {
 		}
 		try {
 			BeanUtils.copyProperties(advertEn, advertDto);
-			// if (!advertDto.getFormats().isEmpty()) {
-			// advertEn.setFormatsEn(FormatMapper.transformListFormatDtoToListFormatEntity(advertDto.getFormats()));
-			// }
+			if (!((AdvertBusinessDto) advertDto).getFormats().isEmpty()) {
+				advertEn.setFormatsEn(FormatMapper.transformListFormatDtoToListFormatEntity(((AdvertBusinessDto) advertDto).getFormats()));
+			}
 		} catch (IllegalAccessException | InvocationTargetException e) {
 			// TODO log
 		}
