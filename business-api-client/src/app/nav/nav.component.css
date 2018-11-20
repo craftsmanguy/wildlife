@@ -1,0 +1,14 @@
+.top-nav-collapse {
+    background-color: #3F729B !important; 
+}
+/* .navbar:not(.top-nav-collapse) { */
+/*     background: transparent !important; */
+/* } */
+@media (max-width: 768px) {
+    .navbar:not(.top-nav-collapse) {
+        background: #3F729B !important;
+    } 
+}
+
+
+

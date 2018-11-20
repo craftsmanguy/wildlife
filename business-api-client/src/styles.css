@@ -1,0 +1,27 @@
+/* You can add global styles to this file, and also import other style files */
+
+/* @import "../node_modules/@angular/material/prebuilt-themes/dseeppurple-amber.css"; */
+
+.top-buffer {
+	margin-top: 15px;
+}
+
+
+agm-map {
+	height: 350px;
+}
+
+.agm-map {
+	height: 350px;
+}
+
+p, a {
+    font-size: 0.85rem;
+    margin-top: 0.01rem;
+    margin-bottom: 0.01rem;
+}
+
+.color-blue-bck-color {
+	background-color: #fafafa !important;
+}
+

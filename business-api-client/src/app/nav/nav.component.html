@@ -1,0 +1,66 @@
+<nav class="navbar navbar-expand-lg navbar-dark unique-color-dark">
+
+<div class="container">
+    <!-- Navbar brand -->
+    <a class="navbar-brand" href="/home">WildLives</a>
+
+    <!-- Collapse button -->
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+        aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+        <!-- Links -->
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+            	<a class="nav-link" routerLink="/home" routerLinkActive="active"><i class="fa fa-home white-text"></i> Accueil<span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" routerLink="/page" routerLinkActive="active"><i class="fa fa-dashboard white-text"></i>Ma page</a>
+            </li>
+
+            <!-- Dropdown -->
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Mon souhait</a>
+                <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
+                    <a class="dropdown-item nav-link" routerLink="/typemind" routerLinkActive="active"> J'ai des animaux</a>
+                    <a class="dropdown-item nav-link" routerLink="/typemind" routerLinkActive="active"> Rendre un service</a>
+                </div>
+            </li>
+
+        </ul>
+        <!-- Links -->
+
+        <!-- Search form -->
+        <form class="form-inline">
+            <input class="form-control mr-sm-2" type="text" placeholder="Rechercher" aria-label="Search">
+        </form>  
+        
+        
+        <ul class="nav navbar-nav nav-flex-icons ml-auto">
+            <li class="nav-item">
+                    <a class="nav-link"><i class="fa fa-exclamation-triangle"></i> <span class="clearfix d-none d-sm-inline-block">Alerte!</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link"><i class="fa fa-envelope"></i> <span class="clearfix d-none d-sm-inline-block">Contact</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link"><i class="fa fa-comments-o"></i> <span class="clearfix d-none d-sm-inline-block">Support</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" routerLink="/login" routerLinkActive="active"><i class="fa fa-user"></i> <span class="clearfix d-none d-sm-inline-block">Se connecter</span></a>
+            </li>
+        </ul>
+        
+              
+    </div>
+    <!-- Collapsible content -->
+
+
+</div>
+</nav>
+<!--/.Navbar-->
+                
+
+
