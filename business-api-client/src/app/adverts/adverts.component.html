@@ -1,5 +1,16 @@
 <div class="container">
-	<p>{{adverts?.length}}</p>
+	<h1>Adverts</h1>
+	
+	<ul>
+	  <li *ngFor="let advert of adverts4$">
+		<a routerLink="/details/{{advert.functionalIdentifier}}">{{ advert.title }}</a>
+	
+		<ul>
+		  <li>{{ advert.description }}</li>
+		  <li><a href="http://{{ advert.description }}">{{ advert.description }}</a></li>
+		</ul>
+	  </li>
+	</ul>
 </div>
 
 <ng-content></ng-content>

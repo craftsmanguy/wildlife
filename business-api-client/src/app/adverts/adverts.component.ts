@@ -4,14 +4,13 @@ import { Location } from '@angular/common';
 import { DatePipe } from '@angular/common';
 
 import 'rxjs/add/operator/switchMap';
-
-
 import { Advert } from './advert';
 import { AdvertsService } from './adverts.service';
 import { Router } from '@angular/router';
 
 import { ActivatedRoute, ParamMap } from '@angular/router';
 
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-adverts',
@@ -19,10 +18,7 @@ import { ActivatedRoute, ParamMap } from '@angular/router';
   styleUrls: ['./adverts.component.css']
 })
 export class AdvertsComponent implements OnInit {
-  advert: Advert;
-  //  campaign: Campagne;
-  adverts: Advert[] = [];
-  loading = false;
+  adverts4$: Object;
 
   constructor(
     private location: Location,
@@ -36,7 +32,7 @@ export class AdvertsComponent implements OnInit {
   };
 
   getAdverts(): void {
-    this.advertsService.getAdverts().then(adverts => this.adverts = adverts);
+    this.advertsService.getAdverts().subscribe(data => this.adverts4$ = data);
   };
 
 }
