@@ -1,0 +1,32 @@
+<div class="chip card card-body" *ngIf="advert">
+  <p> {{advert.title}}</p>
+  <div class="row">
+    <div class="col-5">
+      <img src="https://images.pexels.com/photos/209037/pexels-photo-209037.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260" class="img-fluid img-thumbnail">
+    </div>
+    <div class="col-7">
+      <p>
+        <i class="fa fa-hourglass blue-text"></i> Début: {{advert.startDate | date: 'shortDate'}}</p>
+      <p>
+        <i class="fa fa-hourglass-o blue-text"></i> Fin: {{advert.endDate | date: 'shortDate'}}</p>
+    </div>
+  </div>
+
+  <p class="pink-text">
+    <i class="fa fa-rocket"></i>Type: {{advert.formats[0].name}}: {{advert.formats[0].feature}}
+  </p>
+
+  <a *ngIf="fromUrl" (click)="redirectForAdvertDetail(advert.functionalIdentifier)" class="d-flex flex-row-reverse">
+    <i class="waves-effect waves-light p-2">
+      En savoir plus
+      <i class="fa fa-chevron-right"></i>
+    </i>
+  </a>
+
+  <div *ngIf="!fromUrl">
+    <p>Description: {{advert.description}}</p>
+    <p>User: {{advert.user}}</p>
+
+    <p>Number pet: {{advert.pet?.length}}</p>
+  </div>
+</div>

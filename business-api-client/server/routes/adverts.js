@@ -33,7 +33,7 @@ router.get('/v1/formats', (req, res, next) => {
 });
 
 
-router.get('/v1/adverts', (req, res, next) => {
+router.get('/v1/campaigns', (req, res, next) => {
   axios({
     method: 'get',
     url: `${HOST}/${CONTEXT}/${VERSION}/${ADVERT_RESOURCE}`,
@@ -56,7 +56,7 @@ router.get('/v1/adverts', (req, res, next) => {
     });
 });
 
-router.get('/v1/adverts/:id', (req, res, next) => {
+router.get('/v1/campaigns/:id', (req, res, next) => {
   axios({
     method: 'get',
     url: `${HOST}/${CONTEXT}/${VERSION}/${ADVERT_RESOURCE}/` + req.params.id,

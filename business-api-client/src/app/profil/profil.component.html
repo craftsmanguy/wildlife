@@ -1,0 +1,33 @@
+<div *ngIf="profil">
+  <div class="card card-cascade top-buffer">
+    <div class="view card-header blue lighten-5">
+      <h3 class="h3-responsive">
+        <i class="fa fa-user blue-text"></i> {{profil.pseudonym}}
+      </h3>
+      <p>
+        <i class="fa fa-map blue-text"></i> {{profil.postalCode}}, {{profil.city}} {{profil.country}}
+      </p>
+    </div>
+
+    <div class="card-body">
+      <div *ngIf="profil.pets.length > 0">
+        <h5 class="h5-responsive">Mes compagnons ({{profil.pets.length}})</h5>
+        <div *ngFor="let pet of profil.pets">
+          <div class="row">
+            <p class="card-text"> {{pet.name}} </p>
+            <i class="fa fa-eye blue-text"></i>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="profil.adverts.length > 0">
+        <h5 class="h5-responsive">Mes démarches ({{profil.adverts.length}})</h5>
+        <div *ngFor="let advert of profil.adverts">
+          <div class="row">
+            <p class="card-text">{{advert.title}} </p>
+            <i class="fa fa-eye blue-text"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

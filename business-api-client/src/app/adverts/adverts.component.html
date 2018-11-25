@@ -1,16 +1,10 @@
-<div class="container">
-	<h1>Adverts</h1>
-	
-	<ul>
-	  <li *ngFor="let advert of adverts4$">
-		<a routerLink="/details/{{advert.functionalIdentifier}}">{{ advert.title }}</a>
-	
-		<ul>
-		  <li>{{ advert.description }}</li>
-		  <li><a href="http://{{ advert.description }}">{{ advert.description }}</a></li>
-		</ul>
-	  </li>
-	</ul>
+<h1>Adverts</h1>
+<div class="card top-buffer">
+	<div class="row">
+		<div class="col-xs-6 col-sm-6 col-md-4 col-lg-3 col-xl-3 top-buffer" *ngFor="let advert of adverts">
+				<app-advert-detail [advert]="advert">
+				</app-advert-detail>
+				<a (click)="select(advert)">ici</a>
+		</div>
+	</div>
 </div>
-
-<ng-content></ng-content>

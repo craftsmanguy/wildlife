@@ -9,20 +9,19 @@ const VERSION = 'v1';
 const USER_RESOURCE = 'users';
 
 
-router.get('/users/current', (req, res, next) => {
+router.get('/v1/users/current', (req, res, next) => {
   axios({
     method: 'get',
-    url: `${HOST}/${CONTEXT}/${VERSION}/current`,
-    responseType: 'json',
+    url: `${HOST}/${CONTEXT}/${VERSION}/${USER_RESOURCE}/current`,
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': req.headers.authorization,
+      'Authorization': req.cookies['access_token'],
     }
   })
-    .then(function(response) {
+    .then(function (response) {
       res.status(response.status).json(response.data);
     })
-    .catch(function(error) {
+    .catch(function (error) {
 
       if (error.response) {
         res.status(error.response.status).json(error.response.data.description);
@@ -38,20 +37,20 @@ router.get('/users/current', (req, res, next) => {
 });
 
 
-router.get('/users/:id', (req, res, next) => {
+router.get('/v1/users/:id', (req, res, next) => {
   axios({
     method: 'get',
-    url: `${HOST}/${CONTEXT}/${VERSION}/${USER_RESOURCE}/`  + req.params.id,
+    url: `${HOST}/${CONTEXT}/${VERSION}/${USER_RESOURCE}/` + req.params.id,
     responseType: 'json',
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': req.headers.authorization,
+      'Authorization': req.cookies['access_token'],
     }
   })
-    .then(function(response) {
+    .then(function (response) {
       res.status(response.status).json(response.data);
     })
-    .catch(function(error) {
+    .catch(function (error) {
 
       if (error.response) {
         res.status(error.response.status).json(error.response.data.description);
@@ -69,27 +68,20 @@ router.get('/users/:id', (req, res, next) => {
 /*
  * Register user
  */
-router.post('/users', (req, res, next) => {
+router.post('/v1/users', (req, res, next) => {
   axios({
     method: 'post',
     url: `${HOST}/${CONTEXT}/${VERSION}/${USER_RESOURCE}`,
-    data: {
-      pseudonym: req.body.pseudonym,
-      email: req.body.email,
-      country: req.body.country,
-      postalCode: req.body.postalCode,
-      city: req.body.city,
-      password: req.body.password,
-      confirmPassword: req.body.confirmPassword
-    },
+    data: req.body,
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      'Authorization': req.cookies['access_token'],
     }
   })
-    .then(function(response) {
+    .then(function (response) {
       res.status(response.status).json(response.headers);
     })
-    .catch(function(error) {
+    .catch(function (error) {
       if (error.response) {
         res.status(error.response.status).json(error.response.data.description);
       } else if (error.request) {

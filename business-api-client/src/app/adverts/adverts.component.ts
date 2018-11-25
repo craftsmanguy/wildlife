@@ -4,7 +4,6 @@ import { Location } from '@angular/common';
 import { DatePipe } from '@angular/common';
 
 import 'rxjs/add/operator/switchMap';
-import { Advert } from './advert';
 import { AdvertsService } from './adverts.service';
 import { Router } from '@angular/router';
 
@@ -18,7 +17,7 @@ import { Observable } from 'rxjs';
   styleUrls: ['./adverts.component.css']
 })
 export class AdvertsComponent implements OnInit {
-  adverts4$: Object;
+  adverts: Object;
 
   constructor(
     private location: Location,
@@ -32,7 +31,7 @@ export class AdvertsComponent implements OnInit {
   };
 
   getAdverts(): void {
-    this.advertsService.getAdverts().subscribe(data => this.adverts4$ = data);
+    this.advertsService.getAdverts().subscribe(data => this.adverts = data);
   };
 
 }
