@@ -7,6 +7,8 @@ import {AdvertDetailComponent} from './advert-detail/advert-detail.component';
 import { ConnectionComponent } from './connection/connection.component';
 import {RegisterComponent } from './register/register.component';
 import { ProfilComponent } from './profil/profil.component';
+import { PetComponent } from './pet/pet.component';
+
 
 
 const routes: Routes = [
@@ -25,6 +27,10 @@ const routes: Routes = [
   {
     path: 'register',
     component: RegisterComponent
+  },
+  {
+    path: 'pets',
+    component: PetComponent
   },
   {
     path: 'campaigns',

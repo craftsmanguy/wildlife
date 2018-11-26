@@ -11,6 +11,7 @@
 
     <div class="card-body">
       <div *ngIf="profil.pets.length > 0">
+          <a (click)="add()">Ajouter un compagnon</a> >
         <h5 class="h5-responsive">Mes compagnons ({{profil.pets.length}})</h5>
         <div *ngFor="let pet of profil.pets">
           <div class="row">
@@ -31,3 +32,5 @@
     </div>
   </div>
 </div>
+
+

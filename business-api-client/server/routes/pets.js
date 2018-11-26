@@ -46,7 +46,7 @@ router.get('/v1/pets', (req, res, next) => {
     responseType: 'json',
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': req.headers.authorization,
+      'Authorization': req.cookies['access_token'],
     }
   })
     .then(function(response) {
@@ -110,7 +110,7 @@ router.post('/v1/pets', (req, res, next) => {
     },
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': req.headers.authorization,
+      'Authorization': req.cookies['access_token'],
     }
   })
     .then(function(response) {
@@ -172,7 +172,7 @@ router.get('/v1/races', (req, res, next) => {
     url: `${HOST}/${CONTEXT}/${VERSION}/${RACE_RESOURCE}`,
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': req.headers.authorization,
+      'Authorization': req.cookies['access_token'],
     }
   })
     .then(function(response) {

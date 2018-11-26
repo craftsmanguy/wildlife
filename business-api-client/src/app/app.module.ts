@@ -13,15 +13,15 @@ import { AdvertsComponent } from './adverts/adverts.component';
 
 import { ConnectionService } from './services/connection.service';
 import { AlertService } from './alert/alert.service';
-
 import { UserService } from './services/user.service';
+import { PetService } from './services/pet.service';
+
 
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { NgxPopperModule } from 'ngx-popper';
 
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NavComponent } from './nav/nav.component';
 import { ConnectionComponent } from './connection/connection.component';
 import { AlertComponent } from './alert/alert.component';
@@ -30,6 +30,21 @@ import { ErrorInterceptor } from './interceptors/error.interceptor';
 import { AdvertDetailComponent } from './advert-detail/advert-detail.component';
 import { RegisterComponent } from './register/register.component';
 import { ProfilComponent } from './profil/profil.component';
+
+import { MatIconModule, MatTableModule } from '@angular/material';
+import { PetComponent } from './pet/pet.component';
+import { MatSelectModule } from '@angular/material/select';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatCardModule } from '@angular/material/card';
+import {MatRadioModule} from '@angular/material/radio';
+
+import 'hammerjs';
+
 
 @NgModule({
   declarations: [
@@ -42,6 +57,7 @@ import { ProfilComponent } from './profil/profil.component';
     AdvertDetailComponent,
     RegisterComponent,
     ProfilComponent,
+    PetComponent,
 
   ],
   imports: [
@@ -52,13 +68,22 @@ import { ProfilComponent } from './profil/profil.component';
     BrowserAnimationsModule,
     ReactiveFormsModule,
     NgxPopperModule,
-    NgbModule.forRoot()
+    MatAutocompleteModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    MatIconModule,
+    MatInputModule,
+    MatCheckboxModule,
+    MatSlideToggleModule,
+    MatCardModule,
+    MatRadioModule
   ],
   providers: [
     AlertService,
     AdvertsService,
     ConnectionService,
     UserService,
+    PetService,
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]

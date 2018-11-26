@@ -59,7 +59,7 @@ export class RegisterComponent implements OnInit {
       }, { validator: CustomValidator.matchPassword }),
 
       country: ['FRANCE', Validators.required],
-      postalCode: ['', [Validators.required, Validators.pattern(CustomValidator.numberValidator)]],
+      postalCode: ['', [Validators.required, Validators.pattern(CustomValidator.postalCodeValidator)]],
       city: ['', [Validators.required, Validators.pattern(CustomValidator.cityValidator)]]
     });
   }

@@ -1,35 +1,31 @@
-<div class="row flex-center pt-1">
-
-  <div class="card-body z-depth-1">
-    <div class="text-center">
-      <h3>Log In</h3>
-      <hr>
-    </div>
-
+<mat-card class="text-center">Log In</mat-card>
+<mat-card>
+  <mat-card-content>
     <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
 
-      <div class="md-form form-sm">
-        <i class="fa fa-envelope prefix grey-text"></i>
-        <input type="text" placeholder="Username" name="username" id="username" formControlName="username" class="form-control" 
-        [ngClass]="{ 'is-invalid': submitted && formValues.username.errors }">
+      <mat-form-field>
+        <input matInput type="text" placeholder="Username" name="username" id="username" formControlName="username" class="form-control"
+          [ngClass]="{ 'is-invalid': submitted && formValues.username.errors }">
         <div *ngIf="submitted && formValues.username.errors" class="invalid-feedback">
           <div class="text-center" *ngIf="formValues.username.errors.required">Username is required</div>
         </div>
-      </div>
-      <div class="md-form form-sm">
-        <i class="fa fa-key prefix grey-text"></i>
-        <input type="password" placeholder="Password" id="password" name="password" formControlName="password" class="form-control"
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput type="password" placeholder="Password" id="password" name="password" formControlName="password" class="form-control"
           [ngClass]="{ 'is-invalid': submitted && formValues.password.errors }">
         <div *ngIf="submitted && formValues.password.errors" class="invalid-feedback">
           <div class="text-center" *ngIf="formValues.password.errors.required">Password is required</div>
         </div>
-      </div>
+      </mat-form-field>
 
-      <div class="md-form form-sm text-center">
-        <button md-button [disabled]="loading" class="btn btn-primary">Login</button>
-        <button md-button [routerLink]="['/register']" class="btn btn-primary">Register</button>
-      </div>
+      <button mat-raised-button class="btn btn-primary btn-lg btn-block">Submit</button>
 
     </form>
-  </div>
-</div>
+
+    <div class="modal-footer">
+      <p class="">Pas encore membre?
+        <a href="register" class="blue-text"> Register</a>
+      </p>
+    </div>
+  </mat-card-content>
+</mat-card>

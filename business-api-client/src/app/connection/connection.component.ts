@@ -50,7 +50,6 @@ export class ConnectionComponent implements OnInit {
     if (this.loginForm.invalid) {
       return;
     }
-    
     this.connectionService.login({ username: this.formValues.username.value, password: this.formValues.password.value })
       .pipe(first())
       .subscribe(
