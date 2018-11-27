@@ -8,7 +8,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { NotFoundComponent } from './_notfound/notfound.component';
 
 import { AppComponent } from './app.component';
-import { AdvertsService } from './adverts/adverts.service';
+import { AdvertService } from './services/advert.service';
 import { AdvertsComponent } from './adverts/adverts.component';
 
 import { ConnectionService } from './services/connection.service';
@@ -41,9 +41,14 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatCardModule } from '@angular/material/card';
-import {MatRadioModule} from '@angular/material/radio';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+
+import { MatNativeDateModule, DateAdapter, MAT_DATE_FORMATS } from '@angular/material';
+
 
 import 'hammerjs';
+import { CampaignComponent } from './campaign/campaign.component';
 
 
 @NgModule({
@@ -58,6 +63,7 @@ import 'hammerjs';
     RegisterComponent,
     ProfilComponent,
     PetComponent,
+    CampaignComponent,
 
   ],
   imports: [
@@ -76,14 +82,17 @@ import 'hammerjs';
     MatCheckboxModule,
     MatSlideToggleModule,
     MatCardModule,
-    MatRadioModule
+    MatRadioModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
   ],
   providers: [
     AlertService,
-    AdvertsService,
+    AdvertService,
     ConnectionService,
     UserService,
     PetService,
+    MatDatepickerModule,
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]

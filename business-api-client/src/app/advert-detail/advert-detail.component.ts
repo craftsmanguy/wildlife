@@ -4,7 +4,7 @@ import { Advert } from './index';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { Router } from '@angular/router';
 
-import { AdvertsService } from '../adverts/adverts.service';
+import { AdvertService } from '../services/advert.service';
 
 @Component({
   selector: 'app-advert-detail',
@@ -20,7 +20,7 @@ export class AdvertDetailComponent implements OnInit {
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private advertsService: AdvertsService
+    private advertService: AdvertService
   ) { }
 
   ngOnInit() {
@@ -30,7 +30,7 @@ export class AdvertDetailComponent implements OnInit {
   getAdvertById() {
     this.checkIdInUrlParam();
     if (this.advertId !== undefined) {
-      this.advertsService.getAdvertById(this.advertId).subscribe(advert => { this.advert = advert });
+      this.advertService.getAdvertById(this.advertId).subscribe(advert => { this.advert = advert });
       this.fromUrl = false;
     }
   };

@@ -4,7 +4,7 @@ import { Location } from '@angular/common';
 import { DatePipe } from '@angular/common';
 
 import 'rxjs/add/operator/switchMap';
-import { AdvertsService } from './adverts.service';
+import { AdvertService } from '../services/advert.service';
 import { Router } from '@angular/router';
 
 import { ActivatedRoute, ParamMap } from '@angular/router';
@@ -22,7 +22,7 @@ export class AdvertsComponent implements OnInit {
   constructor(
     private location: Location,
     private router: Router,
-    private advertsService: AdvertsService,
+    private advertService: AdvertService,
     private route: ActivatedRoute,
   ) { }
 
@@ -31,7 +31,7 @@ export class AdvertsComponent implements OnInit {
   };
 
   getAdverts(): void {
-    this.advertsService.getAdverts().subscribe(data => this.adverts = data);
+    this.advertService.searchAdvert().subscribe(data => this.adverts = data);
   };
 
 }

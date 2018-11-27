@@ -64,7 +64,6 @@ export class PetComponent implements OnInit {
   };
 
   displayFn(race: Race) {
-    console.log(race.name);
     if (race) { return race.name; }
   };
 
