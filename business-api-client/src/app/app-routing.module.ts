@@ -3,7 +3,6 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { AdvertsComponent } from './adverts/adverts.component';
-import { AdvertDetailComponent } from './advert-detail/advert-detail.component';
 import { ConnectionComponent } from './connection/connection.component';
 import { RegisterComponent } from './register/register.component';
 import { ProfilComponent } from './profil/profil.component';
@@ -34,16 +33,15 @@ const routes: Routes = [
     component: PetComponent
   },
   {
-    path: 'tests',
-    component: CampaignComponent
-  },
-  {
     path: 'campaigns',
-    component: AdvertsComponent
+    children: [
+      { path: '', component: CampaignComponent },
+      { path: ':id', component: CampaignComponent },
+  ]
   },
   {
-    path: 'campaigns/:id',
-    component: AdvertDetailComponent
+    path: 'campaigns-old',
+    component: AdvertsComponent
   },
   {
     path: '**',

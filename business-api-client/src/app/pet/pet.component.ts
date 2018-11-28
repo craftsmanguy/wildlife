@@ -47,11 +47,12 @@ export class PetComponent implements OnInit {
 
   ngOnInit() {
     this.petForm = this.formBuilder.group({
-      gender: [this.genders[0].code, [Validators.required]],
-      name: ['', [Validators.required, Validators.pattern(CustomValidator.loginValidator)]],
+      functionalIdentifier: [''],
+      gender: [this.genders[0].label, [Validators.required]],
+      name: ['', [Validators.required]],
       race: ['', [Validators.required]],
-      birthday: ['', [Validators.required, Validators.pattern(CustomValidator.numberValidator)]],
-      isLof: [false, [Validators.required]],
+      birth: ['', [Validators.required, Validators.pattern(CustomValidator.numberValidator)]],
+      lof: [false, [Validators.required]],
       description: ['']
     });
 

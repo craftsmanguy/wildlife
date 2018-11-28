@@ -1,9 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-import { Advert } from '../advert-detail/index';
-
-import { Format } from '../campaign/model';
+import { Format, Campaign } from '../campaign/model';
 
 @Injectable()
 export class AdvertService {
@@ -23,12 +21,16 @@ export class AdvertService {
     return this.http.get(this.advertUrl);
   };
 
-  getAdvertById(id: string) {
-    return this.http.get<Advert>(this.advertUrl + id);
+  save(advert: Campaign) {
+    return this.http.post<Campaign>(`${this.advertUrl}`, advert);
   };
 
-  save(advert: Advert) {
-    return this.http.post<Advert>(`${this.advertUrl}`, advert);
+  update(id: string, advert: Campaign) {
+    return this.http.put<Campaign>(`${this.advertUrl+id}`, advert);
+  };
+
+  getById(id: string) {
+    return this.http.get<Campaign>(this.advertUrl + id);
   };
 
 

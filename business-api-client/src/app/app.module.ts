@@ -27,7 +27,6 @@ import { ConnectionComponent } from './connection/connection.component';
 import { AlertComponent } from './alert/alert.component';
 
 import { ErrorInterceptor } from './interceptors/error.interceptor';
-import { AdvertDetailComponent } from './advert-detail/advert-detail.component';
 import { RegisterComponent } from './register/register.component';
 import { ProfilComponent } from './profil/profil.component';
 
@@ -46,9 +45,17 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 
 import { MatNativeDateModule, DateAdapter, MAT_DATE_FORMATS } from '@angular/material';
 
+import {MatTreeModule} from '@angular/material/tree';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+
+
+
 
 import 'hammerjs';
 import { CampaignComponent } from './campaign/campaign.component';
+import { AddCampaignComponent } from './campaign/add-campaign/add-campaign.component';
+import { ViewCampaignComponent } from './campaign/view-campaign/view-campaign.component';
+import { UpdateCampaignComponent } from './campaign/update-campaign/update-campaign.component';
 
 
 @NgModule({
@@ -59,12 +66,13 @@ import { CampaignComponent } from './campaign/campaign.component';
     NavComponent,
     ConnectionComponent,
     AlertComponent,
-    AdvertDetailComponent,
     RegisterComponent,
     ProfilComponent,
     PetComponent,
     CampaignComponent,
-
+    AddCampaignComponent,
+    ViewCampaignComponent,
+    UpdateCampaignComponent,
   ],
   imports: [
     BrowserModule,
@@ -85,6 +93,8 @@ import { CampaignComponent } from './campaign/campaign.component';
     MatRadioModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    MatTreeModule,
+    MatSnackBarModule
   ],
   providers: [
     AlertService,

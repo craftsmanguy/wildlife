@@ -1,0 +1,27 @@
+<mat-card class="example-card">
+
+  <mat-card-header>
+    <div mat-card-avatar class="example-header-image"></div>
+    <mat-card-title>{{advert.title}}</mat-card-title>
+    <mat-card-subtitle>Type: {{advert.formats[0].name}}: {{advert.formats[0].feature}}</mat-card-subtitle>
+  </mat-card-header>
+  <img mat-card-image src="https://images.pexels.com/photos/209037/pexels-photo-209037.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260"
+    alt="Photo of a Shiba Inu" />
+
+  <mat-card-content>
+    <p> Start: {{advert.startDate | date: 'shortDate'}}</p>
+    <p> End: {{advert.endDate | date: 'shortDate'}}</p>
+
+    <div *ngIf="!fromUrl">
+      <p>Description: {{advert.description}}</p>
+      <p>User: {{advert.user}}</p>
+
+      <p>Number pet: {{advert.pet?.length}}</p>
+    </div>
+  </mat-card-content>
+
+  <mat-card-actions>
+    <button mat-button>LIKE</button>
+    <button mat-button *ngIf="fromUrl" (click)="redirectForAdvertDetail(advert.functionalIdentifier)"> En savoir plus</button>
+  </mat-card-actions>
+</mat-card>

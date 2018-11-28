@@ -100,14 +100,7 @@ router.post('/v1/pets', (req, res, next) => {
   axios({
     method: 'post',
     url: `${HOST}/${CONTEXT}/${VERSION}/${PET_RESOURCE}`,
-    data: {
-      wlAniName: req.body.wlAniName,
-      wlAniLof: req.body.wlAniLof,
-      wlAniYear: req.body.wlAniYear,
-      wlAniSexe: req.body.wlAniSexe,
-      wlAniDescrip: req.body.wlAniDescrip,
-      specieId: req.body.specieId,
-    },
+    data: req.body,
     headers: {
       'Content-Type': 'application/json',
       'Authorization': req.cookies['access_token'],
@@ -135,14 +128,7 @@ router.put('/v1/pets/:id', (req, res, next) => {
   axios({
     method: 'put',
     url: `${HOST}/${CONTEXT}/${VERSION}/${PET_RESOURCE}/` + req.params.id,
-    data: {
-      wlAniName: req.body.wlAniName,
-      wlAniLof: req.body.wlAniLof,
-      wlAniYear: req.body.wlAniYear,
-      wlAniSexe: req.body.wlAniSexe,
-      wlAniDescrip: req.body.wlAniDescrip,
-      specieId: req.body.specieId,
-    },
+    data: req.body,
     headers: {
       'Content-Type': 'application/json',
       'Authorization': req.headers.authorization,

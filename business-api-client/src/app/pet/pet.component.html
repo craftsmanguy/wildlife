@@ -6,7 +6,7 @@
 
       <mat-form-field>
         <mat-select placeholder="Gender" formControlName="gender" class="form-control" autofocus>
-          <mat-option *ngFor="let gender of genders" [value]="gender.code">
+          <mat-option *ngFor="let gender of genders" [value]="gender.label">
             {{gender.label}}
           </mat-option>
         </mat-select>
@@ -36,11 +36,11 @@
 
 
       <mat-form-field>
-        <input matInput placeholder="Birthday" type="text" class="form-control is-invalid" formControlName="birthday" [ngClass]="{ 'is-invalid': submitted && formValues.birthday.errors }"
+        <input matInput placeholder="Birth" type="text" class="form-control is-invalid" formControlName="birth" [ngClass]="{ 'is-invalid': submitted && formValues.birth.errors }"
           autofocus/>
-        <div *ngIf="submitted && formValues.birthday.errors" class="invalid-feedback text-center">
-          <div *ngIf="formValues.birthday.errors.required">Birthday is required</div>
-          <div *ngIf="formValues.birthday.errors.pattern">Birthday format</div>
+        <div *ngIf="submitted && formValues.birth.errors" class="invalid-feedback text-center">
+          <div *ngIf="formValues.birth.errors.required">Birthday is required</div>
+          <div *ngIf="formValues.birth.errors.pattern">Birthday format</div>
         </div>
       </mat-form-field>
 
@@ -48,7 +48,7 @@
         <textarea matInput placeholder="Description" formControlName="description" autofocus></textarea>
       </mat-form-field>
 
-      <mat-checkbox class="filled-in" formControlName="isLof" checked="checked" autofocus><span> My pet is Lof</span></mat-checkbox>
+      <mat-checkbox class="filled-in" formControlName="lof" checked="checked" autofocus><span> My pet is Lof</span></mat-checkbox>
 
       <button mat-raised-button class="btn btn-primary btn-lg btn-block">Submit</button>
     </form>

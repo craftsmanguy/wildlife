@@ -1,4 +1,11 @@
 export class Pet {
+    functionalIdentifier: string;
+    birthday: number;
+    description: string;
+    gender: string;
+    lof: boolean;
+    name: string;
+    race: any;
 };
 
 export class Gender {

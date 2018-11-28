@@ -17,19 +17,11 @@ router.get('/v1/formats', (req, res, next) => {
     headers: {
       'Content-Type': 'application/json'
     }
-  }).then(function(response) {
-      res.status(response.status).json(response.data);
-  }).catch(function(error) {
-      if (error.response) {
-        res.status(error.response.status).json(error.response.data.description);
-      } else if (error.request) {
-        console.log('requete erreur : ' + error);
-        res.status(503).send('The server is currently unable to handle the request due to a temporary overloading or maintenance of the server.');
-      } else {
-        // Something happened in setting up the request that triggered an Error
-        res.status(500).send('The server encountered an unexpected condition which prevented it from fulfilling the request.')
-      }
-    });
+  }).then(function (response) {
+    res.status(response.status).json(response.data);
+  }).catch(function (error) {
+    errorHandler(error);
+  });
 });
 
 
@@ -41,19 +33,11 @@ router.get('/v1/campaigns', (req, res, next) => {
     headers: {
       'Content-Type': 'application/json'
     }
-  }).then(function(response) {
-      res.status(response.status).json(response.data);
-  }).catch(function(error) {
-      if (error.response) {
-        res.status(error.response.status).json(error.response.data.description);
-      } else if (error.request) {
-        console.log('requete erreur : ' + error);
-        res.status(503).send('The server is currently unable to handle the request due to a temporary overloading or maintenance of the server.');
-      } else {
-        // Something happened in setting up the request that triggered an Error
-        res.status(500).send('The server encountered an unexpected condition which prevented it from fulfilling the request.')
-      }
-    });
+  }).then(function (response) {
+    res.status(response.status).json(response.data);
+  }).catch(function (error) {
+    errorHandler(error);
+  });
 });
 
 router.get('/v1/campaigns/:id', (req, res, next) => {
@@ -64,120 +48,80 @@ router.get('/v1/campaigns/:id', (req, res, next) => {
     headers: {
       'Content-Type': 'application/json'
     }
-  }).then(function(response) {
-      res.status(response.status).json(response.data);
-  }).catch(function(error) {
-      if (error.response) {
-        res.status(error.response.status).json(error.response.data.description);
-      } else if (error.request) {
-        console.log('requete erreur : ' + error);
-        res.status(503).send('The server is currently unable to handle the request due to a temporary overloading or maintenance of the server.');
-      } else {
-        // Something happened in setting up the request that triggered an Error
-        res.status(500).send('The server encountered an unexpected condition which prevented it from fulfilling the request.')
-      }
-    });
+  }).then(function (response) {
+    res.status(response.status).json(response.data);
+  }).catch(function (error) {
+    errorHandler(error);
+  });
 });
 
 //Remove campaign by Id
-router.delete('/v1/adverts/:id', (req, res, next) => {	
+router.delete('/v1/campaigns/:id', (req, res, next) => {
   axios({
     method: 'delete',
     url: `${HOST}/${CONTEXT}/${VERSION}/${ADVERT_RESOURCE}/` + req.params.id,
     responseType: 'json',
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': req.headers.authorization,
+      'Authorization': req.cookies['access_token'],
     }
   })
-    .then(function(response) {
+    .then(function (response) {
       res.status(response.status).json(response.data);
     })
-    .catch(function(error) {
-      if (error.response) {
-        res.status(error.response.status).json(error.response.data.description);
-      } else if (error.request) {
-        console.log('requete erreur : ' + error);
-        res.status(503).send('The server is currently unable to handle the request due to a temporary overloading or maintenance of the server.');
-      } else {
-        // Something happened in setting up the request that triggered an Error
-        res.status(500).send('The server encountered an unexpected condition which prevented it from fulfilling the request.')
-      }
+    .catch(function (error) {
+      errorHandler(error);
     });
 });
 
 /*
  * Add adverts
  */
-router.post('/v1/adverts', (req, res, next) => {
+router.post('/v1/campaigns', (req, res, next) => {
   axios({
     method: 'post',
     url: `${HOST}/${CONTEXT}/${VERSION}/${ADVERT_RESOURCE}`,
-    data: {
-      functionalIdentifier: req.body.id,
-      title: req.body.title,
-      startDate: req.body.startDate,
-      endDate: req.body.endDate,
-      description: req.body.description,
-      formats: req.body.formats,
-      pets: req.body.pets
-    },
+    data: req.body,
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': req.headers.authorization,
+      'Authorization': req.cookies['access_token'],
     }
   })
-    .then(function(response) {
+    .then(function (response) {
       res.status(response.status).json(response.headers);
     })
-    .catch(function(error) {
-      if (error.response) {
-        res.status(error.response.status).json(error.response.data.description);
-      } else if (error.request) {
-        console.log('requete erreur : ' + error);
-        res.status(503).send('The server is currently unable to handle the request due to a temporary overloading or maintenance of the server.');
-      } else {
-        // Something happened in setting up the request that triggered an Error
-        console.log('requete erreur : ' + error);
-        res.status(500).send('The server encountered an unexpected condition which prevented it from fulfilling the request.')
-      }
+    .catch(function (error) {
+      errorHandler(error);
     });
 });
 
 
-router.put('/v1/adverts/:id', (req, res, next) => {
+router.put('/v1/campaigns/:id', (req, res, next) => {
   axios({
     method: 'put',
     url: `${HOST}/${CONTEXT}/${VERSION}/${ADVERT_RESOURCE}`,
-    data: {
-      functionalIdentifier: req.body.id,
-      title: req.body.title,
-      startDate: req.body.startDate,
-      endDate: req.body.endDate,
-      description: req.body.description,
-      formats: req.body.formats,
-      pets: req.body.pets
-    },
+    data: req.body,
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': req.headers.authorization,
+      'Authorization': req.cookies['access_token'],
     }
   })
-    .then(function(response) {
+    .then(function (response) {
       res.status(response.status).json(response.headers);
     })
-    .catch(function(error) {
-      if (error.response) {
-        res.status(error.response.status).json(error.response.data.description);
-      } else if (error.request) {
-        console.log('requete erreur : ' + error);
-        res.status(503).send('The server is currently unable to handle the request due to a temporary overloading or maintenance of the server.');
-      } else {
-        // Something happened in setting up the request that triggered an Error
-        console.log('requete erreur : ' + error);
-        res.status(500).send('The server encountered an unexpected condition which prevented it from fulfilling the request.')
-      }
+    .catch(function (error) {
+      errorHandler(error);
     });
 });
+
+function errorHandler(error) {
+  if (error.response) {
+    res.status(error.response.status).json(error.response.data.description);
+  } else if (error.request) {
+    res.status(503).send('The server is currently unable to handle the request due to a temporary overloading or maintenance of the server.');
+  } else {
+    res.status(500).send('The server encountered an unexpected condition which prevented it from fulfilling the request.')
+  }
+};
 
 module.exports = router;

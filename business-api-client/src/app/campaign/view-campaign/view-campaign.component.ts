@@ -1,19 +1,22 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Advert } from './index';
+
+import { Campaign } from '../model';
 
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { Router } from '@angular/router';
 
-import { AdvertService } from '../services/advert.service';
+import { AdvertService } from '../../services/advert.service';
 
 @Component({
-  selector: 'app-advert-detail',
-  templateUrl: './advert-detail.component.html',
-  styleUrls: ['./advert-detail.component.css']
+  selector: 'view-campaign',
+  templateUrl: './view-campaign.component.html',
+  styleUrls: ['./view-campaign.component.css'],
+  providers: [AdvertService]
 })
-export class AdvertDetailComponent implements OnInit {
+export class ViewCampaignComponent implements OnInit {
+
   @Input()
-  advert: Advert;
+  advert: Campaign;
   advertId: string;
   fromUrl = true;
 
@@ -30,7 +33,7 @@ export class AdvertDetailComponent implements OnInit {
   getAdvertById() {
     this.checkIdInUrlParam();
     if (this.advertId !== undefined) {
-      this.advertService.getAdvertById(this.advertId).subscribe(advert => { this.advert = advert });
+      this.advertService.getById(this.advertId).subscribe(advert => { this.advert = advert });
       this.fromUrl = false;
     }
   };
@@ -45,5 +48,5 @@ export class AdvertDetailComponent implements OnInit {
     const urlAdvertById: string = this.router.url + '/';
     this.router.navigate([urlAdvertById, id]);
   };
-}
 
+}

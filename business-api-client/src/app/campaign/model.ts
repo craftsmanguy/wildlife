@@ -4,7 +4,7 @@ export class Campaign {
     endDate: Date;
     title: string;
     description: string;
-    format: any;
+    formats: Format[];
     constructor() {
     };
 };
@@ -22,6 +22,6 @@ export const OPTIONSCAMPAIGN: OptionCampain[] = [
 export class Format {
     code: string;
     feature: string;
-    name: string
+    name: string;
 };
 

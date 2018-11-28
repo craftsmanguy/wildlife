@@ -17,23 +17,11 @@ router.get('/v1/users/current', (req, res, next) => {
       'Content-Type': 'application/json',
       'Authorization': req.cookies['access_token'],
     }
-  })
-    .then(function (response) {
-      res.status(response.status).json(response.data);
-    })
-    .catch(function (error) {
-
-      if (error.response) {
-        res.status(error.response.status).json(error.response.data.description);
-      } else if (error.request) {
-        console.log('requete erreur : ' + error);
-        res.status(503).send('The server is currently unable to handle the request due to a temporary overloading or maintenance of the server.');
-      } else {
-        console.log('requete : ' + error);
-        // Something happened in setting up the request that triggered an Error
-        res.status(500).send('The server encountered an unexpected condition which prevented it from fulfilling the request.')
-      }
-    });
+  }).then(function (response) {
+    res.status(response.status).json(response.data);
+  }).catch(function (error) {
+    errorHandler(error);
+  });
 });
 
 
@@ -51,17 +39,7 @@ router.get('/v1/users/:id', (req, res, next) => {
       res.status(response.status).json(response.data);
     })
     .catch(function (error) {
-
-      if (error.response) {
-        res.status(error.response.status).json(error.response.data.description);
-      } else if (error.request) {
-        console.log('requete erreur : ' + error);
-        res.status(503).send('The server is currently unable to handle the request due to a temporary overloading or maintenance of the server.');
-      } else {
-        console.log('requete : ' + error);
-        // Something happened in setting up the request that triggered an Error
-        res.status(500).send('The server encountered an unexpected condition which prevented it from fulfilling the request.')
-      }
+      errorHandler(error)
     });
 });
 
@@ -82,18 +60,20 @@ router.post('/v1/users', (req, res, next) => {
       res.status(response.status).json(response.headers);
     })
     .catch(function (error) {
-      if (error.response) {
-        res.status(error.response.status).json(error.response.data.description);
-      } else if (error.request) {
-        console.log('requete erreur : ' + error);
-        res.status(503).send('The server is currently unable to handle the request due to a temporary overloading or maintenance of the server.');
-      } else {
-        // Something happened in setting up the request that triggered an Error
-        console.log('requete erreur : ' + error);
-        res.status(500).send('The server encountered an unexpected condition which prevented it from fulfilling the request.')
-      }
+      errorHandler(error)
     });
 });
+
+function errorHandler(error) {
+  if (error.response) {
+    console.log('requete erreur : ' + error.response.headers.reason);
+    res.status(error.response.status).headers('toto', JSON.parse(error.response.headers));
+  } else if (error.request) {
+    res.status(503).send('The server is currently unable to handle the request due to a temporary overloading or maintenance of the server.');
+  } else {
+    res.status(500).send('The server encountered an unexpected condition which prevented it from fulfilling the request.')
+  }
+};
 
 
 module.exports = router;

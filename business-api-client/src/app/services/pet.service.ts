@@ -22,7 +22,6 @@ export class PetService {
       tap((response: Race[]) => {
         response = response
           .map(race => new Race(race.code, race.name))
-          .filter(race => race.name.includes(filter.name.toUpperCase()))
         return response;
       })
       );
