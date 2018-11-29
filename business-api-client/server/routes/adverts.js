@@ -20,7 +20,7 @@ router.get('/v1/formats', (req, res, next) => {
   }).then(function (response) {
     res.status(response.status).json(response.data);
   }).catch(function (error) {
-    errorHandler(error);
+    errorHandler(error, res);
   });
 });
 
@@ -36,7 +36,7 @@ router.get('/v1/campaigns', (req, res, next) => {
   }).then(function (response) {
     res.status(response.status).json(response.data);
   }).catch(function (error) {
-    errorHandler(error);
+    errorHandler(error, res);
   });
 });
 
@@ -51,7 +51,7 @@ router.get('/v1/campaigns/:id', (req, res, next) => {
   }).then(function (response) {
     res.status(response.status).json(response.data);
   }).catch(function (error) {
-    errorHandler(error);
+    errorHandler(error, res);
   });
 });
 
@@ -70,7 +70,7 @@ router.delete('/v1/campaigns/:id', (req, res, next) => {
       res.status(response.status).json(response.data);
     })
     .catch(function (error) {
-      errorHandler(error);
+      errorHandler(error, res);
     });
 });
 
@@ -91,7 +91,7 @@ router.post('/v1/campaigns', (req, res, next) => {
       res.status(response.status).json(response.headers);
     })
     .catch(function (error) {
-      errorHandler(error);
+      errorHandler(error, res);
     });
 });
 
@@ -110,18 +110,19 @@ router.put('/v1/campaigns/:id', (req, res, next) => {
       res.status(response.status).json(response.headers);
     })
     .catch(function (error) {
-      errorHandler(error);
+      errorHandler(error, res);
     });
 });
 
-function errorHandler(error) {
+function errorHandler(error, res) {
   if (error.response) {
-    res.status(error.response.status).json(error.response.data.description);
+    return res.status(error.response.status).send(error.response.headers.reason);
   } else if (error.request) {
     res.status(503).send('The server is currently unable to handle the request due to a temporary overloading or maintenance of the server.');
   } else {
     res.status(500).send('The server encountered an unexpected condition which prevented it from fulfilling the request.')
   }
 };
+
 
 module.exports = router;

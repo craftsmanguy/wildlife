@@ -54,10 +54,7 @@ export class ConnectionComponent implements OnInit {
       .pipe(first())
       .subscribe(
       data => {
-        this.router.navigate([this.returnUrl]);
-      },
-      error => {
-        this.alertService.error('Invalid login or password');
+        //this.router.navigate([this.returnUrl]);
       });
   };
 

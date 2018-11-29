@@ -27,21 +27,22 @@ router.post('/v1/authenticate', (req, res, next) => {
         httpOnly: true,
         path: '/page',
       });
-      res.status(response.status).json();
+    res.status(response.status).json();
   }).catch(function (error) {
-    if (error.response) {
-      res.status(error.response.status).json(error.response.data.description)
-        ;
-    } else if (error.request) {
-      console.log('requete erreur : ' + error);
-      res.status(503).send('The server is currently unable to handle the request due to a temporary overloading or maintenance of the server.');
-    } else {
-      // Something happened in setting up the request that triggered an Error
-      console.log('requete erreur : ' + error);
-      res.status(500).send('The server encountered an unexpected condition which prevented it from fulfilling the request.')
-    }
+    errorHandler(error, res);
   });
 });
+
+function errorHandler(error, res) {
+  if (error.response) {
+    return res.status(error.response.status).send(error.response.headers.reason);
+  } else if (error.request) {
+    res.status(503).send('The server is currently unable to handle the request due to a temporary overloading or maintenance of the server.');
+  } else {
+    res.status(500).send('The server encountered an unexpected condition which prevented it from fulfilling the request.')
+  }
+};
+
 
 
 /* GET cooking */

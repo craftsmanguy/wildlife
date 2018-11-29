@@ -20,7 +20,7 @@ router.get('/v1/users/current', (req, res, next) => {
   }).then(function (response) {
     res.status(response.status).json(response.data);
   }).catch(function (error) {
-    errorHandler(error);
+    errorHandler(error, res);
   });
 });
 
@@ -64,10 +64,9 @@ router.post('/v1/users', (req, res, next) => {
     });
 });
 
-function errorHandler(error) {
+function errorHandler(error, res) {
   if (error.response) {
-    console.log('requete erreur : ' + error.response.headers.reason);
-    res.status(error.response.status).headers('toto', JSON.parse(error.response.headers));
+    return res.status(error.response.status).send(error.response.headers.reason);
   } else if (error.request) {
     res.status(503).send('The server is currently unable to handle the request due to a temporary overloading or maintenance of the server.');
   } else {

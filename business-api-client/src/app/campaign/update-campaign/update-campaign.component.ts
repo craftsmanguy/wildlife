@@ -79,9 +79,6 @@ export class UpdateCampaignComponent implements OnInit {
       .subscribe(
       data => {
         this.router.navigate(['/login']);
-      },
-      error => {
-        this.alertService.error('Invalid add advert');
       });
   };
 

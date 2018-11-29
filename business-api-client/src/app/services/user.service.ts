@@ -17,5 +17,5 @@ export class UserService {
 
   getProfilById(id: string) {
     return this.http.get<any>(`${this.userUrl}` + id);
-  }
+  };
 }
