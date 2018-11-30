@@ -8,14 +8,16 @@ import { AppRoutingModule } from './app-routing.module';
 import { NotFoundComponent } from './_notfound/notfound.component';
 
 import { AppComponent } from './app.component';
+
+import {AuthGuard} from './interceptors/auth.guard';
+
 import { AdvertService } from './services/advert.service';
 import { AdvertsComponent } from './adverts/adverts.component';
-
 import { ConnectionService } from './services/connection.service';
 import { AlertService } from './alert/alert.service';
 import { UserService } from './services/user.service';
 import { PetService } from './services/pet.service';
-
+import { AdminService } from './services/admin.service';
 
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -97,11 +99,13 @@ import { UpdateCampaignComponent } from './campaign/update-campaign/update-campa
     MatSnackBarModule
   ],
   providers: [
+    AuthGuard,
     AlertService,
     AdvertService,
     ConnectionService,
     UserService,
     PetService,
+    AdminService,
     MatDatepickerModule,
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }
   ],

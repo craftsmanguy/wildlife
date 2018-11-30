@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
 import { ConnectionService } from '../services/connection.service';
-import { AlertService } from '../alert/alert.service';
 
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
@@ -10,9 +9,6 @@ import { AuthenticationModel } from './model';
 
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
-
-import { HttpHeaders } from '@angular/common/http';
 
 @Component({
   selector: 'app-connection',
@@ -31,7 +27,6 @@ export class ConnectionComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private connectionService: ConnectionService,
-    private alertService: AlertService,
   ) { }
 
   ngOnInit() {
@@ -54,7 +49,7 @@ export class ConnectionComponent implements OnInit {
       .pipe(first())
       .subscribe(
       data => {
-        //this.router.navigate([this.returnUrl]);
+        this.router.navigate([this.returnUrl]);
       });
   };
 

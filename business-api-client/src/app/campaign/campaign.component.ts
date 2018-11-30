@@ -5,7 +5,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { switchMap, first } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 
-import { AlertService } from '../alert/alert.service';
 import { AdvertService } from '../services/advert.service';
 
 import { CustomValidator } from '../utils/validators';
@@ -28,7 +27,6 @@ export class CampaignComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private advertService: AdvertService,
-    private alertService: AlertService,
   ) { }
 
   ngOnInit() {

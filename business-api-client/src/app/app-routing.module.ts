@@ -8,6 +8,9 @@ import { RegisterComponent } from './register/register.component';
 import { ProfilComponent } from './profil/profil.component';
 import { PetComponent } from './pet/pet.component';
 
+import {AuthGuard} from './interceptors/auth.guard';
+
+
 import { CampaignComponent } from './campaign/campaign.component';
 
 
@@ -22,7 +25,8 @@ const routes: Routes = [
   },
   {
     path: 'profils/:id',
-    component: ProfilComponent
+    component: ProfilComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'register',

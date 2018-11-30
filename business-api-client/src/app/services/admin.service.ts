@@ -1,18 +1,17 @@
 import { Injectable } from '@angular/core';
 
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class AdminService {
 
-  private userUrl = 'api/v1/users/';
+  private checkUrl = 'api/v1/checks/token/';
   
     constructor(private http: HttpClient, ) { }
   
-    getProfilById(id: string) {
-      return this.http.get<any>(`${this.userUrl}` + id);
+    isLoggedIn() {
+      return this.http.get<boolean>(this.checkUrl);
     };
 }

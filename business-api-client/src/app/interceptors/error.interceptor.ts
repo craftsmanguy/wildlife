@@ -21,11 +21,11 @@ export class ErrorInterceptor implements HttpInterceptor {
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         return next.handle(request).do((event: HttpEvent<any>) => {
             if (event instanceof HttpResponse) {
-                // do stuff with response if you want
+                this.alertService.success("success");
             }
         }, (err: any) => {
             if (err instanceof HttpErrorResponse) {
-                if (err.status === 400, 409) {
+                if (err.status == 400 || err.status == 403 || err.status == 409) {
                     this.alertService.error(err.error);
                 }
             }

@@ -39,7 +39,7 @@ router.get('/v1/users/:id', (req, res, next) => {
       res.status(response.status).json(response.data);
     })
     .catch(function (error) {
-      errorHandler(error)
+      errorHandler(error, res);
     });
 });
 
@@ -60,7 +60,7 @@ router.post('/v1/users', (req, res, next) => {
       res.status(response.status).json(response.headers);
     })
     .catch(function (error) {
-      errorHandler(error)
+      errorHandler(error, res);
     });
 });
 

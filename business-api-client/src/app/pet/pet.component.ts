@@ -5,7 +5,6 @@ import { Pet, GENDERS, Race } from './model';
 
 import { first } from 'rxjs/operators';
 
-import { AlertService } from '../alert/alert.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { ActivatedRoute, ParamMap } from '@angular/router';
@@ -42,7 +41,6 @@ export class PetComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private petService: PetService,
-    private alertService: AlertService
   ) { }
 
   ngOnInit() {
@@ -86,7 +84,7 @@ export class PetComponent implements OnInit {
       .pipe(first())
       .subscribe(
       data => {
-        this.router.navigate(['/login']);
+        return data;
       });
   };
 

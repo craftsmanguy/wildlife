@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import { AlertService } from '../alert/alert.service';
 import { UserService } from '../services/user.service';
 import { Register } from './model';
 
@@ -41,7 +40,6 @@ export class RegisterComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private userService: UserService,
-    private alertService: AlertService
   ) { }
 
   get formValues() {
@@ -68,7 +66,6 @@ export class RegisterComponent implements OnInit {
     this.submitted = true;
 
     if (this.registerForm.invalid) {
-      console.log(this.registerForm.invalid);
       return;
     }
     this.user = this.transformFormToUserRegister(this.registerForm.value);
@@ -77,9 +74,6 @@ export class RegisterComponent implements OnInit {
       .subscribe(
       data => {
         this.router.navigate(['/login']);
-      },
-      error => {
-        this.alertService.error('Invalid login or password');
       });
   };
 

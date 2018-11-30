@@ -33,6 +33,14 @@ router.post('/v1/authenticate', (req, res, next) => {
   });
 });
 
+router.get('/v1/checks/token', (req, res, next) => {
+  if(!(req.cookies['access_token'])){
+    return res.status(200).header().send(false);
+  }
+  return res.status(200).header().send(true);
+  //Penser à créer le service au niveau back
+});
+
 function errorHandler(error, res) {
   if (error.response) {
     return res.status(error.response.status).send(error.response.headers.reason);
@@ -42,6 +50,7 @@ function errorHandler(error, res) {
     res.status(500).send('The server encountered an unexpected condition which prevented it from fulfilling the request.')
   }
 };
+
 
 
 
