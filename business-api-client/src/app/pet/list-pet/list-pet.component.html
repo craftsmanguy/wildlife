@@ -1,0 +1,10 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>List of pets</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+      <div *ngFor="let pet of pets">
+          <pet [pet]="pet" action="GET"></pet>
+      </div>
+  </mat-card-content>
+</mat-card>
