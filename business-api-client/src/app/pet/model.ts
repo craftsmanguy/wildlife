@@ -1,11 +1,15 @@
-export class Pet {
+export class AbstractPet {
     functionalIdentifier: string;
-    birthday: number;
+    name: string;
+};
+
+export class Pet extends AbstractPet {
+    birth: number;
     description: string;
     gender: string;
     lof: boolean;
-    name: string;
-    race: any;
+    userForPet: string;
+    race: Race;
 };
 
 export class Gender {

@@ -1,0 +1,15 @@
+.mat-card {
+    padding: 3px !important;
+}
+
+.mat-expansion-panel-header {
+    padding: 0 7px;
+}
+
+.mat-expansion-panel-spacing {
+    margin: 1px 0;
+}
+
+.mat-panel-title {
+    z-index: 1;
+}

@@ -7,7 +7,9 @@ import { map } from 'rxjs/operators';
 
 
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class ConnectionService {
 
   private loginUrl = 'api/v1/authenticate';

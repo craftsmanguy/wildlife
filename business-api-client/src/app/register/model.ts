@@ -8,5 +8,4 @@ export class Register {
     confirmPassword: string;
     constructor() {
     }
-
 };

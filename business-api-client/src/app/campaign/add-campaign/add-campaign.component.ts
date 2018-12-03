@@ -1,37 +1,39 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { switchMap, first } from 'rxjs/operators';
 
-import { AdvertService } from '../../services/advert.service';
+import { CampaignService } from '../../services/campaign.service';
 
 import { CustomValidator } from '../../utils/validators';
-import { OptionCampain, OPTIONSCAMPAIGN, Campaign, Format } from '../model';
+import { OptionCampain, OPTIONSCAMPAIGN, Campaign, Format, AbstractCampaign } from '../model';
 
 @Component({
-  selector: 'add-campaign',
+  selector: 'app-add-campaign',
   templateUrl: './add-campaign.component.html',
   styleUrls: ['./add-campaign.component.css'],
-  providers: [AdvertService]
+  providers: [CampaignService]
 })
 export class AddCampaignComponent implements OnInit {
 
+  @Output()
+  actionAddSucceed: EventEmitter<AbstractCampaign> = new EventEmitter();
+
   private avalaibleFormats: Format[];
   optionsCampaign = OPTIONSCAMPAIGN;
-  advert = new Campaign();
+  campaign = new Campaign;
 
   campaignForm: FormGroup;
   submitted = false;
   filteredFormats: Format[];
 
-  
 
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
     private route: ActivatedRoute,
-    private advertService: AdvertService,
+    private campaignService: CampaignService,
   ) { }
 
   ngOnInit() {
@@ -51,7 +53,7 @@ export class AddCampaignComponent implements OnInit {
   };
 
   searchFormat() {
-    this.advertService.searchFormat().subscribe(data => this.avalaibleFormats = data);
+    this.campaignService.searchFormat().subscribe(data => this.avalaibleFormats = data);
   };
 
   selectedOption(option) {
@@ -67,22 +69,31 @@ export class AddCampaignComponent implements OnInit {
     if (this.campaignForm.invalid) {
       return;
     }
-    this.mappingFormToAvert();
-    this.advertService.save(this.advert)
+    this.mappingFormToCampaign();
+    this.campaignService.save(this.campaign)
       .pipe(first())
       .subscribe(
       data => {
-        this.router.navigate(['/login']);
+        this.actionAddSucceed.emit(this.mappingFormToAbstractCampaign(data));
+        return data;
       });
   };
 
-  private mappingFormToAvert() {
-    this.advert.title = this.campaignForm.value.title;
-    this.advert.description = this.campaignForm.value.description;
-    this.advert.startDate = this.campaignForm.value.startDate;
-    this.advert.endDate = this.campaignForm.value.endDate;
-    this.advert.formats = this.campaignForm.value.formats;
+  private mappingFormToCampaign() {
+    this.campaign.title = this.campaignForm.value.title;
+    this.campaign.description = this.campaignForm.value.description;
+    this.campaign.startDate = this.campaignForm.value.startDate;
+    this.campaign.endDate = this.campaignForm.value.endDate;
+    this.campaign.formats = this.campaignForm.value.formats;
   };
+
+
+private mappingFormToAbstractCampaign(data: any) {
+const minimalCampaign = new AbstractCampaign;
+minimalCampaign.functionalIdentifier = data.functionalIdentifier;
+minimalCampaign.title = data.title;
+return minimalCampaign;
+};
 
 
 }

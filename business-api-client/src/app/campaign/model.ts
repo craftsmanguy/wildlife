@@ -1,12 +1,15 @@
-export class Campaign {
+export class AbstractCampaign {
     functionalIdentifier: string;
-    startDate: Date;
-    endDate: Date;
     title: string;
-    description: string;
-    formats: Format[];
     constructor() {
     };
+};
+
+export class Campaign extends AbstractCampaign {
+    startDate: Date;
+    endDate: Date;
+    description: string;
+    formats: Format[];
 };
 
 export class OptionCampain {

@@ -7,7 +7,7 @@ import {ActivatedRoute, ParamMap} from '@angular/router';
 
 
 @Component({
-  selector: 'app-pets',
+  selector: 'app-not-found',
   templateUrl: './notfound.component.html',
   styleUrls: ['./notfound.component.css']
 })

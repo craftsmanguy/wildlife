@@ -18,23 +18,22 @@ router.post('/v1/authenticate', (req, res, next) => {
     method: 'post',
     url: `${HOST}/${CONTEXT}/${VERSION}/authentication/login`,
     data: req.body
-  }).then(function (response) {
-
-    res.cookie(
-      'access_token', response.headers.authorization, {
-        expire: new Date(Date.now() + 900000),
-        secure: true,
-        httpOnly: true,
-        path: '/page',
-      });
-    res.status(response.status).json();
-  }).catch(function (error) {
-    errorHandler(error, res);
-  });
+  }, {
+    }).then(function (response) {
+      res.status(response.status).cookie(
+        'access_token', response.headers.authorization, {
+          expire: new Date(Date.now() + 900000),
+          secure: true,
+          httpOnly: true,
+          path: '/page'
+        }).send();
+    }).catch(function (error) {
+      errorHandler(error, res);
+    });
 });
 
 router.get('/v1/checks/token', (req, res, next) => {
-  if(!(req.cookies['access_token'])){
+  if (!(req.cookies['access_token'])) {
     return res.status(200).header().send(false);
   }
   return res.status(200).header().send(true);

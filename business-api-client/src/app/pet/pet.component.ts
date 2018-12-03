@@ -5,11 +5,11 @@ import { Router } from '@angular/router';
 
 import { PetService } from '../services/pet.service';
 
-import { Pet } from './model';
+import { AbstractPet, Pet } from './model';
 
 
 @Component({
-  selector: 'pet',
+  selector: 'app-pet',
   templateUrl: './pet.component.html',
   styleUrls: ['./pet.component.css'],
   providers: [PetService]

@@ -3,7 +3,7 @@ import { PetService } from '../../services/pet.service';
 import { Pet } from '../model';
 
 @Component({
-  selector: 'list-pet',
+  selector: 'app-list-pet',
   templateUrl: './list-pet.component.html',
   styleUrls: ['./list-pet.component.css'],
   providers: [PetService]

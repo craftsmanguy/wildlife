@@ -1,0 +1,11 @@
+.mat-card {
+    padding: 3px !important;
+}
+
+.hidden-text {
+    display: block;
+    width: 100% !important;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }

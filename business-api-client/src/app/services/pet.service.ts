@@ -29,6 +29,10 @@ export class PetService {
 
   getPetById(id: string) {
     return this.http.get<Pet>(`${this.petUrl}` + id);
+  };
+
+  getAll() {
+    return this.http.get<Pet[]>(`${this.petUrl}`);
   }
 
   save(pet: Pet) {

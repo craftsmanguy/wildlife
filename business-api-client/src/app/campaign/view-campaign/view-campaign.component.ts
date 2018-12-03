@@ -1,52 +1,29 @@
-import { Component, OnInit, Input } from '@angular/core';
-
-import { Campaign } from '../model';
+import { Component, Input } from '@angular/core';
 
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { Router } from '@angular/router';
 
-import { AdvertService } from '../../services/advert.service';
+import { Campaign } from '../model';
 
 @Component({
-  selector: 'view-campaign',
+  selector: 'app-view-campaign',
   templateUrl: './view-campaign.component.html',
-  styleUrls: ['./view-campaign.component.css'],
-  providers: [AdvertService]
+  styleUrls: ['./view-campaign.component.css']
 })
-export class ViewCampaignComponent implements OnInit {
+export class ViewCampaignComponent {
 
   @Input()
-  advert: Campaign;
-  advertId: string;
-  fromUrl = true;
+  campaign: Campaign;
 
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private advertService: AdvertService
   ) { }
 
-  ngOnInit() {
-    this.getAdvertById();
-  };
 
-  getAdvertById() {
-    this.checkIdInUrlParam();
-    if (this.advertId !== undefined) {
-      this.advertService.getById(this.advertId).subscribe(advert => { this.advert = advert });
-      this.fromUrl = false;
-    }
-  };
-
-  checkIdInUrlParam() {
-    this.route.params.subscribe(params => {
-      this.advertId = params['id'];
-    });
-  };
-
-  redirectForAdvertDetail(id) {
-    const urlAdvertById: string = this.router.url + '/';
-    this.router.navigate([urlAdvertById, id]);
+  redirectForCampaignDetail(id) {
+    const urlCampaignById: string = this.router.url + '/';
+    this.router.navigate([urlCampaignById, id]);
   };
 
 }

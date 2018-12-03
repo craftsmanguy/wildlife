@@ -1,30 +1,13 @@
-/* You can add global styles to this file, and also import other style files */
 .mat-form-field {
     width: 100%;
   }
 
-  .mat-select {
+.mat-select {
     border: hidden !important;
 }
 
-
-.top-buffer {
-	margin-top: 15px;
-}
-
-
-agm-map {
-	height: 350px;
-}
-
-.agm-map {
-	height: 350px;
-}
-
-p, a {
-    font-size: 0.85rem;
-    margin-top: 0.01rem;
-    margin-bottom: 0.01rem;
+.mat-badge {
+    position: absolute !important;
 }
 
 .color-blue-bck-color {

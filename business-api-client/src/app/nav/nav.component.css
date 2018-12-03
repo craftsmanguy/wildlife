@@ -1,14 +1,13 @@
 .top-nav-collapse {
-    background-color: #3F729B !important; 
+    background-color: rgb(212, 187, 204) !important; 
 }
-/* .navbar:not(.top-nav-collapse) { */
-/*     background: transparent !important; */
-/* } */
+
 @media (max-width: 768px) {
     .navbar:not(.top-nav-collapse) {
-        background: #3F729B !important;
+        background: rgb(255, 255, 255) !important;
     } 
 }
 
-
-
+  .fas.fa-bars {
+    color:#007bff;
+  }

@@ -1,3 +1,7 @@
+<app-view-campaign *ngIf="campaign && action==='GET'" [campaign]="campaign"></app-view-campaign>
+
+<app-update-campaign *ngIf="campaign && action==='PUT'" [campaign]="campaign"></app-update-campaign>
+
+<app-list-campaign *ngIf="action==='LIST'"></app-list-campaign>
 
 
-<update-campaign *ngIf="campaign" [advert]="campaign"></update-campaign>
