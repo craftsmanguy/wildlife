@@ -5,8 +5,6 @@ import { Pet, AbstractPet, GENDERS, Race } from '../model';
 
 import { first } from 'rxjs/operators';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, ParamMap } from '@angular/router';
-import { Router } from '@angular/router';
 
 import { CustomValidator } from '../../utils/validators';
 import { switchMap } from 'rxjs/operators';
@@ -32,8 +30,6 @@ export class AddPetComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private router: Router,
-    private route: ActivatedRoute,
     private petService: PetService,
   ) { }
 
@@ -70,7 +66,6 @@ export class AddPetComponent implements OnInit {
 
   onSubmit() {
     this.submitted = true;
-
     if (this.petForm.invalid) {
       return;
     }

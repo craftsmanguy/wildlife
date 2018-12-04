@@ -5,14 +5,17 @@
   <mat-card-content>
     <div class="row">
       <div class="col-sm-12 col-md-3 col-lg-3 col-xl-3 pl-1 pr-1 pt-1">
-        <app-profil (addPetAction)="onAddPetAction($event)" [petAdded]="addPetSucceed"
-        (viewPetByIdAction)="onViewPetByIdAction($event)"
+        <app-profil (addPetAction)="onAddPetAction($event)" [petAdded]="addPetSucceed" 
+        (viewPetByIdAction)="onViewPetByIdAction($event)" 
+        (updatePetByIdAction)="onUpdatePetByIdAction($event)" [petAdded]="updatePetSucceed"
+
           (addCampaignAction)="onAddCampaignAction($event)" [campaignAdded]="addCampaignSucceed"></app-profil>
       </div>
       <div class="col-sm-12 col-md-9 col-lg-6 col-xl-6 pl-1 pr-1 pt-1">
-        <app-add-pet *ngIf="actionPet==='ADD'" (actionAddSucceed)="onAddPetActionSucceed($event)"></app-add-pet>
-        <app-view-pet *ngIf="actionViewPetById && actionViewPetById.action==='VIEW'" [id]="actionViewPetById.id"></app-view-pet>
-        
+        <app-add-pet *ngIf="actionPet && actionPet.action==='ADD'" (actionAddSucceed)="onAddPetActionSucceed($event)"></app-add-pet>
+        <app-view-pet *ngIf="actionPet && actionPet.action==='VIEW'" [id]="actionPet.id"></app-view-pet>
+        <app-update-pet *ngIf="actionPet && actionPet.action==='UPDATE'" [id]="actionPet.id"></app-update-pet>
+
 
         <app-add-campaign *ngIf="actionCampaign==='ADD'" (actionAddSucceed)="onAddCampaignActionSucceed($event)"></app-add-campaign>
       </div>
@@ -24,6 +27,5 @@
 </mat-card>
 
 <div *ngIf="actionViewPetById">
-  {{actionViewPetById.id}}
-  {{actionViewPetById.action}}
+  {{actionViewPetById.id}} {{actionViewPetById.action}}
 </div>

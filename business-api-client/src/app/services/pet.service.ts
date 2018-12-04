@@ -39,4 +39,8 @@ export class PetService {
     return this.http.post<Pet>(`${this.petUrl}`, pet);
   };
 
+  update(id: string, pet: Pet) {
+    return this.http.put<Pet>(`${this.petUrl + id}`, pet);
+  };
+
 }

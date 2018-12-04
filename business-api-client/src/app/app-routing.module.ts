@@ -6,13 +6,13 @@ import { ListCampaignComponent } from './campaign/list-campaign/list-campaign.co
 import { ConnectionComponent } from './connection/connection.component';
 import { RegisterComponent } from './register/register.component';
 import { ProfilComponent } from './profil/profil.component';
-import { PetComponent } from './pet/pet.component';
 
 import { AuthGuard } from './interceptors/auth.guard';
 import { HomeComponent } from './home/home.component';
 
 import { CampaignComponent } from './campaign/campaign.component';
-import { PageComponent } from './page/page.component';
+import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { InscriptionComponent } from './pages/inscription/inscription.component';
 
 
 const routes: Routes = [
@@ -34,20 +34,16 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   {
-    path: 'page/current',
-    component: PageComponent
+    path: 'dashboard/current',
+    component: DashboardComponent
   },
   {
     path: 'profils/:id',
-    component: PageComponent
+    component: DashboardComponent
   },
   {
-    path: 'register',
-    component: RegisterComponent
-  },
-  {
-    path: 'pets',
-    component: PetComponent
+    path: 'inscription',
+    component: InscriptionComponent
   },
   {
     path: 'campaigns',

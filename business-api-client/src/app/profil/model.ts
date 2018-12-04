@@ -1,4 +1,4 @@
-import { AbstractPet } from '../pet/model';
+
 import { AbstractCampaign } from '../campaign/model';
 
 export class User {
@@ -6,8 +6,13 @@ export class User {
     postalCode: string;
     city: string;
     country: string;
-    pets: AbstractPet[];
+    pets: PetMinimal[];
     adverts: AbstractCampaign[];
+};
+
+export class PetMinimal {
+    functionalIdentifier: string;
+    name: string;
 };
 
 export class UserForPetAction {

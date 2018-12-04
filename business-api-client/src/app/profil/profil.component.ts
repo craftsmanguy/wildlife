@@ -6,9 +6,7 @@ import { Router } from '@angular/router';
 import { UserService } from '../services/user.service';
 
 import { FlatTreeControl } from '@angular/cdk/tree';
-
-
-import { User, UserForPetAction } from './model';
+import { User, UserForPetAction, PetMinimal } from './model';
 
 @Component({
   selector: 'app-profil',
@@ -18,11 +16,13 @@ import { User, UserForPetAction } from './model';
 })
 export class ProfilComponent implements OnInit, OnChanges {
 
-  @Output() addPetAction: EventEmitter<String> = new EventEmitter();
+  @Output() addPetAction: EventEmitter<UserForPetAction> = new EventEmitter();
   @Output() addCampaignAction: EventEmitter<String> = new EventEmitter();
   @Output() viewPetByIdAction: EventEmitter<UserForPetAction> = new EventEmitter();
+  @Output() updatePetByIdAction: EventEmitter<UserForPetAction> = new EventEmitter();
 
   @Input() petAdded: any;
+  @Input() updateAdded: any;
   @Input() campaignAdded: any;
 
   isButtonPetDisabled = false;
@@ -32,7 +32,7 @@ export class ProfilComponent implements OnInit, OnChanges {
 
   panelOpenState = false;
 
-  private addAction: string;
+  private action: string;
 
   constructor(
     private router: Router,
@@ -70,10 +70,12 @@ export class ProfilComponent implements OnInit, OnChanges {
   };
 
   addPet() {
+    const userForPetAction = new UserForPetAction();
     this.isButtonPetDisabled = !this.isButtonPetDisabled;
-    this.addAction = 'ADD'
+    this.action = 'ADD'
+    userForPetAction.action = this.action;
     if (this.isButtonPetDisabled) {
-      this.addPetAction.emit(this.addAction);
+      this.addPetAction.emit(userForPetAction);
     } else {
       this.addPetAction.emit();
     }
@@ -81,9 +83,9 @@ export class ProfilComponent implements OnInit, OnChanges {
 
   addCampaign() {
     this.isButtonCampaignDisabled = !this.isButtonCampaignDisabled;
-    this.addAction = 'ADD';
+    this.action = 'ADD';
     if (this.isButtonCampaignDisabled) {
-      this.addCampaignAction.emit(this.addAction);
+      this.addCampaignAction.emit(this.action);
     } else {
       this.addCampaignAction.emit();
     }
@@ -91,10 +93,38 @@ export class ProfilComponent implements OnInit, OnChanges {
 
   viewPetById(id: string) {
     const userForPetAction = new UserForPetAction();
-    this.addAction = 'VIEW'
-    userForPetAction.action = this.addAction;
+    this.action = 'VIEW'
+    userForPetAction.action = this.action;
     userForPetAction.id = id;
     this.viewPetByIdAction.emit(userForPetAction);
   };
 
+  updatePetById(id: string) {
+    const userForPetAction = new UserForPetAction();
+    this.action = 'UPDATE'
+    userForPetAction.action = this.action;
+    userForPetAction.id = id;
+    this.updatePetByIdAction.emit(userForPetAction);
+  };
+
+  onDeleteSucceeds(idDelete: string) {
+    if (idDelete) {
+      let lengthList = this.profil.pets.length;
+      for (let index = 0; index < lengthList; index++) {
+        if (this.profil.pets[index].functionalIdentifier === idDelete) {
+          this.profil.pets.splice(index, 1);
+          break;
+        }
+      };
+
+      lengthList = this.profil.adverts.length;
+      for (let index = 0; index < lengthList; index++) {
+        if (this.profil.adverts[index].functionalIdentifier === idDelete) {
+          this.profil.adverts.splice(index, 1);
+          break;
+        }
+      };
+
+    }
+  }
 }

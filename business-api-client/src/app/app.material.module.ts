@@ -21,6 +21,8 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatDividerModule } from '@angular/material/divider';
 
 import { MatButtonModule, MatToolbarModule, MatProgressSpinnerModule } from '@angular/material';
+import {MatDialogModule} from '@angular/material/dialog';
+
 
 
 @NgModule({
@@ -44,7 +46,8 @@ import { MatButtonModule, MatToolbarModule, MatProgressSpinnerModule } from '@an
         MatDividerModule,
         MatToolbarModule,
         MatProgressSpinnerModule,
-        MatDatepickerModule],
+        MatDatepickerModule,
+        MatDialogModule],
 
     exports: [MatAutocompleteModule,
         MatFormFieldModule,
@@ -66,7 +69,8 @@ import { MatButtonModule, MatToolbarModule, MatProgressSpinnerModule } from '@an
         MatDividerModule,
         MatToolbarModule,
         MatProgressSpinnerModule,
-        MatDatepickerModule]
+        MatDatepickerModule,
+        MatDialogModule]
 })
 
 

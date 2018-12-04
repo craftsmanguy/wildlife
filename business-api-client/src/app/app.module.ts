@@ -15,7 +15,7 @@ import { AuthGuard } from './interceptors/auth.guard';
 
 import { CampaignService } from './services/campaign.service';
 import { ConnectionService } from './services/connection.service';
-import { AlertService } from './alert/alert.service';
+import { AlertService } from './commons/alert/alert.service';
 import { UserService } from './services/user.service';
 import { PetService } from './services/pet.service';
 import { AdminService } from './services/admin.service';
@@ -24,7 +24,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { NgxPopperModule } from 'ngx-popper';
 
-import { MaterialModule } from './imports/app.material.module';
+import { MaterialModule } from './app.material.module';
 
 import 'hammerjs';
 
@@ -36,25 +36,26 @@ import { ViewCampaignComponent } from './campaign/view-campaign/view-campaign.co
 import { UpdateCampaignComponent } from './campaign/update-campaign/update-campaign.component';
 import { ListCampaignComponent } from './campaign/list-campaign/list-campaign.component';
 
-import { PetComponent } from './pet/pet.component';
 import { AddPetComponent } from './pet/add-pet/add-pet.component';
 import { ViewPetComponent } from './pet/view-pet/view-pet.component';
 import { ListPetComponent } from './pet/list-pet/list-pet.component';
 import { UpdatePetComponent } from './pet/update-pet/update-pet.component';
 
 
-import { FrameComponent } from './frame/frame.component';
 import { HomeComponent } from './home/home.component';
-import { PageComponent } from './page/page.component';
+import { DashboardComponent } from './pages/dashboard/dashboard.component';
 
-import { NavComponent } from './nav/nav.component';
+import { NavComponent } from './commons/nav/nav.component';
 import { ConnectionComponent } from './connection/connection.component';
-import { AlertComponent } from './alert/alert.component';
+import { AlertComponent } from './commons/alert/alert.component';
 
-import { RegisterComponent } from './register/register.component';
+import { RegisterComponent } from './specifics/register/register.component';
 import { ProfilComponent } from './profil/profil.component';
 
 import { NotFoundComponent } from './notfound/notfound.component';
+import { DeleteComponent } from './commons/delete/delete.component';
+import { DialogComponent } from './commons/dialog/dialog.component';
+import { InscriptionComponent } from './pages/inscription/inscription.component';
 
 
 @NgModule({
@@ -73,15 +74,16 @@ import { NotFoundComponent } from './notfound/notfound.component';
     ViewCampaignComponent,
     UpdateCampaignComponent,
 
-    PetComponent,
     ListPetComponent,
     ViewPetComponent,
     AddPetComponent,
     UpdatePetComponent,
 
-    FrameComponent,
     HomeComponent,
-    PageComponent
+    DashboardComponent,
+    DeleteComponent,
+    DialogComponent,
+    InscriptionComponent
 
   ],
   imports: [
@@ -108,6 +110,7 @@ import { NotFoundComponent } from './notfound/notfound.component';
 
 
   ],
+  entryComponents: [DialogComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule {

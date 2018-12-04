@@ -2,11 +2,13 @@ import { Injectable } from '@angular/core';
 import { HttpRequest, HttpResponse, HttpErrorResponse, HttpHandler, HttpEvent, HttpInterceptor } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { AlertService } from '../alert/alert.service';
+import { AlertService } from '../commons/alert/alert.service';
 
 import 'rxjs/add/operator/do';
 
-@Injectable()
+@Injectable({
+    providedIn: 'root',
+})
 export class ErrorResponseInterceptor implements HttpInterceptor {
     constructor(
         private alertService: AlertService,
@@ -16,7 +18,7 @@ export class ErrorResponseInterceptor implements HttpInterceptor {
         return next.handle(request).do((event: HttpEvent<any>) => {
         }, (err: any) => {
             if (err instanceof HttpErrorResponse) {
-                if (err.status == 400 || err.status == 403 || err.status == 409) {
+                if (err.status === 400 || err.status === 403 || err.status === 409) {
                     this.alertService.error(err.error);
                 }
             }

@@ -28,8 +28,8 @@
       <div *ngFor="let pet of profil.pets">
         <a>
           <i (click)="viewPetById(pet.functionalIdentifier)" class="far fa-meh-rolling-eyes"> </i>
-          <i class="fas fa-edit"> </i>
-          <i class="fas fa-trash-alt"> </i>
+          <i (click)="updatePetById(pet.functionalIdentifier)" class="fas fa-edit"> </i>
+          <app-delete [id]="pet.functionalIdentifier" [uri]="'pets'" (deleteSucceeds)="onDeleteSucceeds($event)"></app-delete>
           <i class="waves-effect waves-light">{{pet.name}}</i>
         </a>
       </div>
@@ -43,7 +43,10 @@
         </mat-panel-title>
       </mat-expansion-panel-header>
       <div *ngFor="let campaign of profil.adverts">
-        <a [routerLink]="['/campaigns', campaign.functionalIdentifier]"> {{campaign.title}}</a>
+        <a>
+          <app-delete [id]="campaign.functionalIdentifier" [uri]="'campaigns'" (deleteSucceeds)="onDeleteSucceeds($event)"></app-delete>
+          <i class="waves-effect waves-light"> {{campaign.title}}</i>
+        </a>
       </div>
     </mat-expansion-panel>
   </mat-accordion>

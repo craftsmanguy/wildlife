@@ -54,7 +54,7 @@ router.delete('/v1/pets/:id', (req, res, next) => {
     responseType: 'json',
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': req.headers.authorization,
+      'Authorization': req.cookies['access_token'],
     }
   })
     .then(function (response) {
