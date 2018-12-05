@@ -3,16 +3,17 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { ListCampaignComponent } from './campaign/list-campaign/list-campaign.component';
-import { ConnectionComponent } from './connection/connection.component';
-import { RegisterComponent } from './register/register.component';
-import { ProfilComponent } from './profil/profil.component';
+import { CampaignComponent } from './campaign/campaign.component';
+
 
 import { AuthGuard } from './interceptors/auth.guard';
-import { HomeComponent } from './home/home.component';
 
-import { CampaignComponent } from './campaign/campaign.component';
+import { HomeComponent } from './pages/home/home.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { InscriptionComponent } from './pages/inscription/inscription.component';
+import { ConnectionComponent } from './pages/connection/connection.component';
+import { VisibilityComponent } from './pages/visibility/visibility.component';
+
 
 
 const routes: Routes = [
@@ -48,8 +49,8 @@ const routes: Routes = [
   {
     path: 'campaigns',
     children: [
-      { path: '', component: CampaignComponent },
-      { path: ':id', component: CampaignComponent },
+      { path: '', component: VisibilityComponent },
+      { path: ':id', component: VisibilityComponent },
 
     ]
   },

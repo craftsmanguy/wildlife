@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
-import { AuthenticationModel } from '../connection/model';
+import { AuthenticationModel } from '../specifics/login/model';
 
 import { map } from 'rxjs/operators';
 

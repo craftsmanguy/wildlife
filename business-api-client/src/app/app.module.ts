@@ -41,12 +41,8 @@ import { ViewPetComponent } from './pet/view-pet/view-pet.component';
 import { ListPetComponent } from './pet/list-pet/list-pet.component';
 import { UpdatePetComponent } from './pet/update-pet/update-pet.component';
 
-
-import { HomeComponent } from './home/home.component';
-import { DashboardComponent } from './pages/dashboard/dashboard.component';
-
 import { NavComponent } from './commons/nav/nav.component';
-import { ConnectionComponent } from './connection/connection.component';
+import { LoginComponent } from './specifics/login/login.component';
 import { AlertComponent } from './commons/alert/alert.component';
 
 import { RegisterComponent } from './specifics/register/register.component';
@@ -55,15 +51,21 @@ import { ProfilComponent } from './profil/profil.component';
 import { NotFoundComponent } from './notfound/notfound.component';
 import { DeleteComponent } from './commons/delete/delete.component';
 import { DialogComponent } from './commons/dialog/dialog.component';
-import { InscriptionComponent } from './pages/inscription/inscription.component';
+import { SearchComponent } from './commons/search/search.component';
+import { FilterComponent } from './commons/filter/filter.component';
 
+import { HomeComponent } from './pages/home/home.component';
+import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { InscriptionComponent } from './pages/inscription/inscription.component';
+import { ConnectionComponent } from './pages/connection/connection.component';
+import { VisibilityComponent } from './pages/visibility/visibility.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NotFoundComponent,
     NavComponent,
-    ConnectionComponent,
+    LoginComponent,
     AlertComponent,
     RegisterComponent,
     ProfilComponent,
@@ -83,7 +85,11 @@ import { InscriptionComponent } from './pages/inscription/inscription.component'
     DashboardComponent,
     DeleteComponent,
     DialogComponent,
-    InscriptionComponent
+    InscriptionComponent,
+    SearchComponent,
+    FilterComponent,
+    ConnectionComponent,
+    VisibilityComponent
 
   ],
   imports: [

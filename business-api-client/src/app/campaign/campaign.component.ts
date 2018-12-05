@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 import { CampaignService } from '../services/campaign.service';
 
 import { CustomValidator } from '../utils/validators';
-import { OptionCampain, OPTIONSCAMPAIGN, Campaign, Format } from './model';
+import { Campaign, Format } from './model';
 
 @Component({
   selector: 'app-campaign',

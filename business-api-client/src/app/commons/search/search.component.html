@@ -1,0 +1,22 @@
+<mat-card class="text-center">
+  <i class="fas fa-paw"></i> Add pet</mat-card>
+
+<mat-card>
+  <mat-card-content>
+
+    <mat-radio-group (ngModelChange)="selectedOption($event)" class="example-radio-group" [(ngModel)]="favoriteSeason">
+      <mat-radio-button class="example-radio-button" *ngFor="let option of optionsCampaign" [value]="option.label">
+        {{option.label}}
+      </mat-radio-button>
+    </mat-radio-group>
+
+    <mat-select *ngIf="filteredFormats" placeholder="Advert type" formControlName="formats" class="form-control" multiple autofocus>
+      <mat-option *ngFor="let format of filteredFormats" [value]="format">
+        {{format.feature}}
+      </mat-option>
+    </mat-select>
+
+    <button mat-raised-button color="primary" class="btn-lg btn-block">Search</button>
+
+  </mat-card-content>
+</mat-card>

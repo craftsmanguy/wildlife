@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { ConnectionService } from '../services/connection.service';
+import { ConnectionService } from '../../services/connection.service';
 
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
@@ -11,11 +11,11 @@ import { ActivatedRoute, ParamMap } from '@angular/router';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-connection',
-  templateUrl: './connection.component.html',
-  styleUrls: ['./connection.component.css']
+  selector: 'app-login',
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.css']
 })
-export class ConnectionComponent implements OnInit {
+export class LoginComponent implements OnInit {
 
   loginForm: FormGroup;
   model: AuthenticationModel;

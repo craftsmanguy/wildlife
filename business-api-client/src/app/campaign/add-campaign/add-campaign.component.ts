@@ -7,13 +7,14 @@ import { switchMap, first } from 'rxjs/operators';
 import { CampaignService } from '../../services/campaign.service';
 
 import { CustomValidator } from '../../utils/validators';
-import { OptionCampain, OPTIONSCAMPAIGN, Campaign, Format, AbstractCampaign } from '../model';
+import { Campaign, Format, AbstractCampaign } from '../model';
+
+import { OPTIONSCAMPAIGN } from '../../shared/model';
 
 @Component({
   selector: 'app-add-campaign',
   templateUrl: './add-campaign.component.html',
-  styleUrls: ['./add-campaign.component.css'],
-  providers: [CampaignService]
+  styleUrls: ['./add-campaign.component.css']
 })
 export class AddCampaignComponent implements OnInit {
 

@@ -2,14 +2,14 @@ import { Component, OnInit } from '@angular/core';
 
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import { UserService } from '../services/user.service';
+import { UserService } from '../../services/user.service';
 import { Register } from './model';
 
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { Router } from '@angular/router';
 import { first } from 'rxjs/operators';
 
-import { CustomValidator } from '../utils/validators';
+import { CustomValidator } from '../../utils/validators';
 
 
 @Component({
