@@ -7,9 +7,7 @@ import { switchMap, first } from 'rxjs/operators';
 import { CampaignService } from '../../services/campaign.service';
 
 import { CustomValidator } from '../../utils/validators';
-import { Campaign, Format, AbstractCampaign } from '../model';
-
-import { OPTIONSCAMPAIGN } from '../../shared/model';
+import { Campaign, Format, AbstractCampaign, OPTIONSCAMPAIGN } from '../model';
 
 @Component({
   selector: 'app-add-campaign',
@@ -89,12 +87,12 @@ export class AddCampaignComponent implements OnInit {
   };
 
 
-private mappingFormToAbstractCampaign(data: any) {
-const minimalCampaign = new AbstractCampaign;
-minimalCampaign.functionalIdentifier = data.functionalIdentifier;
-minimalCampaign.title = data.title;
-return minimalCampaign;
-};
+  private mappingFormToAbstractCampaign(data: any) {
+    const minimalCampaign = new AbstractCampaign;
+    minimalCampaign.functionalIdentifier = data.functionalIdentifier;
+    minimalCampaign.title = data.title;
+    return minimalCampaign;
+  };
 
 
 }

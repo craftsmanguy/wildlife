@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { CampaignService } from '../../services/campaign.service';
 
-import { OPTIONSCAMPAIGN } from '../../shared/model';
+import { OPTIONSCAMPAIGN } from '../model';
 
 import { Format } from '../../campaign/model';
 

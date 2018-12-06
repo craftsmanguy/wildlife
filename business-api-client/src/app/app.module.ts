@@ -52,6 +52,7 @@ import { NotFoundComponent } from './notfound/notfound.component';
 import { DeleteComponent } from './commons/delete/delete.component';
 import { DialogComponent } from './commons/dialog/dialog.component';
 import { SearchComponent } from './commons/search/search.component';
+import { QuickSearchComponent } from './commons/quick-search/quick-search.component';
 import { FilterComponent } from './commons/filter/filter.component';
 
 import { HomeComponent } from './pages/home/home.component';
@@ -87,6 +88,7 @@ import { VisibilityComponent } from './pages/visibility/visibility.component';
     DialogComponent,
     InscriptionComponent,
     SearchComponent,
+    QuickSearchComponent,
     FilterComponent,
     ConnectionComponent,
     VisibilityComponent
