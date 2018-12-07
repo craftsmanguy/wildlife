@@ -23,7 +23,8 @@ export class ViewCampaignComponent {
 
   redirectForCampaignDetail(id) {
     const urlCampaignById: string = this.router.url + '/';
-    this.router.navigate([urlCampaignById, id]);
+    this.router.navigate(['/campaigns', id]);
   };
+
 
 }

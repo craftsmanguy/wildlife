@@ -18,7 +18,7 @@ export class CampaignService {
   };
 
   search() {
-    return this.http.get(this.campaignUrl);
+    return this.http.get<Campaign[]>(this.campaignUrl);
   };
 
   save(campaign: Campaign) {

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 
 import { CampaignService } from '../../services/campaign.service';
 
@@ -7,6 +7,7 @@ import { Format } from '../../campaign/model';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CustomValidator } from '../../utils/validators';
 
+import { OptionSearch } from '../model';
 
 
 @Component({
@@ -15,6 +16,9 @@ import { CustomValidator } from '../../utils/validators';
   styleUrls: ['./quick-search.component.css']
 })
 export class QuickSearchComponent implements OnInit {
+
+  @Output()
+  parametersSearch: EventEmitter<OptionSearch> = new EventEmitter();
 
   quickSearchForm: FormGroup;
   submitted = false;
@@ -34,7 +38,7 @@ export class QuickSearchComponent implements OnInit {
   createForm() {
     this.quickSearchForm = this.formBuilder.group({
       formats: ['', [Validators.required]],
-      date: ['', []],
+      startDate: ['', []],
       postalCode: [, [Validators.required, Validators.pattern(CustomValidator.postalCodeValidator)]],
     });
   };
@@ -52,6 +56,7 @@ export class QuickSearchComponent implements OnInit {
     if (this.quickSearchForm.invalid) {
       return;
     }
+    this.parametersSearch.emit(this.quickSearchForm.value);
   };
 
 }

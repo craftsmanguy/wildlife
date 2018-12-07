@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
+import { OptionSearch } from '../../commons/model';
+
+
 @Component({
   selector: 'app-visibility',
   templateUrl: './visibility.component.html',
@@ -7,9 +10,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class VisibilityComponent implements OnInit {
 
+  parametersSearch: OptionSearch;
+
   constructor() { }
 
   ngOnInit() {
-  }
+  };
+
+  onParametersSearch(search: OptionSearch) {
+    this.parametersSearch = search;
+  };
 
 }
