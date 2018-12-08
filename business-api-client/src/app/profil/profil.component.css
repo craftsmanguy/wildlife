@@ -1,15 +1,15 @@
-.mat-card {
-    padding: 3px !important;
+.mat-raised-button:not([class*=mat-elevation-z]) {
+    box-shadow: none !important;
+}
+
+.mat-raised-button[_ngcontent-c6]:not([class*=mat-elevation-z]) {
+    padding: 0px !important;
 }
 
 .mat-expansion-panel-header {
-    padding: 0 7px;
+    padding: 0 6px !important;
 }
 
-.mat-expansion-panel-spacing {
-    margin: 1px 0;
-}
-
-.mat-panel-title {
-    z-index: 1;
+.mat-expansion-panel:not([class*=mat-elevation-z]) {
+    box-shadow: none !important;
 }

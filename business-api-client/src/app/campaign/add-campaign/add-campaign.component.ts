@@ -1,13 +1,15 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { ActivatedRoute, ParamMap, Router } from '@angular/router';
+import { ParamMap } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { switchMap, first } from 'rxjs/operators';
 
-import { CampaignService } from '../../services/campaign.service';
 
 import { CustomValidator } from '../../utils/validators';
-import { Campaign, Format, AbstractCampaign, OPTIONSCAMPAIGN } from '../model';
+import { Campaign, Format, OPTIONSCAMPAIGN } from '../model';
+
+import { CampaignService } from '../../services/campaign.service';
+
 
 @Component({
   selector: 'app-add-campaign',
@@ -17,7 +19,7 @@ import { Campaign, Format, AbstractCampaign, OPTIONSCAMPAIGN } from '../model';
 export class AddCampaignComponent implements OnInit {
 
   @Output()
-  actionAddSucceed: EventEmitter<AbstractCampaign> = new EventEmitter();
+  add: EventEmitter<Campaign> = new EventEmitter();
 
   private avalaibleFormats: Format[];
   optionsCampaign = OPTIONSCAMPAIGN;
@@ -30,8 +32,6 @@ export class AddCampaignComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private router: Router,
-    private route: ActivatedRoute,
     private campaignService: CampaignService,
   ) { }
 
@@ -69,13 +69,7 @@ export class AddCampaignComponent implements OnInit {
       return;
     }
     this.mappingFormToCampaign();
-    this.campaignService.save(this.campaign)
-      .pipe(first())
-      .subscribe(
-      data => {
-        this.actionAddSucceed.emit(this.mappingFormToAbstractCampaign(data));
-        return data;
-      });
+    this.add.emit(this.campaign);
   };
 
   private mappingFormToCampaign() {
@@ -84,14 +78,6 @@ export class AddCampaignComponent implements OnInit {
     this.campaign.startDate = this.campaignForm.value.startDate;
     this.campaign.endDate = this.campaignForm.value.endDate;
     this.campaign.formats = this.campaignForm.value.formats;
-  };
-
-
-  private mappingFormToAbstractCampaign(data: any) {
-    const minimalCampaign = new AbstractCampaign;
-    minimalCampaign.functionalIdentifier = data.functionalIdentifier;
-    minimalCampaign.title = data.title;
-    return minimalCampaign;
   };
 
 

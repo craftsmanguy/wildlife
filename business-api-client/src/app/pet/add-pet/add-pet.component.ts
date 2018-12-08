@@ -19,7 +19,7 @@ import { Observable } from 'rxjs';
 export class AddPetComponent implements OnInit {
 
   @Output()
-  actionAddSucceed: EventEmitter<AbstractPet> = new EventEmitter();
+  add: EventEmitter<Pet> = new EventEmitter();
 
   filteredRaces: Observable<Race[]>;
 
@@ -60,30 +60,12 @@ export class AddPetComponent implements OnInit {
     return this.petForm.controls;
   };
 
-  get(id: string) {
-    this.petService.getPetById(id).subscribe(pet => this.pet = pet);
-  };
-
   onSubmit() {
     this.submitted = true;
     if (this.petForm.invalid) {
       return;
     }
-    this.petService.save(this.petForm.value)
-      .pipe(first())
-      .subscribe(
-      data => {
-        this.actionAddSucceed.emit(this.mappingFormToAbstractPet(data));
-        return data;
-      });
+    this.add.emit(this.petForm.value)
   };
-
-  private mappingFormToAbstractPet(data: any) {
-    const corePet = new AbstractPet;
-    corePet.functionalIdentifier = data.functionalIdentifier;
-    corePet.name = data.name;
-    return corePet;
-  };
-
 
 }

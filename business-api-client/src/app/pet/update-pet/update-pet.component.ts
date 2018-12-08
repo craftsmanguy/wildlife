@@ -19,10 +19,10 @@ import { first } from 'rxjs/operators';
 export class UpdatePetComponent implements OnChanges {
 
   @Input()
-  id: string;
+  pet: Pet;
 
   @Output()
-  actionUpdateSucceed: EventEmitter<AbstractPet> = new EventEmitter();
+  update: EventEmitter<Pet> = new EventEmitter();
 
   filteredRaces: Observable<Race[]>;
 
@@ -30,22 +30,13 @@ export class UpdatePetComponent implements OnChanges {
   petForm: FormGroup;
   submitted = false;
 
-  pet: Pet;
-
   constructor(
     private formBuilder: FormBuilder,
     private petService: PetService,
   ) { }
 
   ngOnChanges() {
-    this.get(this.id);
-  }
-
-  get(id: string) {
-    this.petService.getPetById(id).subscribe(pet => {
-      this.pet = pet;
-      this.createForm();
-    });
+    this.createForm();
   };
 
   createForm() {
@@ -86,28 +77,12 @@ export class UpdatePetComponent implements OnChanges {
     return this.petForm.controls;
   };
 
-
   onSubmit() {
     this.submitted = true;
     if (this.petForm.invalid) {
       return;
     }
-    this.petService.save(this.petForm.value)
-      .pipe(first())
-      .subscribe(
-      data => {
-        this.actionUpdateSucceed.emit(this.mappingFormToAbstractPet(data));
-        return data;
-      });
+    this.update.emit(this.petForm.value);
   };
-
-  private mappingFormToAbstractPet(data: any) {
-    const corePet = new AbstractPet;
-    corePet.functionalIdentifier = data.functionalIdentifier;
-    corePet.name = data.name;
-    return corePet;
-  };
-
-
 
 }

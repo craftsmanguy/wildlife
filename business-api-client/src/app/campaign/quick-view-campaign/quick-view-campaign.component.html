@@ -1,0 +1,28 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>&nbsp;<span [innerHTML]="campaign.title"></span></mat-card-title>
+    <mat-card-subtitle>
+      <i class="fas fa-bullhorn"></i>&nbsp;{{campaign.formats[0].name}}: {{campaign.formats[0].feature}}</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+    <p>
+      <i class="fas fa-paw"></i>&nbsp;{{campaign.pet?.length}}</p>
+    <p>
+      <i class="far fa-clock"></i>&nbsp;{{campaign.startDate | date: 'short'}}</p>
+    <p>
+      <i class="fas fa-clock"></i>&nbsp;{{campaign.endDate | date: 'short'}}</p>
+    <p>
+      <i class="fas fa-user-astronaut"></i>&nbsp;<span [innerHTML]="campaign.user"></span></p>
+    <p>
+      <span class="hidden-text">
+        <i class="fab fa-adn"></i>&nbsp;<span [innerHTML]="campaign.description"></span></span>
+    </p>
+
+    <a (click)="redirectForCampaignDetail(campaign.functionalIdentifier)" class="d-flex flex-row-reverse">
+      <i class="waves-effect waves-light p-2">
+        Read more
+        <i class="fas fa-chevron-circle-right"></i>
+      </i>
+    </a>
+  </mat-card-content>
+</mat-card>

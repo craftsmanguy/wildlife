@@ -1,6 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { UserForPetAction, PetMinimal } from '../../profil/model';
+import { User, UserAction, PetMinimal } from '../../profil/model';
+import { UserService } from '../../services/user.service';
+import { PetService } from '../../services/pet.service';
+import { CampaignService } from '../../services/campaign.service';
 
+import { first } from 'rxjs/operators';
+
+import { Pet } from '../../pet/model';
+import { Campaign } from '../../campaign/model';
 
 @Component({
   selector: 'app-dashboard',
@@ -9,40 +16,67 @@ import { UserForPetAction, PetMinimal } from '../../profil/model';
 })
 export class DashboardComponent implements OnInit {
 
-  actionPet: UserForPetAction;
-  addPetSucceed: PetMinimal;
-  updatePetSucceed: PetMinimal;
+  profil: User;
+  actionPet: UserAction;
+  pet: Pet;
+  campaign: Campaign;
 
-  actionCampaign: string;
-  addCampaignSucceed: any;
-
-  constructor() { }
+  constructor(
+    private userService: UserService,
+    private petService: PetService,
+    private campaignService: CampaignService,
+  ) { }
 
   ngOnInit() {
+    this.getCurrent();
   };
 
-  onAddPetAction(action: UserForPetAction) {
+  getCurrent() {
+    this.userService.getCurrent().subscribe(profil => { this.profil = profil });
+  };
+
+  onPetAction(action: UserAction) {
     this.actionPet = action;
+    if (action.action === 'VIEW_PET' || action.action === 'UPDATE_PET') {
+      this.getPetById(action.id);
+    }
+    if (action.action === 'VIEW_CAMPAIGN' || action.action === 'UPDATE_CAMPAIGN') {
+      this.getCampaignById(action.id);
+    }
   };
 
-  onViewPetByIdAction(action: UserForPetAction) {
-    this.actionPet = action;
+  getPetById(id: string) {
+    this.petService.getById(id).subscribe(pet => this.pet = pet);
   };
 
-  onUpdatePetByIdAction(action: UserForPetAction) {
-    this.actionPet = action;
-  }
-
-  onAddPetActionSucceed(result: PetMinimal) {
-    this.addPetSucceed = result;
+  getCampaignById(id: string) {
+    this.campaignService.getById(id).subscribe(campaign => this.campaign = campaign);
   };
 
-  onAddCampaignAction(action: string) {
-    this.actionCampaign = action;
+  onPetToAdd(result: Pet) {
+    this.petService.save(result)
+      .pipe(first())
+      .subscribe(
+      data => {
+        this.profil.pets.push({
+          functionalIdentifier: data.functionalIdentifier,
+          name: data.name
+        });
+        this.actionPet = undefined;
+      });
   };
 
-  onAddCampaignActionSucceed(result: any) {
-    this.addCampaignSucceed = result;
+  onCampaignToAdd(result: Campaign) {
+    this.campaignService.save(result)
+      .pipe(first())
+      .subscribe(
+      data => {
+        this.profil.adverts.push({
+          functionalIdentifier: data.functionalIdentifier,
+          title: data.title
+        });
+        this.actionPet = undefined;
+      });
   };
 
 }

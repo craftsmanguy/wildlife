@@ -2,10 +2,6 @@ import { NotFoundComponent } from './notfound/notfound.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { ListCampaignComponent } from './campaign/list-campaign/list-campaign.component';
-import { CampaignComponent } from './campaign/campaign.component';
-
-
 import { AuthGuard } from './interceptors/auth.guard';
 
 import { HomeComponent } from './pages/home/home.component';

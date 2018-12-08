@@ -30,11 +30,11 @@ import 'hammerjs';
 
 import { AppComponent } from './app.component';
 
-import { CampaignComponent } from './campaign/campaign.component';
 import { AddCampaignComponent } from './campaign/add-campaign/add-campaign.component';
 import { ViewCampaignComponent } from './campaign/view-campaign/view-campaign.component';
 import { UpdateCampaignComponent } from './campaign/update-campaign/update-campaign.component';
 import { ListCampaignComponent } from './campaign/list-campaign/list-campaign.component';
+import { QuickViewCampaignComponent } from './campaign/quick-view-campaign/quick-view-campaign.component';
 
 import { AddPetComponent } from './pet/add-pet/add-pet.component';
 import { ViewPetComponent } from './pet/view-pet/view-pet.component';
@@ -72,9 +72,9 @@ import { VisibilityComponent } from './pages/visibility/visibility.component';
     ProfilComponent,
 
     ListCampaignComponent,
-    CampaignComponent,
     AddCampaignComponent,
     ViewCampaignComponent,
+    QuickViewCampaignComponent,
     UpdateCampaignComponent,
 
     ListPetComponent,

@@ -1,20 +1,16 @@
-<div *ngIf="profil">
-  <mat-card>
-    <mat-card-header>
-      <mat-card-title>
-        <i class="fas fa-user-circle"></i> {{profil.pseudonym}}</mat-card-title>
-      <mat-card-subtitle>
-        <i class="fas fa-map-marked-alt"></i> {{profil.postalCode}}, {{profil.city}} {{profil.country}}</mat-card-subtitle>
-    </mat-card-header>
-  </mat-card>
-  <mat-card>
-    <button mat-raised-button class="btn-lg btn-block text-left" [disabled]="isButtonPetDisabled" (click)="addPet()">
-      <i class="fas fa-plus-circle"></i> ajouter un compagnon
-    </button>
-    <button mat-raised-button class="btn-lg btn-block text-left" [disabled]="isButtonCampaignDisabled" (click)="addCampaign()">
-      <i class="far fa-plus-square"></i> créer une annonce
-    </button>
-  </mat-card>
+<ng-container *ngIf="profil">
+
+  <p>
+    <i class="fas fa-user-circle"></i> {{profil.pseudonym}}</p>
+  <p>
+    <i class="fas fa-map-marked-alt"></i> {{profil.postalCode}}, {{profil.city}} {{profil.country}}</p>
+
+  <button mat-raised-button class="btn-lg btn-block text-left" (click)="addPet()">
+    <i class="fas fa-plus-circle"></i> ajouter un compagnon
+  </button>
+  <button mat-raised-button class="btn-lg btn-block text-left" (click)="addCampaign()">
+    <i class="far fa-plus-square"></i> créer une annonce
+  </button>
 
   <mat-accordion>
     <mat-expansion-panel>
@@ -44,10 +40,12 @@
       </mat-expansion-panel-header>
       <div *ngFor="let campaign of profil.adverts">
         <a>
+          <i (click)="viewCampaignById(campaign.functionalIdentifier)" class="far fa-meh-rolling-eyes"> </i>
+          <i (click)="updateCampaignById(campaign.functionalIdentifier)" class="fas fa-edit"> </i>
           <app-delete [id]="campaign.functionalIdentifier" [uri]="'campaigns'" (deleteSucceeds)="onDeleteSucceeds($event)"></app-delete>
           <i class="waves-effect waves-light"> {{campaign.title}}</i>
         </a>
       </div>
     </mat-expansion-panel>
   </mat-accordion>
-</div>
+</ng-container>

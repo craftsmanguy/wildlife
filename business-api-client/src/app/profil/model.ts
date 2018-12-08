@@ -1,13 +1,11 @@
 
-import { AbstractCampaign } from '../campaign/model';
-
 export class User {
     pseudonym: string;
     postalCode: string;
     city: string;
     country: string;
     pets: PetMinimal[];
-    adverts: AbstractCampaign[];
+    adverts: CampaignMinimal[];
 };
 
 export class PetMinimal {
@@ -15,7 +13,12 @@ export class PetMinimal {
     name: string;
 };
 
-export class UserForPetAction {
+export class CampaignMinimal {
+    functionalIdentifier: string;
+    title: string;
+};
+
+export class UserAction {
     action: string;
     id: string;
 }

@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CampaignComponent } from './campaign.component';
+import { QuickViewCampaignComponent } from './quick-view-campaign.component';
 
-describe('CampaignComponent', () => {
-  let component: CampaignComponent;
-  let fixture: ComponentFixture<CampaignComponent>;
+describe('QuickViewCampaignComponent', () => {
+  let component: QuickViewCampaignComponent;
+  let fixture: ComponentFixture<QuickViewCampaignComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CampaignComponent ]
+      declarations: [ QuickViewCampaignComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CampaignComponent);
+    fixture = TestBed.createComponent(QuickViewCampaignComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -27,7 +27,7 @@ export class PetService {
       );
   }
 
-  getPetById(id: string) {
+  getById(id: string) {
     return this.http.get<Pet>(`${this.petUrl}` + id);
   };
 

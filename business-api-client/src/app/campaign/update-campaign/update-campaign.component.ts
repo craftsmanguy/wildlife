@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnChanges, Input, Output, EventEmitter } from '@angular/core';
 
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
@@ -17,10 +17,13 @@ import { Campaign, Format, OPTIONSCAMPAIGN } from '../model';
   styleUrls: ['./update-campaign.component.css'],
   providers: [CampaignService]
 })
-export class UpdateCampaignComponent implements OnInit {
+export class UpdateCampaignComponent implements OnChanges {
 
   @Input()
   campaign: Campaign;
+
+  @Output()
+  update: EventEmitter<Campaign> = new EventEmitter();
 
   private avalaibleFormats: Format[];
   optionsCampaign = OPTIONSCAMPAIGN;
@@ -36,8 +39,10 @@ export class UpdateCampaignComponent implements OnInit {
     private campaignService: CampaignService,
   ) { }
 
-  ngOnInit() {
-    this.filteredFormats = this.campaign.formats;
+  ngOnChanges() {
+    if (this.campaign !== undefined) {
+      this.filteredFormats = this.campaign.formats;
+    }
     this.searchFormat();
     this.createForm();
   };
@@ -70,16 +75,11 @@ export class UpdateCampaignComponent implements OnInit {
     if (this.campaignForm.invalid) {
       return;
     }
-    this.mappingFormToAvert();
-    this.campaignService.update(this.campaign.functionalIdentifier, this.campaign)
-      .pipe(first())
-      .subscribe(
-      data => {
-        this.router.navigate(['/login']);
-      });
+    this.mappingFormToCampaign();
+    this.update.emit(this.campaign);
   };
 
-  private mappingFormToAvert() {
+  private mappingFormToCampaign() {
     this.campaign.title = this.campaignForm.value.title;
     this.campaign.description = this.campaignForm.value.description;
     this.campaign.startDate = this.campaignForm.value.startDate;
