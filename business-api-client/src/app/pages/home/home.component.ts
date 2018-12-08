@@ -2,6 +2,10 @@ import { Component, OnInit } from '@angular/core';
 
 import { OptionSearch } from '../../commons/model';
 
+import { CampaignService } from '../../services/campaign.service';
+
+import { Campaign } from '../../campaign/model';
+
 
 @Component({
   selector: 'app-home',
@@ -10,15 +14,23 @@ import { OptionSearch } from '../../commons/model';
 })
 export class HomeComponent implements OnInit {
 
+  campaigns: Campaign[];
   parametersSearch: OptionSearch;
 
-  constructor() { }
+  constructor(
+    private campaignService: CampaignService,
+  ) { }
 
   ngOnInit() {
+    this.getCampaigns();
   };
 
   onParametersSearch(search: OptionSearch) {
     this.parametersSearch = search;
+  };
+
+  getCampaigns() {
+    this.campaignService.search().subscribe(data => this.campaigns = data);
   };
 
 }

@@ -10,6 +10,6 @@ export class ConnectionComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-  }
+  };
 
 }

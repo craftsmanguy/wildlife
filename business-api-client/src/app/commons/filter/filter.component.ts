@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+
+import { Topic } from '../model';
 
 @Component({
   selector: 'app-filter',
@@ -9,6 +11,9 @@ export class FilterComponent implements OnInit {
 
   checked = false;
   indeterminate = false;
+
+  @Input()
+  listingFormat: Topic;
 
   constructor() { }
 

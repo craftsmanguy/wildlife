@@ -1,5 +1,4 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { CampaignService } from '../../services/campaign.service';
 
 import { Campaign } from '../model';
 
@@ -9,23 +8,11 @@ import { Campaign } from '../model';
   templateUrl: './list-campaign.component.html',
   styleUrls: ['./list-campaign.component.css']
 })
-export class ListCampaignComponent implements OnInit {
+export class ListCampaignComponent {
 
   @Input()
-  optionsSearch: any;
-
   campaigns: Campaign[];
 
-  constructor(
-    private campaignService: CampaignService,
-  ) { }
-
-  ngOnInit(): void {
-    this.getCampaigns();
-  };
-
-  getCampaigns(): void {
-    this.campaignService.search().subscribe(data => this.campaigns = data);
-  };
+  constructor() { }
 
 }

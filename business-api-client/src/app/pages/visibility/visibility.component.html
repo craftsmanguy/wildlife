@@ -1,24 +1,22 @@
-<mat-card class="example-card">
+<mat-card>
   <mat-card-header>
     <mat-card-title>Adverts</mat-card-title>
   </mat-card-header>
   <mat-card-content>
     <div class="row">
       <div class="col-sm-12 col-md-3 col-lg-3 col-xl-3">
-        <app-filter></app-filter>
+        <p>{{topics}}</p>
+        <app-filter *ngIf="topics" [listingFormat]="topics"></app-filter>
       </div>
       <div class="col-sm-12 col-md-9 col-lg-9 col-xl-9">
         <app-search (parametersSearch)="onParametersSearch($event)"></app-search>
       </div>
 
-
       <div class="col-sm-12 col-md-3 col-lg-3 col-xl-3">
       </div>
       <div class="col-sm-12 col-md-9 col-lg-9 col-xl-9">
-          <app-list-campaign [optionsSearch]="parametersSearch"></app-list-campaign>
+        <app-list-campaign *ngIf="campaigns" [campaigns]="campaigns"></app-list-campaign>
       </div>
     </div>
   </mat-card-content>
 </mat-card>
-
-{{parametersSearch?.inputFormat}}

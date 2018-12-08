@@ -1,5 +1,8 @@
 <mat-card class="text-center">
-  <i class="fas fa-sign-out-alt"></i>&nbsp;Log In</mat-card>
+  <mat-card-header>
+    <i class="fas fa-sign-out-alt"></i>&nbsp;Log In
+  </mat-card-header>
+</mat-card>
 <mat-card>
   <mat-card-content>
     <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">

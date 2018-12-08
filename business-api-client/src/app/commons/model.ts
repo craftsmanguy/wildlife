@@ -15,4 +15,16 @@ export class OptionSearch {
     endDate: Date;
     postalCode: string;
     city: string;
-}
+};
+
+export class Parameter {
+    code: string;
+    libelle: string;
+    value: boolean
+};
+
+export class Topic {
+    name: string;
+    values: Parameter[];
+};
+
