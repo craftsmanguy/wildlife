@@ -3,11 +3,11 @@
 }
 
 .mat-raised-button[_ngcontent-c6]:not([class*=mat-elevation-z]) {
-    padding: 0px !important;
+    padding-left: 8px !important;
 }
 
 .mat-expansion-panel-header {
-    padding: 0 6px !important;
+    padding: 0 10px !important;
 }
 
 .mat-expansion-panel:not([class*=mat-elevation-z]) {

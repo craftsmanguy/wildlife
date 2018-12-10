@@ -18,7 +18,7 @@
         <i class="fab fa-adn"></i>&nbsp;<span [innerHTML]="campaign.description"></span></span>
     </p>
 
-    <a (click)="redirectForCampaignDetail(campaign.functionalIdentifier)" class="d-flex flex-row-reverse">
+    <a mat-button (click)="moreInformation(campaign.functionalIdentifier)" class="d-flex flex-row-reverse">
       <i class="waves-effect waves-light p-2">
         Read more
         <i class="fas fa-chevron-circle-right"></i>

@@ -1,9 +1,8 @@
-import { Component, Input } from '@angular/core';
-
-import { ActivatedRoute, ParamMap } from '@angular/router';
-import { Router } from '@angular/router';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 import { Campaign } from '../model';
+import { UserAction } from '../../profil/model';
+
 
 @Component({
   selector: 'app-quick-view-campaign',
@@ -15,16 +14,12 @@ export class QuickViewCampaignComponent {
   @Input()
   campaign: Campaign;
 
-  constructor(
-    private router: Router,
-    private route: ActivatedRoute,
-  ) { }
+  @Output()
+  userAction: EventEmitter<UserAction> = new EventEmitter();
 
+  constructor() { }
 
-  redirectForCampaignDetail(id) {
-    const urlCampaignById: string = this.router.url + '/';
-    this.router.navigate(['/campaigns', id]);
+  moreInformation(id: string) {
+    this.userAction.emit({ action: 'VIEW_DETAIL_CAMPAIGN', id: id });
   };
-
-
 }

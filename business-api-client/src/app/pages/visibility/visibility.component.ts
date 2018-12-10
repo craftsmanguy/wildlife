@@ -10,6 +10,10 @@ import { Topic, Parameter } from '../../commons/model';
 import { map } from 'rxjs/operators';
 
 
+import { ActivatedRoute, ParamMap } from '@angular/router';
+import { Router } from '@angular/router';
+
+
 @Component({
   selector: 'app-visibility',
   templateUrl: './visibility.component.html',
@@ -22,10 +26,15 @@ export class VisibilityComponent implements OnInit {
   topics: Topic[];
 
   constructor(
+    private router: Router,
+    private route: ActivatedRoute,
     private campaignService: CampaignService,
   ) { }
 
   ngOnInit() {
+    this.route.queryParamMap.subscribe(params => {
+      console.log(params)}
+    );
     this.getElementsOfFilter();
 
   };

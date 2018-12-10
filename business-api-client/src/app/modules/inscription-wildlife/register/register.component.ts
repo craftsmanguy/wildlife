@@ -1,15 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Register } from '../model';
+import { CustomValidator } from '../../../utils/validators';
 
-import { UserService } from '../../services/user.service';
-import { Register } from './model';
-
-import { ActivatedRoute, ParamMap } from '@angular/router';
+import { RegisterService } from '../services/register.service';
 import { Router } from '@angular/router';
-import { first } from 'rxjs/operators';
-
-import { CustomValidator } from '../../utils/validators';
 
 
 @Component({
@@ -23,30 +18,17 @@ export class RegisterComponent implements OnInit {
   submitted = false;
   user: Register;
 
-  transformFormToUserRegister(value) {
-    const userToInsert = new Register();
-    userToInsert.pseudonym = value.pseudonym;
-    userToInsert.email = value.email;
-    userToInsert.password = value.security.password;
-    userToInsert.confirmPassword = value.security.confirmPassword;
-    userToInsert.country = value.country;
-    userToInsert.postalCode = value.postalCode;
-    userToInsert.city = value.city;
-    return userToInsert;
-  };
-
   constructor(
     private formBuilder: FormBuilder,
+    private registerService: RegisterService,
     private router: Router,
-    private route: ActivatedRoute,
-    private userService: UserService,
   ) { }
 
-  get formValues() {
-    return this.registerForm.controls;
-  };
-
   ngOnInit() {
+    this.createForm();
+  }
+
+  createForm() {
     this.registerForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
       pseudonym: ['', [Validators.required, Validators.pattern(CustomValidator.loginValidator)]],
@@ -60,22 +42,34 @@ export class RegisterComponent implements OnInit {
       postalCode: ['', [Validators.required, Validators.pattern(CustomValidator.postalCodeValidator)]],
       city: ['', [Validators.required, Validators.pattern(CustomValidator.cityValidator)]]
     });
-  }
+  };
+
+  get formValues() {
+    return this.registerForm.controls;
+  };
 
   onSubmit() {
     this.submitted = true;
-
     if (this.registerForm.invalid) {
       return;
     }
     this.user = this.transformFormToUserRegister(this.registerForm.value);
-    this.userService.register(this.user)
-      .pipe(first())
+    this.registerService.register(this.user)
       .subscribe(
       data => {
         this.router.navigate(['/login']);
       });
   };
 
-
+  private transformFormToUserRegister(value) {
+    const userToInsert = new Register();
+    userToInsert.pseudonym = value.pseudonym;
+    userToInsert.email = value.email;
+    userToInsert.password = value.security.password;
+    userToInsert.confirmPassword = value.security.confirmPassword;
+    userToInsert.country = value.country;
+    userToInsert.postalCode = value.postalCode;
+    userToInsert.city = value.city;
+    return userToInsert;
+  };
 }

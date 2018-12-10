@@ -9,12 +9,12 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 import { AppRoutingModule } from './app-routing.module';
+import { ConnectionService } from './services/connection.service';
 
 
 import { AuthGuard } from './interceptors/auth.guard';
 
 import { CampaignService } from './services/campaign.service';
-import { ConnectionService } from './services/connection.service';
 import { AlertService } from './commons/alert/alert.service';
 import { UserService } from './services/user.service';
 import { PetService } from './services/pet.service';
@@ -45,7 +45,6 @@ import { NavComponent } from './commons/nav/nav.component';
 import { LoginComponent } from './specifics/login/login.component';
 import { AlertComponent } from './commons/alert/alert.component';
 
-import { RegisterComponent } from './specifics/register/register.component';
 import { ProfilComponent } from './profil/profil.component';
 
 import { NotFoundComponent } from './notfound/notfound.component';
@@ -61,6 +60,8 @@ import { InscriptionComponent } from './pages/inscription/inscription.component'
 import { ConnectionComponent } from './pages/connection/connection.component';
 import { VisibilityComponent } from './pages/visibility/visibility.component';
 
+import { InscriptionWildlifeModule } from './modules/inscription-wildlife/inscription-wildlife.module';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -68,7 +69,6 @@ import { VisibilityComponent } from './pages/visibility/visibility.component';
     NavComponent,
     LoginComponent,
     AlertComponent,
-    RegisterComponent,
     ProfilComponent,
 
     ListCampaignComponent,
@@ -104,15 +104,17 @@ import { VisibilityComponent } from './pages/visibility/visibility.component';
     ReactiveFormsModule,
     NgxPopperModule,
     MaterialModule,
+    InscriptionWildlifeModule
+
   ],
   providers: [
     AuthGuard,
     AlertService,
     CampaignService,
-    ConnectionService,
     UserService,
     PetService,
     AdminService,
+    ConnectionService,
     { provide: HTTP_INTERCEPTORS, useClass: ErrorResponseInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: CrossDomainInterceptor, multi: true }
 

@@ -1,7 +1,7 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 import { Campaign } from '../model';
-
+import { UserAction } from '../../profil/model';
 
 @Component({
   selector: 'app-list-campaign',
@@ -13,6 +13,13 @@ export class ListCampaignComponent {
   @Input()
   campaigns: Campaign[];
 
+  @Output()
+  userAction: EventEmitter<UserAction> = new EventEmitter();
+
   constructor() { }
+
+  onUserAction(action: UserAction) {
+    this.userAction.emit(action);
+  }
 
 }
