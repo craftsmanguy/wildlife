@@ -32,12 +32,23 @@ export class VisibilityComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.route.queryParamMap.subscribe(params => {
-      console.log(params)}
-    );
+    this.geParameterFromUri();
     this.getElementsOfFilter();
-
   };
+
+  geParameterFromUri() {
+    this.route.queryParamMap.subscribe(params => {
+      this.parametersSearch = new OptionSearch ();
+      this.parametersSearch = {
+        formats: params.getAll('formats').length > 0 ? params.getAll('formats') : [],
+        inputFormat: params.get('inputFormat') !== null ? params.get('inputFormat') : '',
+        startDate: params.get('startDate') !== null ? new Date(params.get('startDate')) : new Date(),
+        endDate: params.get('endDate') !== null ? new Date(params.get('endDate')) : new Date(),
+        postalCode: params.get('postalCode'),
+        city: params.get('city') !== null ? params.get('city') : ''
+      }
+    });
+  }
 
   onParametersSearch(search: OptionSearch) {
     this.parametersSearch = search;

@@ -9,7 +9,7 @@
         <app-filter *ngIf="topics" [listingFormat]="topics"></app-filter>
       </div>
       <div class="col-sm-12 col-md-9 col-lg-9 col-xl-9">
-        <app-search (parametersSearch)="onParametersSearch($event)"></app-search>
+        <app-search [(parametersSearch)]="parametersSearch"></app-search>
       </div>
 
       <div class="col-sm-12 col-md-3 col-lg-3 col-xl-3">

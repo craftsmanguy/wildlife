@@ -47,7 +47,7 @@ import { AlertComponent } from './commons/alert/alert.component';
 
 import { ProfilComponent } from './profil/profil.component';
 
-import { NotFoundComponent } from './notfound/notfound.component';
+import { NotFoundComponent } from './pages/notfound/notfound.component';
 import { DeleteComponent } from './commons/delete/delete.component';
 import { DialogComponent } from './commons/dialog/dialog.component';
 import { SearchComponent } from './commons/search/search.component';

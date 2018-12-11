@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, Input, EventEmitter } from '@angular/core';
 
 import { CampaignService } from '../../services/campaign.service';
 
@@ -22,8 +22,20 @@ import { OptionSearch } from '../model';
 })
 export class SearchComponent implements OnInit {
 
+  private _parametersSearch: OptionSearch;
+
   @Output()
-  parametersSearch: EventEmitter<OptionSearch> = new EventEmitter();
+  parametersSearchChange: EventEmitter<OptionSearch> = new EventEmitter();
+
+  @Input()
+  set parametersSearch(value: OptionSearch) {
+    this._parametersSearch = value;
+    console.log (JSON.stringify(value));
+  };
+
+  get parametersSearch(): OptionSearch{
+    return this._parametersSearch;
+  }
 
   optionsCampaign = OPTIONSCAMPAIGN;
   searchForm: FormGroup;
@@ -45,17 +57,20 @@ export class SearchComponent implements OnInit {
 
   createForm() {
     this.searchForm = this.formBuilder.group({
-      inputFormat: ['', []],
-      formats: ['', []],
-      startDate: [, []],
+      inputFormat: [this._parametersSearch.inputFormat, []],
+      formats: [this._parametersSearch.formats, []],
+      startDate: [new Date(this._parametersSearch.startDate), []],
       endDate: [, []],
-      postalCode: [, [, Validators.pattern(CustomValidator.postalCodeValidator)]],
-      city: ['', [, Validators.pattern(CustomValidator.cityValidator)]]
+      postalCode: [this._parametersSearch.postalCode, [, Validators.pattern(CustomValidator.postalCodeValidator)]],
+      city: [this._parametersSearch.city, [, Validators.pattern(CustomValidator.cityValidator)]]
     });
   };
 
   searchFormat() {
-    this.campaignService.searchFormat().subscribe(data => this.avalaibleFormats = data);
+    this.campaignService.searchFormat().subscribe(data => {
+      this.avalaibleFormats = data,
+      this.filteredFormats = this.avalaibleFormats
+    });
   };
 
   selectedOption(option) {
@@ -75,7 +90,7 @@ export class SearchComponent implements OnInit {
     if (this.searchForm.invalid) {
       return;
     }
-    this.parametersSearch.emit(this.searchForm.value);
+    this.parametersSearchChange.emit(this.searchForm.value);
   };
 
 

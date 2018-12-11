@@ -15,6 +15,7 @@ export class OptionSearch {
     endDate: Date;
     postalCode: string;
     city: string;
+    constructor() {};
 };
 
 export class Parameter {
