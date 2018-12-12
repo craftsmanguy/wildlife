@@ -1,0 +1,63 @@
+<p>Search of Adverts</p>
+
+<form [formGroup]="searchForm" (ngSubmit)="onSubmit()">
+
+  <mat-form-field>
+    <mat-select (ngModelChange)="selectedOption($event)" placeholder="You want" formControlName="inputFormat" class="form-control"
+      multiple>
+      <mat-option *ngFor="let option of optionsCampaign" [value]="option.code">
+        {{option.label}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field *ngIf="filteredFormats">
+    <mat-select placeholder="Advert type" class="form-control" formControlName="formats" multiple>
+      <mat-option *ngFor="let format of filteredFormats" [value]="format.feature">
+        {{format.feature}}
+      </mat-option>
+    </mat-select>
+    <div *ngIf="submitted && formValues.formats.errors" class="invalid-feedback text-center">
+      <div *ngIf="formValues.formats.errors.required">Format is required</div>
+    </div>
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput [matDatepicker]="picker" placeholder="Start date" formControlName="startDate">
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+    <div *ngIf="submitted && formValues.startDate.errors" class="invalid-feedback text-center">
+      <div *ngIf="formValues.startDate.errors.required">Strat date is required</div>
+    </div>
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput [matDatepicker]="picker2" placeholder="End date" formControlName="endDate">
+    <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+    <mat-datepicker #picker2></mat-datepicker>
+    <div *ngIf="submitted && formValues.endDate.errors" class="invalid-feedback text-center">
+      <div *ngIf="formValues.endDate.errors.required">End date is required</div>
+    </div>
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput placeholder="Postal Code" type="text" class="form-control has-danger" formControlName="postalCode" [ngClass]="{ 'is-invalid': submitted && formValues.postalCode.errors }"
+    />
+    <div *ngIf="submitted && formValues.postalCode.errors" class="invalid-feedback text-center">
+      <div *ngIf="formValues.postalCode.errors.required">Postal code is required</div>
+    </div>
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput placeholder="City" type="text" class="form-control has-danger" formControlName="city" [ngClass]="{ 'is-invalid': submitted && formValues.city.errors }"
+    />
+    <div *ngIf="submitted && formValues.city.errors" class="invalid-feedback text-center">
+      <div *ngIf="formValues.city.errors.required">City is required</div>
+      <div *ngIf="formValues.city.errors.pattern">Invalid format</div>
+    </div>
+  </mat-form-field>
+
+  <button mat-raised-button color="primary" class="btn-lg btn-block">
+    <i class="fas fa-search"></i> Search</button>
+
+</form>

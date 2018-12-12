@@ -21,7 +21,18 @@
 		<profile>
 			<id>wildlives-dev</id>
 		</profile>
+		<profile>
+			<id>wildlives-int</id>
+		</profile>
 	</profiles>
+
+	<scm>
+		<connection>scm:git:https://github.com/craftsmanguy/wildlife.git</connection>
+		<developerConnection>scm:git:https://github.com/craftsmanguy/wildlife.git</developerConnection>
+		<url>https://github.com/craftsmanguy/wildlife/tree/${project.scm.tag}</url>
+		<tag>master</tag>
+	</scm>
+
 
 	<modules>
 		<module>wildlife-ear</module>

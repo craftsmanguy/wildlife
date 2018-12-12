@@ -1,0 +1,51 @@
+<ng-container *ngIf="profil">
+
+  <p>
+    <i class="fas fa-user-circle"></i> {{profil.pseudonym}}</p>
+  <p>
+    <i class="fas fa-map-marked-alt"></i> {{profil.postalCode}}, {{profil.city}} {{profil.country}}</p>
+
+  <button mat-raised-button class="btn-lg btn-block text-left" (click)="addPet()">
+    <i class="fas fa-plus-circle"></i> ajouter un compagnon
+  </button>
+  <button mat-raised-button class="btn-lg btn-block text-left" (click)="addCampaign()">
+    <i class="far fa-plus-square"></i> créer une annonce
+  </button>
+
+  <mat-accordion>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <span matBadge="{{profil.pets?.length}}" matBadgeOverlap="false">
+            <i class="fas fa-paw"></i> Mes compagnons
+          </span>
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <div *ngFor="let pet of profil.pets">
+        <a>
+          <i (click)="viewPetById(pet.functionalIdentifier)" class="far fa-meh-rolling-eyes"> </i>
+          <i (click)="updatePetById(pet.functionalIdentifier)" class="fas fa-edit"> </i>
+          <app-delete [id]="pet.functionalIdentifier" [uri]="'pets'" (deleteSucceeds)="onDeleteSucceeds($event)"></app-delete>
+          <i class="waves-effect waves-light">{{pet.name}}</i>
+        </a>
+      </div>
+    </mat-expansion-panel>
+    <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <span matBadge="{{profil.adverts?.length}}" matBadgeOverlap="false">
+            <i class="fas fa-bullhorn"></i> Mes annonces
+          </span>
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <div *ngFor="let campaign of profil.adverts">
+        <a>
+          <i (click)="viewCampaignById(campaign.functionalIdentifier)" class="far fa-meh-rolling-eyes"> </i>
+          <i (click)="updateCampaignById(campaign.functionalIdentifier)" class="fas fa-edit"> </i>
+          <app-delete [id]="campaign.functionalIdentifier" [uri]="'campaigns'" (deleteSucceeds)="onDeleteSucceeds($event)"></app-delete>
+          <i class="waves-effect waves-light"> {{campaign.title}}</i>
+        </a>
+      </div>
+    </mat-expansion-panel>
+  </mat-accordion>
+</ng-container>

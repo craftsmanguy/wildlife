@@ -96,7 +96,7 @@ public class AdvertAdministrationManager implements AdvertAdministrationLocal {
 	@Override
 	public AbstractFormatDto findFormatByCode(String code) throws EntityNotFoundException {
 		AbstractFormatDto formatFromDb = advertFacade.findFormatByCode(code);
-		if (formatFromDb != null && ((FormatAdministratorDto) formatFromDb).getName() != null) {
+		if (formatFromDb != null && ((FormatAdministratorDto) formatFromDb).getName() == null) {
 			throw new EntityNotFoundException(NOT_FOUND, ErrorEntity.ErrorKey.RESOURCE_NOT_FOUND.getValue());
 		}
 		return formatFromDb;

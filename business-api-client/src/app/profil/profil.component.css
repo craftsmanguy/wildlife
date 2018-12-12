@@ -1,0 +1,15 @@
+.mat-raised-button:not([class*=mat-elevation-z]) {
+    box-shadow: none !important;
+}
+
+.mat-raised-button[_ngcontent-c6]:not([class*=mat-elevation-z]) {
+    padding-left: 8px !important;
+}
+
+.mat-expansion-panel-header {
+    padding: 0 10px !important;
+}
+
+.mat-expansion-panel:not([class*=mat-elevation-z]) {
+    box-shadow: none !important;
+}

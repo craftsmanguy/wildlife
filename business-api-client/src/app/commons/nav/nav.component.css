@@ -1,0 +1,13 @@
+.top-nav-collapse {
+    background-color: rgb(212, 187, 204) !important; 
+}
+
+@media (max-width: 768px) {
+    .navbar:not(.top-nav-collapse) {
+        background: rgb(255, 255, 255) !important;
+    } 
+}
+
+.fas.fa-bars {
+    color:#0b7c77;
+}

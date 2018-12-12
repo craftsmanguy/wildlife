@@ -1,0 +1,20 @@
+<div *ngIf="pet">
+
+  <mat-card class="text-center">
+    <i class="fas fa-id-card"></i> {{pet.name}}
+  </mat-card>
+  <mat-card>
+    <mat-card-content>
+      <p>
+        <i class="fas fa-transgender"></i>&nbsp;{{pet.gender}}</p>
+      <p>
+        <i class="fas fa-birthday-cake"></i> {{pet.birth}}</p>
+      <p>
+        <i class="fas fa-paw"></i> {{pet.race.name}}</p>
+      <p>Lof? {{pet.lof}}</p>
+      <p>
+        <i class="fas fa-audio-description"></i> {{pet.description}}</p>
+    </mat-card-content>
+  </mat-card>
+
+</div>

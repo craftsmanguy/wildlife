@@ -1,0 +1,8 @@
+.mat-card {
+    padding: 4px; 
+}
+
+@media (max-width: 599px)
+.mat-card {
+    padding: 0px 4px;
+}

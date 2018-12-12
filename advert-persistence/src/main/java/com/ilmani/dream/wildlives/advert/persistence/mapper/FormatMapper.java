@@ -81,14 +81,10 @@ public class FormatMapper {
 		return formatEn;
 	}
 
-	public static Set<FormatEntity> transformListFormatDtoToListFormatEntity(Set<FormatAdministratorDto> formatsDto) {
+	public static Set<FormatEntity> transformListFormatDtoToListFormatEntity(Set<AbstractFormatDto> formatsDto) {
 		Set<FormatEntity> formatsEn = new HashSet<FormatEntity>();
 		if (formatsDto.isEmpty()) {
 			return formatsEn;
-		}
-		for (FormatAdministratorDto formatDtoTemp : formatsDto) {
-			FormatEntity formatEnTemp = transformFormatDtoToFormatEntity(formatDtoTemp);
-			formatsEn.add(formatEnTemp);
 		}
 		return formatsEn;
 	}

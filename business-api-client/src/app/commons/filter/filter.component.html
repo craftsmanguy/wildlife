@@ -1,0 +1,8 @@
+<ng-container *ngFor="let propertie of listingFormat">
+  {{propertie.name}}
+
+  <section *ngFor="let value of propertie.values">
+    <mat-checkbox [ngModel]="value.value">{{value.libelle}}</mat-checkbox>
+  </section>
+
+</ng-container>

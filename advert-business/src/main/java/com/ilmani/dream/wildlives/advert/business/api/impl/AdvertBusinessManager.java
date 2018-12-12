@@ -39,8 +39,6 @@ import com.ilmani.dream.wildlives.framework.helper.TransformationHelper;
 @TransactionManagement(TransactionManagementType.BEAN)
 public class AdvertBusinessManager implements AdvertBusinessLocal {
 
-	private String login = getInstance().getAuthenticationLogin();
-
 	@Inject
 	@Resource
 	private UserTransaction utx;
@@ -58,7 +56,7 @@ public class AdvertBusinessManager implements AdvertBusinessLocal {
 
 		try {
 			utx.begin();
-			((AdvertBusinessDto) advert).setUser(login);
+			((AdvertBusinessDto) advert).setUser(getInstance().getAuthenticationLogin());
 			result = advertFacade.saveAdvert(advert);
 		} catch (NotSupportedException | SystemException e) {
 			throw new RestClientException();
