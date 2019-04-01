@@ -1,0 +1,14 @@
+<a class="d-flex flex-row-reverse">
+  <i mat-button (click)="onNoClick()" class="waves-effect waves-light p-2">
+    X
+  </i>
+</a>
+
+<h1 mat-dialog-title><i class="fas fa-exclamation-triangle"></i> Confirmation de suppression</h1>
+<div mat-dialog-content>
+  <p>En êtes-vous sûr ?</p>
+  <p>{{data.id}}</p>
+</div>
+<div mat-dialog-actions>
+  <button mat-raised-button [mat-dialog-close]="data.id" color="accent" class="btn-lg btn-block" cdkFocusInitial>Confirm</button>
+</div>

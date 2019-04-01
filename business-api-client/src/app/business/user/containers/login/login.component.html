@@ -1,0 +1,28 @@
+<app-default-card [titleCard]="titleContainer">
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+
+    <mat-form-field>
+      <input matInput type="text" placeholder="Username" name="username" id="username" formControlName="username"
+        class="form-control" [ngClass]="{ 'is-invalid': submitted && formValues.username.errors }">
+      <div *ngIf="submitted && formValues.username.errors" class="invalid-feedback">
+        <div class="text-center" *ngIf="formValues.username.errors.required">Username is required</div>
+      </div>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput type="password" placeholder="Password" id="password" name="password" formControlName="password"
+        class="form-control" [ngClass]="{ 'is-invalid': submitted && formValues.password.errors }">
+      <div *ngIf="submitted && formValues.password.errors" class="invalid-feedback">
+        <div class="text-center" *ngIf="formValues.password.errors.required">Password is required</div>
+      </div>
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" class="btn-lg btn-block">Submit</button>
+
+  </form>
+
+  <div class="modal-footer">
+    <p class="">Pas encore membre?
+      <a routerLink="/inscription" class="blue-text"> Register</a>
+    </p>
+  </div>
+</app-default-card>

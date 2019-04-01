@@ -1,14 +1,12 @@
-import { NotFoundComponent } from './pages/notfound/notfound.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { PageInscriptionComponent } from './presenter/page-inscription/page-inscription.component';
+import { PageConnectionComponent } from './presenter/page-connection/page-connection.component';
+import { DashboardComponent } from './presenter/dashboard/dashboard.component';
+import { VisibilityComponent } from './presenter/visibility/visibility.component';
+import { HomeComponent } from './presenter/home/home.component';
+import { NotFoundComponent } from './presenter/notfound/notfound.component';
 
-import { AuthGuard } from './interceptors/auth.guard';
-
-import { HomeComponent } from './pages/home/home.component';
-import { DashboardComponent } from './pages/dashboard/dashboard.component';
-import { InscriptionComponent } from './pages/inscription/inscription.component';
-import { ConnectionComponent } from './pages/connection/connection.component';
-import { VisibilityComponent } from './pages/visibility/visibility.component';
 
 
 
@@ -19,7 +17,7 @@ const routes: Routes = [
   },
   {
     path: 'login',
-    component: ConnectionComponent
+    component: PageConnectionComponent
   },
   {
     path: 'home',
@@ -40,14 +38,13 @@ const routes: Routes = [
   },
   {
     path: 'inscription',
-    component: InscriptionComponent
+    component: PageInscriptionComponent
   },
   {
     path: 'campaigns',
     children: [
       { path: '', component: VisibilityComponent },
-      { path: ':id', component: VisibilityComponent },
-
+      { path: ':id', component: VisibilityComponent }
     ]
   },
   {

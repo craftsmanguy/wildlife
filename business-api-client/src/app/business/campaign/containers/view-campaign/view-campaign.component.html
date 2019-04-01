@@ -1,0 +1,66 @@
+<ng-container *ngIf="data">
+  <a class="d-flex flex-row-reverse">
+    <i mat-button (click)="onNoClick()" class="waves-effect waves-light p-2">
+      X
+    </i>
+  </a>
+
+  <p> <i class="fas fa-id-card"></i>
+    <span [innerHTML]="data.title"></span>
+  </p>
+  <p>
+    <i class="fas fa-bullhorn"></i>&nbsp;{{data.formats[0].name}}: {{data.formats[0].feature}}</p>
+
+  <p>
+    <i class="fas fa-paw"></i>&nbsp;{{data.pets?.length}}</p>
+  <p>
+    <i class="far fa-clock"></i>&nbsp;{{data.startDate | date: 'short'}}</p>
+  <p>
+    <i class="fas fa-clock"></i>&nbsp;{{data.endDate | date: 'short'}}</p>
+  <p>
+    <i class="fas fa-user-astronaut"></i>&nbsp;
+    <span [innerHTML]="data.user"></span>
+  </p>
+  <p>
+    <span>
+      <i class="fab fa-adn"></i>&nbsp;
+      <span [innerHTML]="data.description"></span>
+    </span>
+  </p>
+
+
+</ng-container>
+
+<ng-container *ngIf="campaign">
+
+
+  <mat-card class="text-center">
+    <i class="fas fa-id-card"></i>
+    <span [innerHTML]="campaign.title"></span>
+  </mat-card>
+
+  <mat-card>
+    <mat-card-content>
+      <p>
+        <i class="fas fa-bullhorn"></i>&nbsp;{{campaign.formats[0].name}}: {{campaign.formats[0].feature}}</p>
+
+      <p>
+        <i class="fas fa-paw"></i>&nbsp;{{campaign.pet?.length}}</p>
+      <p>
+        <i class="far fa-clock"></i>&nbsp;{{campaign.startDate | date: 'short'}}</p>
+      <p>
+        <i class="fas fa-clock"></i>&nbsp;{{campaign.endDate | date: 'short'}}</p>
+      <p>
+        <i class="fas fa-user-astronaut"></i>&nbsp;
+        <span [innerHTML]="campaign.user"></span>
+      </p>
+      <p>
+        <span>
+          <i class="fab fa-adn"></i>&nbsp;
+          <span [innerHTML]="campaign.description"></span>
+        </span>
+      </p>
+    </mat-card-content>
+  </mat-card>
+
+</ng-container>

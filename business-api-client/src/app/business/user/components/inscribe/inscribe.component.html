@@ -1,0 +1,73 @@
+<form [formGroup]="registerForm" (ngSubmit)="click()">
+
+  <mat-form-field>
+    <input matInput type="email" placeholder="Email" formControlName="email" class="form-control"
+      [ngClass]="{ 'is-invalid': submitted && formValues.email.errors }" autofocus />
+    <div *ngIf="submitted && formValues.email.errors" class="invalid-feedback text-center">
+      <div *ngIf="formValues.email.errors.required">Email is required</div>
+      <div *ngIf="formValues.email.errors.email">Email is invalid</div>
+    </div>
+  </mat-form-field>
+
+
+  <mat-form-field>
+    <input matInput type="text" placeholder="Pseudonym" class="form-control" formControlName="pseudonym"
+      [ngClass]="{ 'is-invalid': submitted && formValues.pseudonym.errors }" autofocus />
+    <div *ngIf="submitted && formValues.pseudonym.errors" class="invalid-feedback text-center">
+      <div *ngIf="formValues.pseudonym.errors.required">Pseudo is required</div>
+      <div *ngIf="formValues.pseudonym.errors.pattern">Pseudo is invalid</div>
+    </div>
+  </mat-form-field>
+
+
+  <div formGroupName="security">
+    <mat-form-field>
+      <input matInput type="password" placeholder="Password" class="form-control" formControlName="password"
+        [ngClass]="{ 'is-invalid': submitted && formValues.security['controls'].password.errors }" autofocus />
+      <div *ngIf="submitted && formValues.security['controls'].password.errors" class="invalid-feedback text-center">
+        <div *ngIf="formValues.security.controls.password.errors.required">Password is required</div>
+        <div *ngIf="formValues.security.controls.password.errors.pattern">Password must be at least 8 characters, 1
+          lower case, 1 number, 1 special character like $&+,:@#|
+          <>.^!-</div>
+      </div>
+    </mat-form-field>
+
+
+    <mat-form-field>
+      <input matInput type="password" placeholder="Password Confirmation" class="form-control"
+        formControlName="confirmPassword"
+        [ngClass]="{ 'is-invalid': submitted && formValues.security['controls'].confirmPassword.errors || formValues.security.errors}"
+        autofocus />
+      <div *ngIf="submitted && formValues.security['controls'].confirmPassword.errors"
+        class="invalid-feedback text-center">
+        <div *ngIf="formValues.security.controls.confirmPassword.errors.required">Password confirmation is required
+        </div>
+      </div>
+      <div *ngIf="formValues.security.errors" class="invalid-feedback text-center">
+        <div *ngIf="formValues.security.errors.invalidMatchPassword">Password and confirm password must be same</div>
+      </div>
+    </mat-form-field>
+  </div>
+
+
+  <mat-form-field>
+    <input matInput placeholder="Postal Code" type="text" class="form-control has-danger" formControlName="postalCode"
+      [ngClass]="{ 'is-invalid': submitted && formValues.postalCode.errors }" autofocus />
+    <div *ngIf="submitted && formValues.postalCode.errors" class="invalid-feedback text-center">
+      <div *ngIf="formValues.postalCode.errors.required">Postal code is required</div>
+      <div *ngIf="formValues.postalCode.errors.pattern">Invalid format</div>
+    </div>
+  </mat-form-field>
+
+
+  <mat-form-field>
+    <input matInput placeholder="City" type="text" class="form-control has-danger" formControlName="city"
+      [ngClass]="{ 'is-invalid': submitted && formValues.city.errors }" autofocus />
+    <div *ngIf="submitted && formValues.city.errors" class="invalid-feedback text-center">
+      <div *ngIf="formValues.city.errors.required">City is required</div>
+      <div *ngIf="formValues.city.errors.pattern">Invalid format</div>
+    </div>
+  </mat-form-field>
+
+  <button mat-raised-button color="primary" class="btn-lg btn-block">Submit</button>
+</form>

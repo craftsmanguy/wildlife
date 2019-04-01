@@ -1,0 +1,4 @@
+<app-default-card [titleCard]="titleContainer" *ngIf="campaignForm">
+  <app-campaign-form (submitForm)="onSubmitForm($event)" [campaign]="campaign" [avalaibleFormats]=" avalaibleFormats">
+  </app-campaign-form>
+</app-default-card>

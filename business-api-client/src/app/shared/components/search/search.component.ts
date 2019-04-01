@@ -1,16 +1,9 @@
 import { Component, OnInit, Output, Input, EventEmitter } from '@angular/core';
-
-import { CampaignService } from '../../business/campaign/services/campaign.service';
-
-import { OPTIONSCAMPAIGN } from '../../shared/model';
-
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-
-import { Format } from '../../business/campaign/models/model';
-
-import { CustomValidator } from '../../shared/validators/validators';
-
-import { OptionSearch } from '../../shared/model';
+import { OptionSearch } from 'app/shared/model';
+import { OPTIONSCAMPAIGN, Format } from 'app/business/campaign/models/campaign';
+import { CampaignService } from 'app/business/campaign/services/campaign.service';
+import { CustomValidator } from 'app/shared/validators/validators';
 
 
 
@@ -30,10 +23,10 @@ export class SearchComponent implements OnInit {
   @Input()
   set parametersSearch(value: OptionSearch) {
     this._parametersSearch = value;
-    console.log (JSON.stringify(value));
+    console.log(JSON.stringify(value));
   };
 
-  get parametersSearch(): OptionSearch{
+  get parametersSearch(): OptionSearch {
     return this._parametersSearch;
   }
 
@@ -69,7 +62,7 @@ export class SearchComponent implements OnInit {
   searchFormat() {
     this.campaignService.searchFormat().subscribe(data => {
       this.avalaibleFormats = data,
-      this.filteredFormats = this.avalaibleFormats
+        this.filteredFormats = this.avalaibleFormats
     });
   };
 

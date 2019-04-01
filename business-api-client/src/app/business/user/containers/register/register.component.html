@@ -1,0 +1,8 @@
+<app-default-card [titleCard]="titleContainer">
+  <app-inscribe (submitForm)="onSubmitted($event)"></app-inscribe>
+  <div class="modal-footer">
+    <p class="">Déjà membre?
+      <a routerLink="/login" class="blue-text"> Log In</a>
+    </p>
+  </div>
+</app-default-card>
